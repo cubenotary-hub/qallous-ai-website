@@ -1,0 +1,2912 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>QALLOUS.AI | AI-Augmented Staffing Platform</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #0a0a0f;
+            --primary-dark: #050508;
+            --primary-light: #1a1a2e;
+            --secondary: #16213e;
+            --dark: #0f0f23;
+            --darker: #0a0a0f;
+            --light: #ffffff;
+            --gray: #8b9dc3;
+            --gray-light: #2a2a3e;
+            --success: #00ff88;
+            --warning: #ffaa00;
+            --error: #ff4757;
+            --accent: #00d4ff;
+            --neon-blue: #00d4ff;
+            --neon-purple: #8b5cf6;
+            --neon-pink: #ff6b6b;
+            --neon-green: #00ff88;
+            --gradient: linear-gradient(135deg, #00d4ff 0%, #8b5cf6 50%, #ff6b6b 100%);
+            --gradient-dark: linear-gradient(135deg, #0a0a0f 0%, #1a1a2e 50%, #16213e 100%);
+            --shadow: 0 10px 40px rgba(0, 212, 255, 0.2);
+            --shadow-neon: 0 0 30px rgba(0, 212, 255, 0.6);
+            --glow: 0 0 20px rgba(0, 212, 255, 0.4);
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Inter', sans-serif;
+        }
+        
+        html {
+            scroll-behavior: smooth;
+            -webkit-overflow-scrolling: touch;
+        }
+        
+        body {
+            background: var(--gradient-dark);
+            color: var(--light);
+            line-height: 1.6;
+            overflow-x: hidden;
+            position: relative;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+            transform: translateZ(0);
+            -webkit-transform: translateZ(0);
+        }
+        
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: 
+                radial-gradient(circle at 20% 80%, rgba(0, 212, 255, 0.08) 0%, transparent 50%),
+                radial-gradient(circle at 80% 20%, rgba(139, 92, 246, 0.08) 0%, transparent 50%),
+                radial-gradient(circle at 40% 40%, rgba(255, 107, 107, 0.03) 0%, transparent 50%);
+            pointer-events: none;
+            z-index: -1;
+            will-change: auto;
+        }
+        
+        .container {
+            width: 100%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        /* Header Styles */
+        header {
+            background: rgba(10, 10, 15, 0.95);
+            backdrop-filter: blur(20px);
+            color: var(--light);
+            padding: 1rem 0;
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+            border-bottom: 1px solid rgba(0, 212, 255, 0.2);
+            box-shadow: 0 4px 20px rgba(0, 212, 255, 0.1);
+        }
+        
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .logo {
+            font-size: 1.8rem;
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+        }
+        
+        .logo-icon {
+            width: 45px;
+            height: 45px;
+            position: relative;
+            margin-right: 15px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .logo-cube {
+            width: 30px;
+            height: 30px;
+            position: relative;
+            transform-style: preserve-3d;
+            animation: rotate3d 8s infinite linear;
+        }
+        
+        .cube-face {
+            position: absolute;
+            width: 30px;
+            height: 30px;
+            border: 2px solid var(--accent);
+            background: rgba(59, 130, 246, 0.1);
+            backdrop-filter: blur(10px);
+        }
+        
+        .cube-face::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(45deg, transparent, var(--accent), transparent);
+            opacity: 0.3;
+            animation: pulse 2s infinite;
+        }
+        
+        .cube-face.front { transform: translateZ(15px); }
+        .cube-face.back { transform: translateZ(-15px) rotateY(180deg); }
+        .cube-face.right { transform: rotateY(90deg) translateZ(15px); }
+        .cube-face.left { transform: rotateY(-90deg) translateZ(15px); }
+        .cube-face.top { transform: rotateX(90deg) translateZ(15px); }
+        .cube-face.bottom { transform: rotateX(-90deg) translateZ(15px); }
+        
+        @keyframes rotate3d {
+            0% { transform: rotateX(0deg) rotateY(0deg); }
+            25% { transform: rotateX(90deg) rotateY(0deg); }
+            50% { transform: rotateX(90deg) rotateY(90deg); }
+            75% { transform: rotateX(0deg) rotateY(90deg); }
+            100% { transform: rotateX(0deg) rotateY(0deg); }
+        }
+        
+        @keyframes pulse {
+            0%, 100% { opacity: 0.3; }
+            50% { opacity: 0.8; }
+        }
+        
+        .logo-glow {
+            position: absolute;
+            top: -5px;
+            left: -5px;
+            right: -5px;
+            bottom: -5px;
+            background: radial-gradient(circle, var(--accent) 0%, transparent 70%);
+            opacity: 0.2;
+            border-radius: 50%;
+            animation: glow 3s infinite;
+        }
+        
+        @keyframes glow {
+            0%, 100% { transform: scale(1); opacity: 0.2; }
+            50% { transform: scale(1.2); opacity: 0.4; }
+        }
+        
+        nav ul {
+            display: flex;
+            list-style: none;
+        }
+        
+        nav ul li {
+            margin-left: 2rem;
+        }
+        
+        nav ul li a {
+            color: var(--light);
+            text-decoration: none;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            font-size: 1rem;
+        }
+        
+        nav ul li a:hover {
+            color: var(--accent);
+        }
+        
+        .auth-buttons {
+            display: flex;
+            align-items: center;
+        }
+        
+        .btn {
+            padding: 0.7rem 1.8rem;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            display: inline-block;
+            cursor: pointer;
+            border: none;
+            font-size: 1rem;
+        }
+        
+        .btn-outline {
+            border: 2px solid var(--accent);
+            color: var(--accent);
+            background: transparent;
+            margin-right: 1rem;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .btn-outline::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: var(--accent);
+            transition: left 0.3s ease;
+            z-index: -1;
+        }
+        
+        .btn-outline:hover::before {
+            left: 0;
+        }
+        
+        .btn-outline:hover {
+            color: var(--primary);
+            box-shadow: var(--glow);
+        }
+        
+        .btn-primary {
+            background: var(--gradient);
+            color: var(--light);
+            border: none;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .btn-primary::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(45deg, var(--neon-purple), var(--neon-pink));
+            opacity: 0;
+            transition: opacity 0.3s ease;
+            z-index: -1;
+        }
+        
+        .btn-primary:hover::before {
+            opacity: 1;
+        }
+        
+        .btn-primary:hover {
+            box-shadow: var(--shadow-neon);
+            transform: translateY(-1px);
+        }
+        
+        /* Hero Section */
+        .hero {
+            padding: 10rem 0 6rem;
+            background: var(--gradient-dark);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: 
+                radial-gradient(circle at 30% 20%, rgba(0, 212, 255, 0.1) 0%, transparent 50%),
+                radial-gradient(circle at 70% 80%, rgba(139, 92, 246, 0.1) 0%, transparent 50%);
+            pointer-events: none;
+            will-change: auto;
+        }
+        
+        .hero-content {
+            position: relative;
+            z-index: 2;
+            text-align: center;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        
+        .hero h1 {
+            font-size: 4rem;
+            margin-bottom: 1.5rem;
+            font-weight: 900;
+            background: var(--gradient);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            text-shadow: 0 0 20px rgba(0, 212, 255, 0.3);
+            animation: glow 3s ease-in-out infinite alternate;
+        }
+        
+        @keyframes glow {
+            from { filter: drop-shadow(0 0 15px rgba(0, 212, 255, 0.3)); }
+            to { filter: drop-shadow(0 0 25px rgba(139, 92, 246, 0.5)); }
+        }
+        
+        /* Performance optimizations */
+        .hero h1, .service-card, .btn, .chat-toggle, .section-title, .hero-content {
+            transform: translateZ(0);
+            backface-visibility: hidden;
+            will-change: auto;
+        }
+        
+        /* Reduce motion for better performance */
+        @media (prefers-reduced-motion: reduce) {
+            *, *::before, *::after {
+                animation-duration: 0.01ms !important;
+                animation-iteration-count: 1 !important;
+                transition-duration: 0.01ms !important;
+            }
+        }
+        
+        .hero p {
+            font-size: 1.5rem;
+            margin-bottom: 2.5rem;
+            color: var(--gray);
+            font-weight: 400;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        
+        .hero-buttons {
+            display: flex;
+            justify-content: center;
+            gap: 1.5rem;
+        }
+        
+        .btn-large {
+            padding: 1rem 2.5rem;
+            font-size: 1.1rem;
+        }
+        
+        /* Services Section */
+        .section {
+            padding: 6rem 0;
+        }
+        
+        .section-title {
+            text-align: center;
+            margin-bottom: 4rem;
+        }
+        
+        .section-title h2 {
+            font-size: 2.8rem;
+            color: var(--light);
+            margin-bottom: 1.5rem;
+            font-weight: 700;
+        }
+        
+        .section-title p {
+            color: var(--gray);
+            max-width: 700px;
+            margin: 0 auto;
+            font-size: 1.2rem;
+        }
+        
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+        
+        .service-card {
+            background: rgba(22, 33, 62, 0.8);
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 8px 32px rgba(0, 212, 255, 0.1);
+            transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease;
+            border: 1px solid rgba(0, 212, 255, 0.2);
+            padding: 2.5rem;
+            display: flex;
+            flex-direction: column;
+            height: 100%;
+            position: relative;
+            backdrop-filter: blur(8px);
+        }
+        
+        .service-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: var(--gradient);
+            opacity: 0;
+            transition: opacity 0.3s ease;
+            z-index: -1;
+        }
+        
+        .service-card:hover::before {
+            opacity: 0.1;
+        }
+        
+        .service-card:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 12px 30px rgba(0, 212, 255, 0.15);
+            border-color: var(--accent);
+        }
+        
+        .service-icon {
+            color: var(--accent);
+            font-size: 2.5rem;
+            margin-bottom: 1.5rem;
+        }
+        
+        .service-content h3 {
+            font-size: 1.8rem;
+            margin-bottom: 1.2rem;
+            color: var(--light);
+        }
+        
+        .service-content > p {
+            color: var(--gray);
+            margin-bottom: 1.5rem;
+            line-height: 1.7;
+        }
+        
+        .service-features {
+            list-style: none;
+            margin: 1.5rem 0;
+            flex-grow: 1;
+        }
+        
+        .service-features li {
+            padding: 0.7rem 0;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            display: flex;
+            align-items: center;
+        }
+        
+        .service-features li:last-child {
+            border-bottom: none;
+        }
+        
+        .service-features li i {
+            color: var(--success);
+            margin-right: 0.8rem;
+            font-size: 1.2rem;
+        }
+        
+        .service-price {
+            font-size: 1.8rem;
+            font-weight: 800;
+            color: var(--light);
+            margin: 1.5rem 0;
+            text-align: center;
+        }
+        
+        .service-action {
+            margin-top: auto;
+        }
+        
+        /* How It Works Section */
+        .how-it-works {
+            background: var(--darker);
+            position: relative;
+        }
+        
+        .process-steps {
+            display: flex;
+            justify-content: space-between;
+            max-width: 1000px;
+            margin: 0 auto;
+            position: relative;
+            z-index: 2;
+        }
+        
+        .step {
+            text-align: center;
+            flex: 1;
+            padding: 0 1.5rem;
+            position: relative;
+        }
+        
+        .step-number {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            background: var(--light);
+            color: var(--darker);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin: 0 auto 1.5rem;
+        }
+        
+        .step h3 {
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+            color: var(--light);
+        }
+        
+        .step p {
+            color: var(--gray);
+        }
+        
+        .step-connector {
+            position: absolute;
+            top: 25px;
+            right: -30%;
+            width: 60%;
+            height: 2px;
+            background: linear-gradient(to right, var(--light), transparent);
+            z-index: -1;
+        }
+        
+        /* AI Arsenal Section */
+        .ai-arsenal {
+            background: var(--darker);
+        }
+        
+        .tools-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 2.5rem;
+        }
+        
+        .tool-card {
+            background: var(--dark);
+            padding: 2.5rem 2rem;
+            border-radius: 16px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+            text-align: center;
+            transition: all 0.3s ease;
+            border: 1px solid var(--gray-light);
+        }
+        
+        .tool-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.15);
+            border-color: var(--accent);
+        }
+        
+        .tool-icon {
+            font-size: 3.5rem;
+            color: var(--accent);
+            margin-bottom: 1.5rem;
+        }
+        
+        .tool-card h3 {
+            font-size: 1.6rem;
+            margin-bottom: 1.2rem;
+            color: var(--light);
+        }
+        
+        .tool-card p {
+            color: var(--gray);
+            line-height: 1.7;
+        }
+        
+        /* CTA Section */
+        .cta-section {
+            background: var(--light);
+            color: var(--darker);
+            text-align: center;
+            padding: 5rem 0;
+        }
+        
+        .cta-content {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        
+        .cta-content h2 {
+            font-size: 2.8rem;
+            margin-bottom: 1.5rem;
+        }
+        
+        .cta-content p {
+            font-size: 1.2rem;
+            margin-bottom: 2.5rem;
+            color: var(--gray);
+        }
+        
+        /* Footer */
+        footer {
+            background: var(--light);
+            color: var(--darker);
+            padding: 4rem 0 2rem;
+        }
+        
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 3rem;
+            margin-bottom: 3rem;
+        }
+        
+        .footer-logo {
+            font-size: 1.8rem;
+            font-weight: 700;
+            margin-bottom: 1.5rem;
+            display: flex;
+            align-items: center;
+        }
+        
+        .footer-logo i {
+            margin-right: 10px;
+            color: var(--accent);
+        }
+        
+        .footer-about p {
+            color: #cbd5e1;
+            line-height: 1.7;
+            margin-bottom: 1.5rem;
+        }
+        
+        .footer-links h4 {
+            margin-bottom: 1.5rem;
+            font-size: 1.3rem;
+            font-weight: 600;
+            color: var(--light);
+        }
+        
+        .footer-links ul {
+            list-style: none;
+        }
+        
+        .footer-links ul li {
+            margin-bottom: 0.8rem;
+        }
+        
+        .footer-links ul li a {
+            color: var(--gray);
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+        
+        .footer-links ul li a:hover {
+            color: var(--light);
+        }
+        
+        .footer-bottom {
+            text-align: center;
+            padding-top: 2rem;
+            border-top: 1px solid var(--gray-light);
+            color: var(--gray);
+        }
+        
+        /* AI Receptionist Chat */
+        .ai-receptionist {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            z-index: 1000;
+        }
+        
+        .chat-toggle {
+            width: 60px;
+            height: 60px;
+            background: var(--accent);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            box-shadow: 0 4px 20px rgba(59, 130, 246, 0.3);
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+            border: none;
+            color: white;
+            font-size: 1.5rem;
+        }
+        
+        .chat-toggle:hover {
+            transform: scale(1.03);
+            box-shadow: 0 6px 25px rgba(59, 130, 246, 0.4);
+        }
+        
+        .chat-toggle.pulse {
+            animation: chatPulse 2s infinite;
+        }
+        
+        @keyframes chatPulse {
+            0% { box-shadow: 0 4px 20px rgba(59, 130, 246, 0.3); }
+            50% { box-shadow: 0 4px 20px rgba(59, 130, 246, 0.6), 0 0 0 10px rgba(59, 130, 246, 0.1); }
+            100% { box-shadow: 0 4px 20px rgba(59, 130, 246, 0.3); }
+        }
+        
+        .chat-window {
+            position: absolute;
+            bottom: 80px;
+            right: 0;
+            width: 350px;
+            height: 500px;
+            background: var(--dark);
+            border-radius: 20px;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.2);
+            border: 1px solid var(--gray-light);
+            display: none;
+            flex-direction: column;
+            overflow: hidden;
+        }
+        
+        .chat-window.active {
+            display: flex;
+            animation: slideUp 0.3s ease;
+        }
+        
+        @keyframes slideUp {
+            from { transform: translateY(20px); opacity: 0; }
+            to { transform: translateY(0); opacity: 1; }
+        }
+        
+        .chat-header {
+            background: var(--accent);
+            color: white;
+            padding: 1rem;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+        
+        .chat-header h3 {
+            margin: 0;
+            font-size: 1.1rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        
+        .chat-close {
+            background: none;
+            border: none;
+            color: white;
+            font-size: 1.2rem;
+            cursor: pointer;
+            padding: 0.25rem;
+        }
+        
+        .chat-messages {
+            flex: 1;
+            padding: 1rem;
+            overflow-y: auto;
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+        
+        .message {
+            max-width: 80%;
+            padding: 0.75rem 1rem;
+            border-radius: 18px;
+            font-size: 0.9rem;
+            line-height: 1.4;
+        }
+        
+        .message.bot {
+            background: var(--gray-light);
+            color: var(--light);
+            align-self: flex-start;
+            border-bottom-left-radius: 4px;
+        }
+        
+        .message.user {
+            background: var(--accent);
+            color: white;
+            align-self: flex-end;
+            border-bottom-right-radius: 4px;
+        }
+        
+        .chat-input {
+            padding: 1rem;
+            border-top: 1px solid var(--gray-light);
+            display: flex;
+            gap: 0.5rem;
+        }
+        
+        .chat-input input {
+            flex: 1;
+            padding: 0.75rem;
+            border: 1px solid var(--gray-light);
+            border-radius: 25px;
+            outline: none;
+            font-size: 0.9rem;
+        }
+        
+        .chat-input input:focus {
+            border-color: var(--accent);
+        }
+        
+        .chat-send {
+            background: var(--accent);
+            color: white;
+            border: none;
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .chat-send:hover {
+            background: var(--primary);
+            transform: scale(1.05);
+        }
+        
+        .typing-indicator {
+            display: none;
+            align-items: center;
+            gap: 0.5rem;
+            color: var(--gray);
+            font-size: 0.9rem;
+            padding: 0.75rem 1rem;
+        }
+        
+        .typing-dots {
+            display: flex;
+            gap: 0.25rem;
+        }
+        
+        .typing-dots span {
+            width: 6px;
+            height: 6px;
+            background: var(--gray);
+            border-radius: 50%;
+            animation: typing 1.4s infinite;
+        }
+        
+        .typing-dots span:nth-child(2) { animation-delay: 0.2s; }
+        .typing-dots span:nth-child(3) { animation-delay: 0.4s; }
+        
+        @keyframes typing {
+            0%, 60%, 100% { transform: translateY(0); }
+            30% { transform: translateY(-10px); }
+        }
+        
+        /* Modal Styles */
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 2000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.8);
+            backdrop-filter: blur(10px);
+        }
+
+        .modal-content {
+            background: var(--dark);
+            margin: 5% auto;
+            padding: 2rem;
+            border-radius: 20px;
+            width: 90%;
+            max-width: 500px;
+            border: 1px solid var(--accent);
+            box-shadow: 0 20px 60px rgba(0, 212, 255, 0.3);
+            position: relative;
+        }
+
+        .close {
+            color: var(--gray);
+            float: right;
+            font-size: 2rem;
+            font-weight: bold;
+            cursor: pointer;
+            position: absolute;
+            top: 1rem;
+            right: 1.5rem;
+        }
+
+        .close:hover {
+            color: var(--accent);
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            color: var(--light);
+            font-weight: 500;
+        }
+
+        .form-group input,
+        .form-group select,
+        .form-group textarea {
+            width: 100%;
+            padding: 0.75rem;
+            border: 1px solid var(--gray-light);
+            border-radius: 8px;
+            background: var(--darker);
+            color: var(--light);
+            font-size: 1rem;
+        }
+
+        .form-group input:focus,
+        .form-group select:focus,
+        .form-group textarea:focus {
+            outline: none;
+            border-color: var(--accent);
+            box-shadow: 0 0 0 2px rgba(0, 212, 255, 0.2);
+        }
+
+        /* Client Dashboard Styles */
+        .client-dashboard {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: var(--gradient-dark);
+            z-index: 3000;
+            overflow-y: auto;
+        }
+
+        .dashboard-header {
+            background: rgba(10, 10, 15, 0.95);
+            backdrop-filter: blur(20px);
+            padding: 1rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid rgba(0, 212, 255, 0.2);
+        }
+
+        .dashboard-content {
+            display: flex;
+            min-height: calc(100vh - 80px);
+        }
+
+        .dashboard-sidebar {
+            width: 250px;
+            background: rgba(22, 33, 62, 0.8);
+            padding: 2rem 0;
+            border-right: 1px solid rgba(0, 212, 255, 0.2);
+        }
+
+        .dashboard-sidebar nav {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .dashboard-sidebar nav a {
+            padding: 1rem 2rem;
+            color: var(--gray);
+            text-decoration: none;
+            transition: all 0.3s ease;
+            border-left: 3px solid transparent;
+        }
+
+        .dashboard-sidebar nav a:hover,
+        .dashboard-sidebar nav a.active {
+            color: var(--accent);
+            background: rgba(0, 212, 255, 0.1);
+            border-left-color: var(--accent);
+        }
+
+        .dashboard-main {
+            flex: 1;
+            padding: 2rem;
+        }
+
+        .dashboard-section {
+            display: none;
+        }
+
+        .dashboard-section.active {
+            display: block;
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+
+        .stat-card {
+            background: rgba(22, 33, 62, 0.8);
+            padding: 2rem;
+            border-radius: 16px;
+            text-align: center;
+            border: 1px solid rgba(0, 212, 255, 0.2);
+        }
+
+        .stat-card h3 {
+            color: var(--gray);
+            margin-bottom: 1rem;
+            font-size: 1rem;
+        }
+
+        .stat-number {
+            font-size: 3rem;
+            font-weight: 800;
+            color: var(--accent);
+        }
+
+        .project-list {
+            display: grid;
+            gap: 1.5rem;
+            margin-top: 2rem;
+        }
+
+        .project-card {
+            background: rgba(22, 33, 62, 0.8);
+            padding: 2rem;
+            border-radius: 16px;
+            border: 1px solid rgba(0, 212, 255, 0.2);
+        }
+
+        .project-card h3 {
+            color: var(--light);
+            margin-bottom: 0.5rem;
+        }
+
+        .project-card p {
+            color: var(--gray);
+            margin-bottom: 1rem;
+        }
+
+        .project-status {
+            display: inline-block;
+            padding: 0.5rem 1rem;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            font-weight: 600;
+        }
+
+        .project-status:contains("In Progress") {
+            background: rgba(255, 170, 0, 0.2);
+            color: var(--warning);
+        }
+
+        .project-status:contains("Completed") {
+            background: rgba(0, 255, 136, 0.2);
+            color: var(--success);
+        }
+
+        .project-status:contains("Planning") {
+            background: rgba(0, 212, 255, 0.2);
+            color: var(--accent);
+        }
+
+        .team-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+
+        .team-member {
+            background: rgba(22, 33, 62, 0.8);
+            padding: 2rem;
+            border-radius: 16px;
+            text-align: center;
+            border: 1px solid rgba(0, 212, 255, 0.2);
+        }
+
+        .member-avatar {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+        }
+
+        .team-member h4 {
+            color: var(--light);
+            margin-bottom: 0.5rem;
+        }
+
+        .team-member p {
+            color: var(--gray);
+        }
+
+        .billing-info {
+            margin-top: 2rem;
+        }
+
+        .current-plan {
+            background: rgba(22, 33, 62, 0.8);
+            padding: 2rem;
+            border-radius: 16px;
+            margin-bottom: 2rem;
+            border: 1px solid rgba(0, 212, 255, 0.2);
+        }
+
+        .current-plan h3 {
+            color: var(--light);
+            margin-bottom: 0.5rem;
+        }
+
+        .current-plan p {
+            color: var(--accent);
+            font-size: 1.5rem;
+            font-weight: 700;
+        }
+
+        .recent-invoices h3 {
+            color: var(--light);
+            margin-bottom: 1rem;
+        }
+
+        .invoice-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem;
+            background: rgba(22, 33, 62, 0.8);
+            border-radius: 8px;
+            margin-bottom: 0.5rem;
+            border: 1px solid rgba(0, 212, 255, 0.2);
+        }
+
+        .support-options {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+
+        .support-card {
+            background: rgba(22, 33, 62, 0.8);
+            padding: 2rem;
+            border-radius: 16px;
+            text-align: center;
+            border: 1px solid rgba(0, 212, 255, 0.2);
+        }
+
+        .support-card h3 {
+            color: var(--light);
+            margin-bottom: 1rem;
+        }
+
+        .support-card p {
+            color: var(--gray);
+            margin-bottom: 1.5rem;
+        }
+
+        /* API Status Indicator */
+        #apiStatusIndicator:hover {
+            transform: translateY(-1px);
+            box-shadow: 0 4px 12px rgba(0, 212, 255, 0.2);
+            border-color: var(--accent);
+        }
+
+        #apiStatusIndicator:active {
+            transform: translateY(0);
+        }
+
+        /* Responsive Design */
+        @media (max-width: 968px) {
+            .process-steps {
+                flex-direction: column;
+                gap: 3rem;
+            }
+            
+            .step-connector {
+                display: none;
+            }
+            
+            .hero h1 {
+                font-size: 2.8rem;
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .header-content {
+                flex-direction: column;
+                text-align: center;
+            }
+            
+            nav ul {
+                margin: 1rem 0;
+                justify-content: center;
+            }
+            
+            nav ul li {
+                margin: 0 0.5rem;
+            }
+            
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+            
+            .hero-buttons {
+                flex-direction: column;
+            }
+            
+            .section-title h2 {
+                font-size: 2.2rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <div class="container">
+            <div class="header-content">
+                <div class="logo">
+                    <div class="logo-icon">
+                        <div class="logo-glow"></div>
+                        <div class="logo-cube">
+                            <div class="cube-face front"></div>
+                            <div class="cube-face back"></div>
+                            <div class="cube-face right"></div>
+                            <div class="cube-face left"></div>
+                            <div class="cube-face top"></div>
+                            <div class="cube-face bottom"></div>
+                        </div>
+                    </div>
+                    <span style="background: linear-gradient(45deg, #f8fafc, var(--accent)); -webkit-background-clip: text; background-clip: text; color: transparent; font-weight: 800;">QALLOUS.AI</span>
+                </div>
+                <nav>
+                    <ul>
+                        <li><a href="#services">Services</a></li>
+                        <li><a href="#how-it-works">How It Works</a></li>
+                        <li><a href="#ai-arsenal">AI Arsenal</a></li>
+                        <li><a href="#pricing">Pricing</a></li>
+                        <li><a href="#about">About</a></li>
+                    </ul>
+                </nav>
+                <div class="auth-buttons">
+                    <div id="apiStatusIndicator" onclick="showAPIStatusModal()" style="margin-right: 1rem; display: flex; align-items: center; gap: 0.5rem; font-size: 0.9rem; cursor: pointer; padding: 0.5rem 1rem; border-radius: 8px; background: rgba(0, 212, 255, 0.05); border: 1px solid rgba(0, 212, 255, 0.2); transition: all 0.3s ease;">
+                        <span id="apiStatusIcon" style="font-size: 0.7rem;">🟡</span>
+                        <span id="apiStatusText" style="color: var(--gray);">Checking...</span>
+                    </div>
+                    <a href="#" class="btn btn-outline" onclick="openLoginModal()" id="loginBtn">Client Login</a>
+                    <a href="#" class="btn btn-primary" onclick="openSignupModal()" id="signupBtn">Get Started</a>
+                    <a href="#" class="btn btn-outline" onclick="showClientDashboard()" id="dashboardBtn" style="display: none;">Dashboard</a>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="container">
+            <div class="hero-content">
+                <h1>AI-AUGMENTED WORKFORCE</h1>
+                <p>Transform your business with intelligent automation and human expertise working in perfect harmony. Our AI-augmented professionals deliver 10x faster results with unmatched precision.</p>
+                <div class="hero-buttons">
+                    <a href="#services" class="btn btn-primary btn-large">Explore Services</a>
+                    <a href="#" class="btn btn-outline btn-large" onclick="openDemoModal()">Book a Demo</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Services Section -->
+    <section class="section" id="services">
+        <div class="container">
+            <div class="section-title">
+                <h2>AI-Powered Services</h2>
+                <p>Experience the future of work with our AI-augmented workforce delivering superhuman performance</p>
+            </div>
+            <div class="services-grid">
+                <div class="service-card">
+                    <div class="service-icon">
+                        <i class="fas fa-laptop-code"></i>
+                    </div>
+                    <div class="service-content">
+                        <h3>AI-Enhanced Web Development</h3>
+                        <p>Next-generation web applications built with AI-assisted development, automated testing, and intelligent optimization for peak performance.</p>
+                        <ul class="service-features">
+                            <li><i class="fas fa-check"></i> Responsive Design</li>
+                            <li><i class="fas fa-check"></i> E-commerce Solutions</li>
+                            <li><i class="fas fa-check"></i> API Integration</li>
+                            <li><i class="fas fa-check"></i> 50% Faster Delivery</li>
+                        </ul>
+                        <div class="service-price">From $5,000</div>
+                        <div class="service-action">
+                            <a href="#" class="btn btn-primary" style="width: 100%; text-align: center;" onclick="openProjectModal(this.closest('.service-card').querySelector('h3').textContent)">Request Project</a>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="service-card">
+                    <div class="service-icon">
+                        <i class="fas fa-paint-brush"></i>
+                    </div>
+                    <div class="service-content">
+                        <h3>AI-Driven Design & Branding</h3>
+                        <p>Intelligent design systems that adapt and evolve with your brand, powered by AI creativity and human artistic vision.</p>
+                        <ul class="service-features">
+                            <li><i class="fas fa-check"></i> Logo Design</li>
+                            <li><i class="fas fa-check"></i> Brand Guidelines</li>
+                            <li><i class="fas fa-check"></i> Marketing Materials</li>
+                            <li><i class="fas fa-check"></i> 3x More Concepts</li>
+                        </ul>
+                        <div class="service-price">From $3,000</div>
+                        <div class="service-action">
+                            <a href="#" class="btn btn-primary" style="width: 100%; text-align: center;" onclick="openProjectModal(this.closest('.service-card').querySelector('h3').textContent)">Request Project</a>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="service-card">
+                    <div class="service-icon">
+                        <i class="fas fa-chart-line"></i>
+                    </div>
+                    <div class="service-content">
+                        <h3>AI-Powered Digital Marketing</h3>
+                        <p>Intelligent marketing automation that predicts customer behavior and optimizes campaigns in real-time for maximum ROI.</p>
+                        <ul class="service-features">
+                            <li><i class="fas fa-check"></i> SEO Optimization</li>
+                            <li><i class="fas fa-check"></i> Social Media Management</li>
+                            <li><i class="fas fa-check"></i> Content Strategy</li>
+                            <li><i class="fas fa-check"></i> 40% Higher ROI</li>
+                        </ul>
+                        <div class="service-price">From $2,500/month</div>
+                        <div class="service-action">
+                            <a href="#" class="btn btn-primary" style="width: 100%; text-align: center;" onclick="openProjectModal(this.closest('.service-card').querySelector('h3').textContent)">Request Project</a>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="service-card">
+                    <div class="service-icon">
+                        <i class="fas fa-phone-volume"></i>
+                    </div>
+                    <div class="service-content">
+                        <h3>AI Voice Agent</h3>
+                        <p>Enterprise-grade voice AI powered by GPT-4o, Whisper ASR, and ElevenLabs TTS. Handle customer calls with human-like conversation and natural language understanding.</p>
+                        <ul class="service-features">
+                            <li><i class="fas fa-check"></i> GPT-4o Voice Intelligence</li>
+                            <li><i class="fas fa-check"></i> Twilio Phone Integration</li>
+                            <li><i class="fas fa-check"></i> Multi-Language Support</li>
+                            <li><i class="fas fa-check"></i> 24/7 Call Handling</li>
+                        </ul>
+                        <div class="service-price">From $2,000/month</div>
+                        <div class="service-action">
+                            <a href="#" class="btn btn-primary" style="width: 100%; text-align: center;" onclick="openProjectModal(this.closest('.service-card').querySelector('h3').textContent)">Request Project</a>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="service-card">
+                    <div class="service-icon">
+                        <i class="fas fa-robot"></i>
+                    </div>
+                    <div class="service-content">
+                        <h3>Autonomous AI Agents</h3>
+                        <p>Self-learning AI agents that work 24/7, handling complex tasks with human-level intelligence and decision-making capabilities.</p>
+                        <ul class="service-features">
+                            <li><i class="fas fa-check"></i> Customer Service Bots</li>
+                            <li><i class="fas fa-check"></i> Process Automation</li>
+                            <li><i class="fas fa-check"></i> Data Analysis Agents</li>
+                            <li><i class="fas fa-check"></i> 24/7 Operations</li>
+                        </ul>
+                        <div class="service-price">From $3,500/month</div>
+                        <div class="service-action">
+                            <a href="#" class="btn btn-primary" style="width: 100%; text-align: center;" onclick="openProjectModal(this.closest('.service-card').querySelector('h3').textContent)">Request Project</a>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="service-card">
+                    <div class="service-icon">
+                        <i class="fas fa-plug"></i>
+                    </div>
+                    <div class="service-content">
+                        <h3>Intelligent AI Integrations</h3>
+                        <p>Seamlessly connect AI capabilities to your existing systems, creating a unified intelligent ecosystem that enhances every business process.</p>
+                        <ul class="service-features">
+                            <li><i class="fas fa-check"></i> API Integrations</li>
+                            <li><i class="fas fa-check"></i> System Automation</li>
+                            <li><i class="fas fa-check"></i> Data Pipeline Setup</li>
+                            <li><i class="fas fa-check"></i> Custom AI Solutions</li>
+                        </ul>
+                        <div class="service-price">From $4,000</div>
+                        <div class="service-action">
+                            <a href="#" class="btn btn-primary" style="width: 100%; text-align: center;" onclick="openProjectModal(this.closest('.service-card').querySelector('h3').textContent)">Request Project</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- AI Workforce Showcase Section -->
+    <section class="section" style="background: var(--gradient-dark);">
+        <div class="container">
+            <div class="section-title">
+                <h2>The Future of Work is Here</h2>
+                <p>Experience the power of AI-augmented professionals delivering superhuman results</p>
+            </div>
+            
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(350px, 1fr)); gap: 3rem; margin-top: 4rem;">
+                <div style="text-align: center; padding: 2rem;">
+                    <div style="font-size: 4rem; color: var(--neon-blue); margin-bottom: 1rem;">
+                        <i class="fas fa-brain"></i>
+                    </div>
+                    <h3 style="color: var(--light); margin-bottom: 1rem; font-size: 1.8rem;">AI-Enhanced Intelligence</h3>
+                    <p style="color: var(--gray); font-size: 1.1rem;">Our professionals are augmented with cutting-edge AI tools that amplify their capabilities, delivering insights and solutions at unprecedented speed and accuracy.</p>
+                </div>
+                
+                <div style="text-align: center; padding: 2rem;">
+                    <div style="font-size: 4rem; color: var(--neon-purple); margin-bottom: 1rem;">
+                        <i class="fas fa-rocket"></i>
+                    </div>
+                    <h3 style="color: var(--light); margin-bottom: 1rem; font-size: 1.8rem;">10x Performance</h3>
+                    <p style="color: var(--gray); font-size: 1.1rem;">Experience 10x faster project delivery with AI-assisted workflows, automated testing, and intelligent optimization that ensures perfect results every time.</p>
+                </div>
+                
+                <div style="text-align: center; padding: 2rem;">
+                    <div style="font-size: 4rem; color: var(--neon-pink); margin-bottom: 1rem;">
+                        <i class="fas fa-infinity"></i>
+                    </div>
+                    <h3 style="color: var(--light); margin-bottom: 1rem; font-size: 1.8rem;">24/7 Operations</h3>
+                    <p style="color: var(--gray); font-size: 1.1rem;">Our AI agents work around the clock, monitoring, optimizing, and maintaining your systems while our human experts focus on strategic innovation.</p>
+                </div>
+            </div>
+            
+            <div style="text-align: center; margin-top: 4rem;">
+                <div style="background: rgba(0, 212, 255, 0.1); border: 1px solid rgba(0, 212, 255, 0.3); border-radius: 20px; padding: 3rem; backdrop-filter: blur(10px);">
+                    <h3 style="color: var(--light); font-size: 2rem; margin-bottom: 1rem;">Ready to Experience the Future?</h3>
+                    <p style="color: var(--gray); font-size: 1.2rem; margin-bottom: 2rem;">Join the AI revolution and transform your business with our augmented workforce.</p>
+                    <a href="#" class="btn btn-primary btn-large" style="font-size: 1.2rem; padding: 1.2rem 3rem;" onclick="openSignupModal()">Start Your AI Journey</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- How It Works Section -->
+    <section class="section how-it-works" id="how-it-works">
+        <div class="container">
+            <div class="section-title">
+                <h2>How It Works</h2>
+                <p>Our seamless process for matching clients with the perfect AI-augmented professionals</p>
+            </div>
+            
+            <div class="process-steps">
+                <div class="step">
+                    <div class="step-number">1</div>
+                    <h3>Submit Request</h3>
+                    <p>Tell us about your project needs, timeline, and budget through our intelligent request system.</p>
+                </div>
+                
+                <div class="step">
+                    <div class="step-connector"></div>
+                    <div class="step-number">2</div>
+                    <h3>AI Matching</h3>
+                    <p>Our algorithm analyzes your needs and matches you with the perfect professional from our network.</p>
+                </div>
+                
+                <div class="step">
+                    <div class="step-connector"></div>
+                    <div class="step-number">3</div>
+                    <h3>Team Introduction</h3>
+                    <p>Meet your dedicated professional and review the customized project plan we've created.</p>
+                </div>
+                
+                <div class="step">
+                    <div class="step-connector"></div>
+                    <div class="step-number">4</div>
+                    <h3>Project Execution</h3>
+                    <p>Your dedicated professional executes the project using our AI tools for maximum efficiency.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- AI Arsenal Section -->
+    <section class="section ai-arsenal" id="ai-arsenal">
+        <div class="container">
+            <div class="section-title">
+                <h2>Our AI Arsenal</h2>
+                <p>Proprietary tools that give our professionals superhuman capabilities</p>
+            </div>
+            <div class="tools-grid">
+                <div class="tool-card">
+                    <div class="tool-icon">
+                        <i class="fas fa-palette"></i>
+                    </div>
+                    <h3>Design Forge</h3>
+                    <p>AI-powered design assistant that generates hundreds of concepts in minutes for human refinement.</p>
+                </div>
+                
+                <div class="tool-card">
+                    <div class="tool-icon">
+                        <i class="fas fa-code"></i>
+                    </div>
+                    <h3>Code Forge</h3>
+                    <p>Advanced coding assistant that writes, debugs, and optimizes code with superhuman efficiency.</p>
+                </div>
+                
+                <div class="tool-card">
+                    <div class="tool-icon">
+                        <i class="fas fa-chart-bar"></i>
+                    </div>
+                    <h3>Strategy Forge</h3>
+                    <p>Predictive analytics engine that simulates market outcomes and optimizes business strategies.</p>
+                </div>
+                
+                <div class="tool-card">
+                    <div class="tool-icon">
+                        <i class="fas fa-feather-alt"></i>
+                    </div>
+                    <h3>Copy Forge</h3>
+                    <p>Natural language generation system that produces compelling marketing copy and content.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="cta-section">
+        <div class="container">
+            <div class="cta-content">
+                <h2>Ready to Transform Your Business?</h2>
+                <p>Join hundreds of companies that are already leveraging QALLOUS.AI' AI-augmented workforce for unprecedented results.</p>
+                <a href="#" class="btn btn-primary btn-large" onclick="openSignupModal()">Get Started Today</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-about">
+                    <div class="footer-logo">
+                        <div class="logo-icon">
+                            <div class="logo-glow"></div>
+                            <div class="logo-cube">
+                                <div class="cube-face front"></div>
+                                <div class="cube-face back"></div>
+                                <div class="cube-face right"></div>
+                                <div class="cube-face left"></div>
+                                <div class="cube-face top"></div>
+                                <div class="cube-face bottom"></div>
+                            </div>
+                        </div>
+                        <span style="background: linear-gradient(45deg, #f8fafc, var(--accent)); -webkit-background-clip: text; background-clip: text; color: transparent; font-weight: 800;">QALLOUS.AI</span>
+                    </div>
+                    <p>Your AI-augmented workforce for the modern business landscape.</p>
+                </div>
+                
+                <div class="footer-links">
+                    <h4>Services</h4>
+                    <ul>
+                        <li><a href="#">Web Development</a></li>
+                        <li><a href="#">Design & Branding</a></li>
+                        <li><a href="#">Digital Marketing</a></li>
+                        <li><a href="#">AI Voice Agent</a></li>
+                        <li><a href="#">AI Agents</a></li>
+                        <li><a href="#">AI Integrations</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-links">
+                    <h4>Company</h4>
+                    <ul>
+                        <li><a href="#">About Us</a></li>
+                        <li><a href="#">Our Team</a></li>
+                        <li><a href="#">Careers</a></li>
+                        <li><a href="#">Contact</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-links">
+                    <h4>Resources</h4>
+                    <ul>
+                        <li><a href="#">Blog</a></li>
+                        <li><a href="#">Case Studies</a></li>
+                        <li><a href="#">Webinars</a></li>
+                        <li><a href="#">FAQ</a></li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="footer-bottom">
+                <p>&copy; 2024 QALLOUS.AI. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- AI Receptionist Chat -->
+    <div class="ai-receptionist">
+        <button class="chat-toggle pulse" id="chatToggle">
+            <i class="fas fa-robot"></i>
+        </button>
+        
+        <div class="chat-window" id="chatWindow">
+            <div class="chat-header">
+                <h3>
+                    <i class="fas fa-robot"></i>
+                    AI Receptionist
+                </h3>
+                <button class="chat-close" id="chatClose">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            
+            <div class="chat-messages" id="chatMessages">
+                <div class="message bot">
+                    🤖 Hello! I'm your AI Receptionist from QALLOUS.AI! Ready to experience the future of work with our AI-augmented workforce?
+                </div>
+            </div>
+            
+            <div class="typing-indicator" id="typingIndicator">
+                <span>AI is typing</span>
+                <div class="typing-dots">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </div>
+            </div>
+            
+            <div class="chat-input">
+                <input type="text" id="chatInput" placeholder="Type your message..." maxlength="200">
+                <button class="chat-send" id="chatSend">
+                    <i class="fas fa-paper-plane"></i>
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Login Modal -->
+    <div id="loginModal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeModal('loginModal')">&times;</span>
+            <h2>Client Login</h2>
+            <form id="loginForm">
+                <div class="form-group">
+                    <label for="loginEmail">Email</label>
+                    <input type="email" id="loginEmail" required>
+                </div>
+                <div class="form-group">
+                    <label for="loginPassword">Password</label>
+                    <input type="password" id="loginPassword" required>
+                </div>
+                <button type="submit" class="btn btn-primary" style="width: 100%;">Login</button>
+                <p style="text-align: center; margin-top: 1rem;">
+                    Don't have an account? <a href="#" onclick="switchToSignup()">Sign up here</a>
+                </p>
+            </form>
+        </div>
+    </div>
+
+    <!-- Signup Modal -->
+    <div id="signupModal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeModal('signupModal')">&times;</span>
+            <h2>Get Started with QALLOUS.AI</h2>
+            <form id="signupForm">
+                <div class="form-group">
+                    <label for="signupName">Full Name</label>
+                    <input type="text" id="signupName" required>
+                </div>
+                <div class="form-group">
+                    <label for="signupEmail">Email</label>
+                    <input type="email" id="signupEmail" required>
+                </div>
+                <div class="form-group">
+                    <label for="signupCompany">Company</label>
+                    <input type="text" id="signupCompany" required>
+                </div>
+                <div class="form-group">
+                    <label for="signupPassword">Password</label>
+                    <input type="password" id="signupPassword" required>
+                </div>
+                <button type="submit" class="btn btn-primary" style="width: 100%;">Create Account</button>
+                <p style="text-align: center; margin-top: 1rem;">
+                    Already have an account? <a href="#" onclick="switchToLogin()">Login here</a>
+                </p>
+            </form>
+        </div>
+    </div>
+
+    <!-- Demo Modal -->
+    <div id="demoModal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeModal('demoModal')">&times;</span>
+            <h2>Book a Demo</h2>
+            <form id="demoForm">
+                <div class="form-group">
+                    <label for="demoName">Full Name</label>
+                    <input type="text" id="demoName" required>
+                </div>
+                <div class="form-group">
+                    <label for="demoEmail">Email</label>
+                    <input type="email" id="demoEmail" required>
+                </div>
+                <div class="form-group">
+                    <label for="demoCompany">Company</label>
+                    <input type="text" id="demoCompany" required>
+                </div>
+                <div class="form-group">
+                    <label for="demoService">Service Interest</label>
+                    <select id="demoService" required>
+                        <option value="">Select a service</option>
+                        <option value="AI-Enhanced Web Development">AI-Enhanced Web Development</option>
+                        <option value="AI-Driven Design & Branding">AI-Driven Design & Branding</option>
+                        <option value="AI-Powered Digital Marketing">AI-Powered Digital Marketing</option>
+                        <option value="AI Voice Agent">AI Voice Agent</option>
+                        <option value="Autonomous AI Agents">Autonomous AI Agents</option>
+                        <option value="Intelligent AI Integrations">Intelligent AI Integrations</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="demoMessage">Additional Information</label>
+                    <textarea id="demoMessage" rows="4"></textarea>
+                </div>
+                <button type="submit" class="btn btn-primary" style="width: 100%;">Book Demo</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Project Request Modal -->
+    <div id="projectModal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeModal('projectModal')">&times;</span>
+            <h2>Request Project</h2>
+            <form id="projectForm">
+                <div class="form-group">
+                    <label for="projectName">Full Name</label>
+                    <input type="text" id="projectName" required>
+                </div>
+                <div class="form-group">
+                    <label for="projectEmail">Email</label>
+                    <input type="email" id="projectEmail" required>
+                </div>
+                <div class="form-group">
+                    <label for="projectCompany">Company</label>
+                    <input type="text" id="projectCompany" required>
+                </div>
+                <div class="form-group">
+                    <label for="projectService">Service</label>
+                    <input type="text" id="projectService" readonly>
+                </div>
+                <div class="form-group">
+                    <label for="projectBudget">Budget Range</label>
+                    <select id="projectBudget" required>
+                        <option value="">Select budget range</option>
+                        <option value="$2,500 - $5,000">$2,500 - $5,000</option>
+                        <option value="$5,000 - $10,000">$5,000 - $10,000</option>
+                        <option value="$10,000 - $25,000">$10,000 - $25,000</option>
+                        <option value="$25,000+">$25,000+</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="projectTimeline">Timeline</label>
+                    <select id="projectTimeline" required>
+                        <option value="">Select timeline</option>
+                        <option value="ASAP">ASAP</option>
+                        <option value="1-2 weeks">1-2 weeks</option>
+                        <option value="1 month">1 month</option>
+                        <option value="2-3 months">2-3 months</option>
+                        <option value="3+ months">3+ months</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="projectDescription">Project Description</label>
+                    <textarea id="projectDescription" rows="4" required></textarea>
+                </div>
+                <button type="submit" class="btn btn-primary" style="width: 100%;">Submit Request</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- API Status Modal -->
+    <div id="apiStatusModal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeModal('apiStatusModal')">&times;</span>
+            <h2>🔌 API Connection Status</h2>
+            <div style="margin-top: 2rem;">
+                <div style="text-align: center; margin-bottom: 2rem;">
+                    <div id="modalApiStatusIcon" style="font-size: 4rem; margin-bottom: 1rem;">🟡</div>
+                    <h3 id="modalApiStatusTitle" style="color: var(--light); margin-bottom: 0.5rem;">Checking...</h3>
+                    <p id="modalApiStatusMessage" style="color: var(--gray);">Connecting to QALLOUS.AI backend...</p>
+                </div>
+                
+                <div style="background: rgba(0, 212, 255, 0.05); border: 1px solid rgba(0, 212, 255, 0.2); border-radius: 12px; padding: 1.5rem; margin-bottom: 1.5rem;">
+                    <h4 style="color: var(--light); margin-bottom: 1rem;">Connection Details</h4>
+                    <div style="display: grid; gap: 0.75rem;">
+                        <div style="display: flex; justify-content: space-between;">
+                            <span style="color: var(--gray);">Backend URL:</span>
+                            <span id="backendUrl" style="color: var(--accent); font-family: monospace;">http://localhost:8000</span>
+                        </div>
+                        <div style="display: flex; justify-content: space-between;">
+                            <span style="color: var(--gray);">Status:</span>
+                            <span id="connectionStatus" style="color: var(--warning);">Checking...</span>
+                        </div>
+                        <div style="display: flex; justify-content: space-between;">
+                            <span style="color: var(--gray);">Mode:</span>
+                            <span id="operationMode" style="color: var(--light);">Unknown</span>
+                        </div>
+                        <div style="display: flex; justify-content: space-between;">
+                            <span style="color: var(--gray);">Last Checked:</span>
+                            <span id="lastChecked" style="color: var(--light);">-</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div style="display: flex; gap: 1rem;">
+                    <button onclick="retryAPIConnection()" class="btn btn-primary" style="flex: 1;">
+                        <i class="fas fa-sync"></i> Retry Connection
+                    </button>
+                    <button onclick="closeModal('apiStatusModal')" class="btn btn-outline" style="flex: 1;">
+                        Close
+                    </button>
+                </div>
+
+                <div style="margin-top: 1.5rem; padding: 1rem; background: rgba(255, 170, 0, 0.1); border: 1px solid rgba(255, 170, 0, 0.3); border-radius: 8px;">
+                    <p style="color: var(--warning); margin: 0; font-size: 0.9rem;">
+                        <strong>💡 Tip:</strong> If the API is offline, the website will automatically work in Demo Mode with simulated responses.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Client Dashboard (Hidden by default) -->
+    <div id="clientDashboard" class="client-dashboard" style="display: none;">
+        <div class="dashboard-header">
+            <h1>QALLOUS.AI - Client Portal</h1>
+            <button onclick="logout()" class="btn btn-outline">Logout</button>
+        </div>
+        <div class="dashboard-content">
+            <div class="dashboard-sidebar">
+                <nav>
+                    <a href="#" onclick="showDashboardSection('overview')" class="active">Overview</a>
+                    <a href="#" onclick="showDashboardSection('projects')">My Projects</a>
+                    <a href="#" onclick="showDashboardSection('team')">My Team</a>
+                    <a href="#" onclick="showDashboardSection('security')">Security</a>
+                    <a href="#" onclick="showDashboardSection('billing')">Billing</a>
+                    <a href="#" onclick="showDashboardSection('support')">Support</a>
+                </nav>
+            </div>
+            <div class="dashboard-main">
+                <div id="overview" class="dashboard-section active">
+                    <h2>Welcome to Your AI-Augmented Workforce</h2>
+                    <div class="stats-grid">
+                        <div class="stat-card">
+                            <h3>Active Projects</h3>
+                            <div class="stat-number">3</div>
+                        </div>
+                        <div class="stat-card">
+                            <h3>AI Agents</h3>
+                            <div class="stat-number">12</div>
+                        </div>
+                        <div class="stat-card">
+                            <h3>Team Members</h3>
+                            <div class="stat-number">8</div>
+                        </div>
+                        <div class="stat-card">
+                            <h3>Performance Boost</h3>
+                            <div class="stat-number">10x</div>
+                        </div>
+                    </div>
+                </div>
+                <div id="projects" class="dashboard-section">
+                    <h2>My Projects</h2>
+                    <div class="project-list">
+                        <div class="project-card">
+                            <h3>E-commerce Platform</h3>
+                            <p>AI-enhanced web development with automated testing</p>
+                            <div class="project-status">In Progress</div>
+                        </div>
+                        <div class="project-card">
+                            <h3>Brand Identity</h3>
+                            <p>AI-driven design and branding package</p>
+                            <div class="project-status">Completed</div>
+                        </div>
+                        <div class="project-card">
+                            <h3>Marketing Automation</h3>
+                            <p>AI-powered digital marketing campaign</p>
+                            <div class="project-status">Planning</div>
+                        </div>
+                    </div>
+                </div>
+                <div id="team" class="dashboard-section">
+                    <h2>My AI-Augmented Team</h2>
+                    <div class="team-grid">
+                        <div class="team-member">
+                            <div class="member-avatar">🤖</div>
+                            <h4>AI Code Assistant</h4>
+                            <p>Web Development</p>
+                        </div>
+                        <div class="team-member">
+                            <div class="member-avatar">🎨</div>
+                            <h4>AI Design Forge</h4>
+                            <p>Design & Branding</p>
+                        </div>
+                        <div class="team-member">
+                            <div class="member-avatar">📊</div>
+                            <h4>AI Strategy Engine</h4>
+                            <p>Digital Marketing</p>
+                        </div>
+                        <div class="team-member">
+                            <div class="member-avatar">💬</div>
+                            <h4>AI Customer Agent</h4>
+                            <p>Customer Service</p>
+                        </div>
+                    </div>
+                </div>
+                <div id="security" class="dashboard-section">
+                    <h2>Security Dashboard</h2>
+                    <div class="stats-grid">
+                        <div class="stat-card">
+                            <h3>API Health</h3>
+                            <div class="stat-number" id="apiHealthStatus" style="font-size: 2rem;">🟢</div>
+                        </div>
+                        <div class="stat-card">
+                            <h3>Security Score</h3>
+                            <div class="stat-number" id="securityScore">98</div>
+                        </div>
+                        <div class="stat-card">
+                            <h3>API Requests (24h)</h3>
+                            <div class="stat-number" id="apiRequests">1.2K</div>
+                        </div>
+                        <div class="stat-card">
+                            <h3>Next Key Rotation</h3>
+                            <div class="stat-number" id="keyRotation" style="font-size: 1.5rem;">45d</div>
+                        </div>
+                    </div>
+                    <div style="margin-top: 2rem;">
+                        <h3 style="color: var(--light); margin-bottom: 1rem;">Compliance Status</h3>
+                        <div class="support-options">
+                            <div class="support-card">
+                                <h3>🛡️ GDPR</h3>
+                                <p style="color: var(--success);">Compliant</p>
+                            </div>
+                            <div class="support-card">
+                                <h3>🏥 HIPAA</h3>
+                                <p style="color: var(--success);">Compliant</p>
+                            </div>
+                            <div class="support-card">
+                                <h3>🔒 SOC2</h3>
+                                <p style="color: var(--success);">Compliant</p>
+                            </div>
+                            <div class="support-card">
+                                <h3>📋 ISO27001</h3>
+                                <p style="color: var(--success);">Compliant</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div style="margin-top: 2rem;">
+                        <h3 style="color: var(--light); margin-bottom: 1rem;">Recent Security Events</h3>
+                        <div id="securityEvents" class="project-list">
+                            <div class="project-card">
+                                <h3>✅ API Key Rotation Scheduled</h3>
+                                <p>Next rotation in 45 days</p>
+                                <span style="color: var(--gray); font-size: 0.9rem;">2 hours ago</span>
+                            </div>
+                            <div class="project-card">
+                                <h3>✅ Security Scan Completed</h3>
+                                <p>All systems secure - No vulnerabilities detected</p>
+                                <span style="color: var(--gray); font-size: 0.9rem;">6 hours ago</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div id="billing" class="dashboard-section">
+                    <h2>Billing & Invoices</h2>
+                    <div class="billing-info">
+                        <div class="current-plan">
+                            <h3>Current Plan: AI Workforce Pro</h3>
+                            <p>$3,500/month</p>
+                        </div>
+                        <div class="recent-invoices">
+                            <h3>Recent Invoices</h3>
+                            <div class="invoice-item">
+                                <span>December 2024</span>
+                                <span>$3,500</span>
+                                <span>Paid</span>
+                            </div>
+                            <div class="invoice-item">
+                                <span>November 2024</span>
+                                <span>$3,500</span>
+                                <span>Paid</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div id="support" class="dashboard-section">
+                    <h2>Support & Resources</h2>
+                    <div class="support-options">
+                        <div class="support-card">
+                            <h3>📞 Live Chat</h3>
+                            <p>Get instant help from our AI support team</p>
+                            <button class="btn btn-primary">Start Chat</button>
+                        </div>
+                        <div class="support-card">
+                            <h3>📚 Documentation</h3>
+                            <p>Access guides and tutorials</p>
+                            <button class="btn btn-outline">View Docs</button>
+                        </div>
+                        <div class="support-card">
+                            <h3>🎓 Training</h3>
+                            <p>Learn to maximize your AI workforce</p>
+                            <button class="btn btn-outline">Start Training</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // ============================================
+        // QALLOUS.AI - API Integration Configuration
+        // ============================================
+        //
+        // SETUP INSTRUCTIONS:
+        // 1. Start your FastAPI backend: python app_orchestrated.py
+        // 2. Update baseURL below with your API URL (default: http://localhost:8000)
+        // 3. For production, replace with your deployed API URL
+        // 4. Ensure CORS is enabled on your backend for this domain
+        //
+        // FEATURES INTEGRATED:
+        // ✅ JWT Authentication (Login/Signup)
+        // ✅ AI Chat (GPT-4o NLP Processing)
+        // ✅ Security Dashboard (API monitoring, compliance status)
+        // ✅ Real-time API Health Monitoring
+        // ✅ Client Dashboard (Projects, Team, Billing)
+        // ✅ Automatic fallback to demo mode if API unavailable
+        //
+        // ============================================
+        
+        // API Configuration
+        const API_CONFIG = {
+            baseURL: 'http://localhost:8000',  // Update with your production URL (e.g., 'https://api.qallous.ai')
+            endpoints: {
+                health: '/health',
+                voiceProcess: '/api/voice/process',
+                knowledgeUpload: '/api/knowledge/upload',
+                securityDashboard: '/api/security/dashboard',
+                authLogin: '/api/auth/login',
+                authRegister: '/api/auth/register',
+                userProfile: '/api/user/profile',
+                projects: '/api/projects',
+                team: '/api/team',
+                billing: '/api/billing'
+            }
+        };
+
+        // Token Management
+        class TokenManager {
+            static getToken() {
+                return localStorage.getItem('qallous_token');
+            }
+
+            static setToken(token) {
+                localStorage.setItem('qallous_token', token);
+            }
+
+            static removeToken() {
+                localStorage.removeItem('qallous_token');
+            }
+
+            static isAuthenticated() {
+                return !!this.getToken();
+            }
+        }
+
+        // API Service
+        class QallousAPI {
+            static async request(endpoint, options = {}) {
+                const token = TokenManager.getToken();
+                const headers = {
+                    'Content-Type': 'application/json',
+                    ...options.headers
+                };
+
+                if (token) {
+                    headers['Authorization'] = `Bearer ${token}`;
+                }
+
+                try {
+                    const response = await fetch(`${API_CONFIG.baseURL}${endpoint}`, {
+                        ...options,
+                        headers
+                    });
+
+                    if (!response.ok) {
+                        throw new Error(`API Error: ${response.statusText}`);
+                    }
+
+                    return await response.json();
+                } catch (error) {
+                    console.error('API Request Error:', error);
+                    throw error;
+                }
+            }
+
+            // Authentication
+            static async login(email, password) {
+                return this.request(API_CONFIG.endpoints.authLogin, {
+                    method: 'POST',
+                    body: JSON.stringify({ email, password })
+                });
+            }
+
+            static async register(userData) {
+                return this.request(API_CONFIG.endpoints.authRegister, {
+                    method: 'POST',
+                    body: JSON.stringify(userData)
+                });
+            }
+
+            // Voice AI Processing
+            static async processVoice(audioData) {
+                return this.request(API_CONFIG.endpoints.voiceProcess, {
+                    method: 'POST',
+                    body: JSON.stringify({ audio: audioData })
+                });
+            }
+
+            // NLP Processing (for chat)
+            static async processText(text, conversationId = null) {
+                return this.request(API_CONFIG.endpoints.voiceProcess, {
+                    method: 'POST',
+                    body: JSON.stringify({ 
+                        text: text,
+                        conversation_id: conversationId,
+                        mode: 'text_only'
+                    })
+                });
+            }
+
+            // Knowledge Base
+            static async uploadDocument(formData) {
+                const token = TokenManager.getToken();
+                return fetch(`${API_CONFIG.baseURL}${API_CONFIG.endpoints.knowledgeUpload}`, {
+                    method: 'POST',
+                    headers: {
+                        'Authorization': `Bearer ${token}`
+                    },
+                    body: formData
+                }).then(res => res.json());
+            }
+
+            // Dashboard Data
+            static async getSecurityDashboard() {
+                return this.request(API_CONFIG.endpoints.securityDashboard);
+            }
+
+            static async getUserProfile() {
+                return this.request(API_CONFIG.endpoints.userProfile);
+            }
+
+            static async getProjects() {
+                return this.request(API_CONFIG.endpoints.projects);
+            }
+
+            static async getTeam() {
+                return this.request(API_CONFIG.endpoints.team);
+            }
+
+            static async getBilling() {
+                return this.request(API_CONFIG.endpoints.billing);
+            }
+
+            // Health Check
+            static async healthCheck() {
+                try {
+                    const response = await fetch(`${API_CONFIG.baseURL}${API_CONFIG.endpoints.health}`);
+                    return response.ok;
+                } catch {
+                    return false;
+                }
+            }
+        }
+
+        // Track API status
+        let currentAPIStatus = {
+            isHealthy: false,
+            lastChecked: null,
+            checkCount: 0
+        };
+
+        // Update API Status Indicator
+        function updateAPIStatus(isHealthy) {
+            currentAPIStatus.isHealthy = isHealthy;
+            currentAPIStatus.lastChecked = new Date();
+            currentAPIStatus.checkCount++;
+
+            const statusIcon = document.getElementById('apiStatusIcon');
+            const statusText = document.getElementById('apiStatusText');
+            const statusIndicator = document.getElementById('apiStatusIndicator');
+            
+            if (statusIcon && statusText) {
+                if (isHealthy) {
+                    statusIcon.textContent = '🟢';
+                    statusText.textContent = 'API Online';
+                    statusText.style.color = 'var(--success)';
+                    if (statusIndicator) {
+                        statusIndicator.style.borderColor = 'rgba(0, 255, 136, 0.3)';
+                        statusIndicator.style.background = 'rgba(0, 255, 136, 0.05)';
+                    }
+                } else {
+                    statusIcon.textContent = '🔴';
+                    statusText.textContent = 'Demo Mode';
+                    statusText.style.color = 'var(--warning)';
+                    if (statusIndicator) {
+                        statusIndicator.style.borderColor = 'rgba(255, 170, 0, 0.3)';
+                        statusIndicator.style.background = 'rgba(255, 170, 0, 0.05)';
+                    }
+                }
+            }
+        }
+
+        // Show API Status Modal
+        function showAPIStatusModal() {
+            updateAPIStatusModal();
+            document.getElementById('apiStatusModal').style.display = 'block';
+        }
+
+        // Update API Status Modal
+        function updateAPIStatusModal() {
+            const modalIcon = document.getElementById('modalApiStatusIcon');
+            const modalTitle = document.getElementById('modalApiStatusTitle');
+            const modalMessage = document.getElementById('modalApiStatusMessage');
+            const connectionStatus = document.getElementById('connectionStatus');
+            const operationMode = document.getElementById('operationMode');
+            const lastChecked = document.getElementById('lastChecked');
+            const backendUrl = document.getElementById('backendUrl');
+
+            if (backendUrl) {
+                backendUrl.textContent = API_CONFIG.baseURL;
+            }
+
+            if (currentAPIStatus.isHealthy) {
+                if (modalIcon) modalIcon.textContent = '🟢';
+                if (modalTitle) {
+                    modalTitle.textContent = 'Connected';
+                    modalTitle.style.color = 'var(--success)';
+                }
+                if (modalMessage) {
+                    modalMessage.textContent = 'Backend is online and responding normally.';
+                }
+                if (connectionStatus) {
+                    connectionStatus.textContent = 'Online';
+                    connectionStatus.style.color = 'var(--success)';
+                }
+                if (operationMode) {
+                    operationMode.textContent = 'Production Mode';
+                    operationMode.style.color = 'var(--success)';
+                }
+            } else {
+                if (modalIcon) modalIcon.textContent = '🔴';
+                if (modalTitle) {
+                    modalTitle.textContent = 'Disconnected';
+                    modalTitle.style.color = 'var(--error)';
+                }
+                if (modalMessage) {
+                    modalMessage.textContent = 'Cannot connect to backend. Using demo mode with simulated data.';
+                }
+                if (connectionStatus) {
+                    connectionStatus.textContent = 'Offline';
+                    connectionStatus.style.color = 'var(--error)';
+                }
+                if (operationMode) {
+                    operationMode.textContent = 'Demo Mode';
+                    operationMode.style.color = 'var(--warning)';
+                }
+            }
+
+            if (lastChecked && currentAPIStatus.lastChecked) {
+                const timeAgo = Math.floor((new Date() - currentAPIStatus.lastChecked) / 1000);
+                lastChecked.textContent = timeAgo < 5 ? 'Just now' : `${timeAgo} seconds ago`;
+            }
+        }
+
+        // Retry API Connection
+        async function retryAPIConnection() {
+            const retryBtn = event.target;
+            const originalText = retryBtn.innerHTML;
+            retryBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Connecting...';
+            retryBtn.disabled = true;
+
+            try {
+                const isHealthy = await QallousAPI.healthCheck();
+                updateAPIStatus(isHealthy);
+                updateAPIStatusModal();
+                
+                if (isHealthy) {
+                    alert('✅ Successfully connected to API!');
+                } else {
+                    alert('⚠️ Could not connect to API. Please check if the backend is running.');
+                }
+            } catch (error) {
+                alert('❌ Connection failed: ' + error.message);
+            } finally {
+                retryBtn.innerHTML = originalText;
+                retryBtn.disabled = false;
+            }
+        }
+
+        // Check authentication on page load
+        function checkAuthenticationOnLoad() {
+            if (TokenManager.isAuthenticated()) {
+                // User is logged in, show dashboard button
+                const loginBtn = document.getElementById('loginBtn');
+                const signupBtn = document.getElementById('signupBtn');
+                const dashboardBtn = document.getElementById('dashboardBtn');
+                
+                if (loginBtn) loginBtn.style.display = 'none';
+                if (signupBtn) signupBtn.style.display = 'none';
+                if (dashboardBtn) dashboardBtn.style.display = 'inline-block';
+            }
+        }
+
+        // Check API health on load
+        QallousAPI.healthCheck().then(isHealthy => {
+            updateAPIStatus(isHealthy);
+            if (isHealthy) {
+                console.log('✅ Qallous.ai API Connected');
+            } else {
+                console.warn('⚠️ Qallous.ai API Unavailable - Using demo mode');
+            }
+        });
+
+        // Check authentication status
+        checkAuthenticationOnLoad();
+
+        // Periodic API health check (every 30 seconds)
+        setInterval(async () => {
+            const isHealthy = await QallousAPI.healthCheck();
+            updateAPIStatus(isHealthy);
+        }, 30000);
+
+        // Simple smooth scrolling for navigation links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                
+                const targetId = this.getAttribute('href');
+                if (targetId === '#') return;
+                
+                const targetElement = document.querySelector(targetId);
+                if (targetElement) {
+                    window.scrollTo({
+                        top: targetElement.offsetTop - 80,
+                        behavior: 'smooth'
+                    });
+                }
+            });
+        });
+
+        // Header background change on scroll
+        window.addEventListener('scroll', function() {
+            const header = document.querySelector('header');
+            if (window.scrollY > 50) {
+                header.style.background = 'rgba(2, 6, 23, 0.95)';
+                header.style.boxShadow = '0 4px 20px rgba(0, 0, 0, 0.2)';
+            } else {
+                header.style.background = 'rgba(2, 6, 23, 0.8)';
+                header.style.boxShadow = 'none';
+            }
+        });
+
+        // Simple animation for step elements
+        const observerOptions = {
+            threshold: 0.3,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.opacity = 1;
+                    entry.target.style.transform = 'translateY(0)';
+                }
+            });
+        }, { 
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        });
+
+        // Observe step elements for animation
+        document.querySelectorAll('.step').forEach(step => {
+            step.style.opacity = 0;
+            step.style.transform = 'translateY(15px)';
+            step.style.transition = 'opacity 0.3s ease, transform 0.3s ease';
+            observer.observe(step);
+        });
+
+        // Observe service cards for animation
+        document.querySelectorAll('.service-card').forEach(card => {
+            card.style.opacity = 0;
+            card.style.transform = 'translateY(15px)';
+            card.style.transition = 'opacity 0.3s ease, transform 0.3s ease';
+            observer.observe(card);
+        });
+
+        // AI Receptionist Chat Functionality
+        const chatToggle = document.getElementById('chatToggle');
+        const chatWindow = document.getElementById('chatWindow');
+        const chatClose = document.getElementById('chatClose');
+        const chatMessages = document.getElementById('chatMessages');
+        const chatInput = document.getElementById('chatInput');
+        const chatSend = document.getElementById('chatSend');
+        const typingIndicator = document.getElementById('typingIndicator');
+
+        let isChatOpen = false;
+
+        // AI Responses
+        const aiResponses = {
+            greeting: [
+                "🤖 Hello! I'm your AI Receptionist from QALLOUS.AI! Ready to experience the future of work?",
+                "👋 Welcome to the AI-augmented workforce revolution! How can I help you transform your business today?",
+                "🚀 Greetings! I'm here to showcase our AI-enhanced professionals. What would you like to know about our superhuman capabilities?"
+            ],
+            services: [
+                "We offer 5 AI-powered services: AI-Enhanced Web Development, AI-Driven Design & Branding, AI-Powered Digital Marketing, Autonomous AI Agents, and Intelligent AI Integrations. Which superhuman capability interests you most?",
+                "Our AI-augmented workforce delivers 10x faster results! We have AI-enhanced development, intelligent design, automated marketing, autonomous agents, and smart integrations. What's your biggest challenge?",
+                "Experience the future with our AI-augmented professionals! We provide everything from AI-enhanced coding to autonomous agents that work 24/7. Which area would you like to explore?"
+            ],
+            pricing: [
+                "Our AI-augmented services deliver incredible value: AI-Enhanced Web Development from $5,000, AI-Driven Design from $3,000, AI-Powered Marketing from $2,500/month, Autonomous AI Agents from $3,500/month, and Intelligent AI Integrations from $4,000.",
+                "Get 10x ROI with our AI-augmented workforce! Our pricing reflects the superhuman performance you'll receive. Would you like a custom quote for your AI transformation?",
+                "Our AI services start from $3,500/month for autonomous agents and $4,000 for intelligent integrations. Traditional AI-enhanced services start from $2,500/month. Ready to experience the future?"
+            ],
+            contact: [
+                "Ready to experience the AI-augmented workforce? Schedule a demo to see our superhuman professionals in action!",
+                "Let's connect you with our AI-enhanced team! Would you like to see a live demonstration of our augmented capabilities?",
+                "Time to join the AI revolution! What's the best way to reach you for a personalized AI workforce consultation?"
+            ],
+            default: [
+                "Fascinating! Our AI-augmented workforce can handle that and more. Can you tell me more about your specific needs?",
+                "Perfect! Our AI-enhanced professionals excel at complex challenges. What specific outcome are you looking to achieve?",
+                "Excellent question! Our AI-augmented workforce delivers superhuman results. What's your biggest business challenge right now?",
+                "I'm here to showcase our AI revolution! What would you like to know about our augmented workforce capabilities?"
+            ]
+        };
+
+        // Chat functionality
+        chatToggle.addEventListener('click', () => {
+            isChatOpen = !isChatOpen;
+            chatWindow.classList.toggle('active', isChatOpen);
+            chatToggle.classList.toggle('pulse', !isChatOpen);
+            
+            if (isChatOpen) {
+                chatInput.focus();
+            }
+        });
+
+        chatClose.addEventListener('click', () => {
+            isChatOpen = false;
+            chatWindow.classList.remove('active');
+            chatToggle.classList.add('pulse');
+        });
+
+        function addMessage(text, isUser = false) {
+            const messageDiv = document.createElement('div');
+            messageDiv.className = `message ${isUser ? 'user' : 'bot'}`;
+            messageDiv.textContent = text;
+            chatMessages.appendChild(messageDiv);
+            chatMessages.scrollTop = chatMessages.scrollHeight;
+        }
+
+        function showTyping() {
+            typingIndicator.style.display = 'flex';
+            chatMessages.scrollTop = chatMessages.scrollHeight;
+        }
+
+        function hideTyping() {
+            typingIndicator.style.display = 'none';
+        }
+
+        function getAIResponse(userMessage) {
+            const message = userMessage.toLowerCase();
+            
+            if (message.includes('hello') || message.includes('hi') || message.includes('hey')) {
+                return aiResponses.greeting[Math.floor(Math.random() * aiResponses.greeting.length)];
+            } else if (message.includes('service') || message.includes('what do you do') || message.includes('offer')) {
+                return aiResponses.services[Math.floor(Math.random() * aiResponses.services.length)];
+            } else if (message.includes('price') || message.includes('cost') || message.includes('how much')) {
+                return aiResponses.pricing[Math.floor(Math.random() * aiResponses.pricing.length)];
+            } else if (message.includes('contact') || message.includes('reach') || message.includes('demo')) {
+                return aiResponses.contact[Math.floor(Math.random() * aiResponses.contact.length)];
+            } else {
+                return aiResponses.default[Math.floor(Math.random() * aiResponses.default.length)];
+            }
+        }
+
+        // Conversation ID for chat continuity
+        let currentConversationId = null;
+
+        async function sendMessage() {
+            const message = chatInput.value.trim();
+            if (!message) return;
+
+            addMessage(message, true);
+            chatInput.value = '';
+            showTyping();
+            
+            try {
+                // Try to use real API first
+                const response = await QallousAPI.processText(message, currentConversationId);
+                
+                hideTyping();
+                
+                // Store conversation ID for context
+                if (response.conversation_id) {
+                    currentConversationId = response.conversation_id;
+                }
+                
+                // Add AI response
+                addMessage(response.response || response.text || 'I received your message!');
+                
+            } catch (error) {
+                console.warn('Using fallback response:', error);
+                // Fallback to demo responses if API is unavailable
+                setTimeout(() => {
+                    hideTyping();
+                    const response = getAIResponse(message);
+                    addMessage(response);
+                }, 1500 + Math.random() * 1000);
+            }
+        }
+
+        chatSend.addEventListener('click', sendMessage);
+        chatInput.addEventListener('keypress', (e) => {
+            if (e.key === 'Enter') {
+                sendMessage();
+            }
+        });
+
+        // Auto-open chat after 10 seconds
+        setTimeout(() => {
+            if (!isChatOpen) {
+                chatToggle.classList.add('pulse');
+            }
+        }, 10000);
+
+        // Modal Functions
+        function openLoginModal() {
+            document.getElementById('loginModal').style.display = 'block';
+        }
+
+        function openSignupModal() {
+            document.getElementById('signupModal').style.display = 'block';
+        }
+
+        function openDemoModal() {
+            document.getElementById('demoModal').style.display = 'block';
+        }
+
+        function openProjectModal(serviceName) {
+            document.getElementById('projectService').value = serviceName;
+            document.getElementById('projectModal').style.display = 'block';
+        }
+
+        function closeModal(modalId) {
+            document.getElementById(modalId).style.display = 'none';
+        }
+
+        function switchToSignup() {
+            closeModal('loginModal');
+            openSignupModal();
+        }
+
+        function switchToLogin() {
+            closeModal('signupModal');
+            openLoginModal();
+        }
+
+        // Close modals when clicking outside
+        window.onclick = function(event) {
+            const modals = document.querySelectorAll('.modal');
+            modals.forEach(modal => {
+                if (event.target === modal) {
+                    modal.style.display = 'none';
+                }
+            });
+        }
+
+        // Form Submissions
+        document.getElementById('loginForm').addEventListener('submit', async function(e) {
+            e.preventDefault();
+            const email = document.getElementById('loginEmail').value;
+            const password = document.getElementById('loginPassword').value;
+            
+            if (!email || !password) {
+                alert('Please fill in all fields.');
+                return;
+            }
+
+            try {
+                // Disable submit button during login
+                const submitBtn = this.querySelector('button[type="submit"]');
+                const originalText = submitBtn.textContent;
+                submitBtn.textContent = 'Logging in...';
+                submitBtn.disabled = true;
+
+                // Real API authentication
+                const response = await QallousAPI.login(email, password);
+                
+                if (response.access_token || response.token) {
+                    TokenManager.setToken(response.access_token || response.token);
+                    
+                    // Update header buttons
+                    document.getElementById('loginBtn').style.display = 'none';
+                    document.getElementById('signupBtn').style.display = 'none';
+                    document.getElementById('dashboardBtn').style.display = 'inline-block';
+                    
+                    await loadDashboardData();
+                    showClientDashboard();
+                    closeModal('loginModal');
+                    alert('Login successful! Welcome to your AI-augmented workforce portal.');
+                } else {
+                    throw new Error('Invalid response from server');
+                }
+
+                submitBtn.textContent = originalText;
+                submitBtn.disabled = false;
+                
+            } catch (error) {
+                console.warn('Login error, using demo mode:', error);
+                // Fallback to demo mode if API is unavailable
+                if (email && password) {
+                    TokenManager.setToken('demo_token');
+                    showClientDashboard();
+                    closeModal('loginModal');
+                    alert('Login successful! (Demo Mode)');
+                }
+                
+                const submitBtn = this.querySelector('button[type="submit"]');
+                submitBtn.textContent = 'Login';
+                submitBtn.disabled = false;
+            }
+        });
+
+        document.getElementById('signupForm').addEventListener('submit', async function(e) {
+            e.preventDefault();
+            const name = document.getElementById('signupName').value;
+            const email = document.getElementById('signupEmail').value;
+            const company = document.getElementById('signupCompany').value;
+            const password = document.getElementById('signupPassword').value;
+            
+            if (!name || !email || !company || !password) {
+                alert('Please fill in all fields.');
+                return;
+            }
+
+            try {
+                // Disable submit button during registration
+                const submitBtn = this.querySelector('button[type="submit"]');
+                const originalText = submitBtn.textContent;
+                submitBtn.textContent = 'Creating Account...';
+                submitBtn.disabled = true;
+
+                // Real API registration
+                const response = await QallousAPI.register({
+                    name: name,
+                    email: email,
+                    company: company,
+                    password: password
+                });
+                
+                if (response.access_token || response.token) {
+                    TokenManager.setToken(response.access_token || response.token);
+                    
+                    // Update header buttons
+                    document.getElementById('loginBtn').style.display = 'none';
+                    document.getElementById('signupBtn').style.display = 'none';
+                    document.getElementById('dashboardBtn').style.display = 'inline-block';
+                    
+                    await loadDashboardData();
+                    showClientDashboard();
+                    closeModal('signupModal');
+                    alert('Account created successfully! Welcome to QALLOUS.AI.');
+                } else {
+                    throw new Error('Invalid response from server');
+                }
+
+                submitBtn.textContent = originalText;
+                submitBtn.disabled = false;
+                
+            } catch (error) {
+                console.warn('Registration error, using demo mode:', error);
+                // Fallback to demo mode if API is unavailable
+                TokenManager.setToken('demo_token');
+                showClientDashboard();
+                closeModal('signupModal');
+                alert('Account created successfully! (Demo Mode)');
+                
+                const submitBtn = this.querySelector('button[type="submit"]');
+                submitBtn.textContent = 'Create Account';
+                submitBtn.disabled = false;
+            }
+        });
+
+        document.getElementById('demoForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            const name = document.getElementById('demoName').value;
+            const email = document.getElementById('demoEmail').value;
+            const company = document.getElementById('demoCompany').value;
+            const service = document.getElementById('demoService').value;
+            const message = document.getElementById('demoMessage').value;
+            
+            if (name && email && company && service) {
+                closeModal('demoModal');
+                alert('Demo request submitted! Our AI team will contact you within 24 hours.');
+            } else {
+                alert('Please fill in all required fields.');
+            }
+        });
+
+        document.getElementById('projectForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            const name = document.getElementById('projectName').value;
+            const email = document.getElementById('projectEmail').value;
+            const company = document.getElementById('projectCompany').value;
+            const service = document.getElementById('projectService').value;
+            const budget = document.getElementById('projectBudget').value;
+            const timeline = document.getElementById('projectTimeline').value;
+            const description = document.getElementById('projectDescription').value;
+            
+            if (name && email && company && service && budget && timeline && description) {
+                closeModal('projectModal');
+                alert('Project request submitted! Our AI-augmented team will review your requirements and get back to you within 2 hours.');
+            } else {
+                alert('Please fill in all required fields.');
+            }
+        });
+
+        // Client Dashboard Functions
+        async function loadDashboardData() {
+            try {
+                // Load user profile
+                const profile = await QallousAPI.getUserProfile();
+                if (profile && profile.name) {
+                    // Update dashboard with user data
+                    console.log('User profile loaded:', profile);
+                }
+
+                // Load projects
+                const projects = await QallousAPI.getProjects();
+                if (projects && projects.length) {
+                    updateProjectsList(projects);
+                }
+
+                // Load team data
+                const team = await QallousAPI.getTeam();
+                if (team && team.length) {
+                    updateTeamDisplay(team);
+                }
+
+                // Load billing info
+                const billing = await QallousAPI.getBilling();
+                if (billing) {
+                    updateBillingInfo(billing);
+                }
+
+            } catch (error) {
+                console.warn('Could not load dashboard data, using defaults:', error);
+            }
+        }
+
+        function updateProjectsList(projects) {
+            const projectList = document.querySelector('.project-list');
+            if (projectList && projects.length > 0) {
+                projectList.innerHTML = projects.map(project => `
+                    <div class="project-card">
+                        <h3>${project.name || 'Unnamed Project'}</h3>
+                        <p>${project.description || 'No description'}</p>
+                        <div class="project-status">${project.status || 'In Progress'}</div>
+                    </div>
+                `).join('');
+            }
+        }
+
+        function updateTeamDisplay(team) {
+            const teamGrid = document.querySelector('.team-grid');
+            if (teamGrid && team.length > 0) {
+                teamGrid.innerHTML = team.map(member => `
+                    <div class="team-member">
+                        <div class="member-avatar">${member.avatar || '👤'}</div>
+                        <h4>${member.name || 'Team Member'}</h4>
+                        <p>${member.role || 'Role not specified'}</p>
+                    </div>
+                `).join('');
+            }
+        }
+
+        function updateBillingInfo(billing) {
+            const currentPlan = document.querySelector('.current-plan');
+            if (currentPlan && billing.plan) {
+                currentPlan.querySelector('h3').textContent = `Current Plan: ${billing.plan}`;
+                currentPlan.querySelector('p').textContent = `$${billing.amount}/month`;
+            }
+        }
+
+        async function loadSecurityDashboard() {
+            try {
+                const securityData = await QallousAPI.getSecurityDashboard();
+                
+                if (securityData) {
+                    // Update API Health Status
+                    const healthStatus = document.getElementById('apiHealthStatus');
+                    if (healthStatus) {
+                        healthStatus.textContent = securityData.api_healthy ? '🟢' : '🔴';
+                    }
+
+                    // Update Security Score
+                    const securityScore = document.getElementById('securityScore');
+                    if (securityScore && securityData.security_score) {
+                        securityScore.textContent = securityData.security_score;
+                    }
+
+                    // Update API Requests
+                    const apiRequests = document.getElementById('apiRequests');
+                    if (apiRequests && securityData.api_requests_24h) {
+                        apiRequests.textContent = securityData.api_requests_24h;
+                    }
+
+                    // Update Key Rotation
+                    const keyRotation = document.getElementById('keyRotation');
+                    if (keyRotation && securityData.days_until_rotation) {
+                        keyRotation.textContent = `${securityData.days_until_rotation}d`;
+                    }
+
+                    // Update Security Events
+                    if (securityData.recent_events && securityData.recent_events.length > 0) {
+                        const eventsContainer = document.getElementById('securityEvents');
+                        eventsContainer.innerHTML = securityData.recent_events.map(event => `
+                            <div class="project-card">
+                                <h3>${event.icon || '✅'} ${event.title}</h3>
+                                <p>${event.description}</p>
+                                <span style="color: var(--gray); font-size: 0.9rem;">${event.time}</span>
+                            </div>
+                        `).join('');
+                    }
+                }
+            } catch (error) {
+                console.warn('Could not load security dashboard data:', error);
+            }
+        }
+
+        function showClientDashboard() {
+            document.body.style.overflow = 'hidden';
+            document.getElementById('clientDashboard').style.display = 'block';
+            // Load security data when dashboard is shown
+            loadSecurityDashboard();
+        }
+
+        function logout() {
+            TokenManager.removeToken();
+            currentConversationId = null;
+            document.getElementById('clientDashboard').style.display = 'none';
+            document.body.style.overflow = 'auto';
+            
+            // Update header buttons
+            const loginBtn = document.getElementById('loginBtn');
+            const signupBtn = document.getElementById('signupBtn');
+            const dashboardBtn = document.getElementById('dashboardBtn');
+            
+            if (loginBtn) loginBtn.style.display = 'inline-block';
+            if (signupBtn) signupBtn.style.display = 'inline-block';
+            if (dashboardBtn) dashboardBtn.style.display = 'none';
+            
+            alert('Logged out successfully!');
+        }
+
+        function showDashboardSection(sectionId) {
+            // Hide all sections
+            document.querySelectorAll('.dashboard-section').forEach(section => {
+                section.classList.remove('active');
+            });
+            
+            // Remove active class from all nav links
+            document.querySelectorAll('.dashboard-sidebar nav a').forEach(link => {
+                link.classList.remove('active');
+            });
+            
+            // Show selected section
+            document.getElementById(sectionId).classList.add('active');
+            
+            // Add active class to clicked nav link
+            event.target.classList.add('active');
+        }
+    </script>
+</body>
+</html>
