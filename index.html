@@ -107,8 +107,8 @@
         }
         
         .logo-icon {
-            width: 45px;
-            height: 45px;
+            width: 60px;
+            height: 60px;
             position: relative;
             margin-right: 15px;
             display: flex;
@@ -117,52 +117,175 @@
         }
         
         .logo-cube {
-            width: 30px;
-            height: 30px;
+            width: 40px;
+            height: 40px;
             position: relative;
             transform-style: preserve-3d;
-            animation: rotate3d 8s infinite linear;
+            animation: rotateY 6s infinite linear;
         }
         
-        .cube-face {
+        /* Central Diamond */
+        .central-diamond {
             position: absolute;
-            width: 30px;
-            height: 30px;
+            top: 50%;
+            left: 50%;
+            width: 12px;
+            height: 12px;
+            background: rgba(0, 212, 255, 0.8);
             border: 2px solid var(--accent);
-            background: rgba(59, 130, 246, 0.1);
+            transform: translate(-50%, -50%) rotate(45deg);
             backdrop-filter: blur(10px);
-        }
-        
-        .cube-face::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: linear-gradient(45deg, transparent, var(--accent), transparent);
-            opacity: 0.3;
+            box-shadow: 0 0 15px rgba(0, 212, 255, 0.6);
             animation: pulse 2s infinite;
         }
         
-        .cube-face.front { transform: translateZ(15px); }
-        .cube-face.back { transform: translateZ(-15px) rotateY(180deg); }
-        .cube-face.right { transform: rotateY(90deg) translateZ(15px); }
-        .cube-face.left { transform: rotateY(-90deg) translateZ(15px); }
-        .cube-face.top { transform: rotateX(90deg) translateZ(15px); }
-        .cube-face.bottom { transform: rotateX(-90deg) translateZ(15px); }
+        /* Four Lobes */
+        .lobe {
+            position: absolute;
+            width: 18px;
+            height: 18px;
+            border: 2px solid var(--accent);
+            background: rgba(0, 212, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border-radius: 50%;
+            box-shadow: 0 0 12px rgba(0, 212, 255, 0.4);
+            animation: lobePulse 3s infinite;
+        }
         
-        @keyframes rotate3d {
-            0% { transform: rotateX(0deg) rotateY(0deg); }
-            25% { transform: rotateX(90deg) rotateY(0deg); }
-            50% { transform: rotateX(90deg) rotateY(90deg); }
-            75% { transform: rotateX(0deg) rotateY(90deg); }
-            100% { transform: rotateX(0deg) rotateY(0deg); }
+        /* Individual lobe positions */
+        .lobe.top {
+            top: 3px;
+            left: 50%;
+            transform: translateX(-50%);
+        }
+        
+        .lobe.bottom {
+            bottom: 3px;
+            left: 50%;
+            transform: translateX(-50%);
+        }
+        
+        .lobe.left {
+            left: 3px;
+            top: 50%;
+            transform: translateY(-50%);
+        }
+        
+        .lobe.right {
+            right: 3px;
+            top: 50%;
+            transform: translateY(-50%);
+        }
+        
+        /* Connecting lines */
+        .connector {
+            position: absolute;
+            border: 1px solid rgba(0, 212, 255, 0.6);
+            background: rgba(0, 212, 255, 0.05);
+        }
+        
+        .connector.horizontal {
+            width: 28px;
+            height: 2px;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            border-radius: 1px;
+        }
+        
+        .connector.vertical {
+            width: 2px;
+            height: 28px;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            border-radius: 1px;
+        }
+        
+        @keyframes rotateY {
+            0% { transform: rotateY(0deg); }
+            100% { transform: rotateY(360deg); }
         }
         
         @keyframes pulse {
-            0%, 100% { opacity: 0.3; }
-            50% { opacity: 0.8; }
+            0%, 100% { 
+                opacity: 0.8; 
+                transform: translate(-50%, -50%) rotate(45deg) scale(1);
+            }
+            50% { 
+                opacity: 1; 
+                transform: translate(-50%, -50%) rotate(45deg) scale(1.1);
+            }
+        }
+        
+        @keyframes lobePulse {
+            0%, 100% { opacity: 0.6; }
+            50% { opacity: 0.9; }
+        }
+        
+        .lobe.top { animation-delay: 0s; }
+        .lobe.right { animation-delay: 0.5s; }
+        .lobe.bottom { animation-delay: 1s; }
+        .lobe.left { animation-delay: 1.5s; }
+
+        /* Footer Logo Styles (Purple Theme) */
+        .footer-logo-icon {
+            width: 40px;
+            height: 40px;
+        }
+
+        .footer-logo-cube {
+            width: 28px;
+            height: 28px;
+        }
+
+        .footer-diamond {
+            width: 8px;
+            height: 8px;
+            background: rgba(139, 92, 246, 0.8);
+            border-color: var(--neon-purple);
+            box-shadow: 0 0 10px rgba(139, 92, 246, 0.6);
+        }
+
+        .footer-lobe {
+            width: 12px;
+            height: 12px;
+            border-color: var(--neon-purple);
+            background: rgba(139, 92, 246, 0.1);
+            box-shadow: 0 0 8px rgba(139, 92, 246, 0.4);
+        }
+
+        .footer-connector {
+            border-color: rgba(139, 92, 246, 0.6);
+            background: rgba(139, 92, 246, 0.05);
+        }
+
+        .footer-connector.horizontal {
+            width: 20px;
+        }
+
+        .footer-connector.vertical {
+            height: 20px;
+        }
+
+        .footer-lobe.top {
+            top: 2px;
+        }
+
+        .footer-lobe.bottom {
+            bottom: 2px;
+        }
+
+        .footer-lobe.left {
+            left: 2px;
+        }
+
+        .footer-lobe.right {
+            right: 2px;
+        }
+
+        .footer-logo-glow {
+            background: radial-gradient(circle, var(--neon-purple) 0%, transparent 70%);
         }
         
         .logo-glow {
@@ -1233,12 +1356,13 @@
                     <div class="logo-icon">
                         <div class="logo-glow"></div>
                         <div class="logo-cube">
-                            <div class="cube-face front"></div>
-                            <div class="cube-face back"></div>
-                            <div class="cube-face right"></div>
-                            <div class="cube-face left"></div>
-                            <div class="cube-face top"></div>
-                            <div class="cube-face bottom"></div>
+                            <div class="central-diamond"></div>
+                            <div class="connector horizontal"></div>
+                            <div class="connector vertical"></div>
+                            <div class="lobe top"></div>
+                            <div class="lobe bottom"></div>
+                            <div class="lobe left"></div>
+                            <div class="lobe right"></div>
                         </div>
                     </div>
                     <span style="background: linear-gradient(45deg, #f8fafc, var(--accent)); -webkit-background-clip: text; background-clip: text; color: transparent; font-weight: 800;">QALLOUS.AI</span>
@@ -1253,10 +1377,6 @@
                     </ul>
                 </nav>
                 <div class="auth-buttons">
-                    <div id="apiStatusIndicator" onclick="showAPIStatusModal()" style="margin-right: 1rem; display: flex; align-items: center; gap: 0.5rem; font-size: 0.9rem; cursor: pointer; padding: 0.5rem 1rem; border-radius: 8px; background: rgba(0, 212, 255, 0.05); border: 1px solid rgba(0, 212, 255, 0.2); transition: all 0.3s ease;">
-                        <span id="apiStatusIcon" style="font-size: 0.7rem;">🟡</span>
-                        <span id="apiStatusText" style="color: var(--gray);">Checking...</span>
-                    </div>
                     <a href="#" class="btn btn-outline" onclick="openLoginModal()" id="loginBtn">Client Login</a>
                     <a href="#" class="btn btn-primary" onclick="openSignupModal()" id="signupBtn">Get Started</a>
                     <a href="#" class="btn btn-outline" onclick="showClientDashboard()" id="dashboardBtn" style="display: none;">Dashboard</a>
@@ -1553,18 +1673,19 @@
             <div class="footer-content">
                 <div class="footer-about">
                     <div class="footer-logo">
-                        <div class="logo-icon">
-                            <div class="logo-glow"></div>
-                            <div class="logo-cube">
-                                <div class="cube-face front"></div>
-                                <div class="cube-face back"></div>
-                                <div class="cube-face right"></div>
-                                <div class="cube-face left"></div>
-                                <div class="cube-face top"></div>
-                                <div class="cube-face bottom"></div>
+                        <div class="logo-icon footer-logo-icon">
+                            <div class="logo-glow footer-logo-glow"></div>
+                            <div class="logo-cube footer-logo-cube">
+                                <div class="central-diamond footer-diamond"></div>
+                                <div class="connector horizontal footer-connector"></div>
+                                <div class="connector vertical footer-connector"></div>
+                                <div class="lobe top footer-lobe"></div>
+                                <div class="lobe bottom footer-lobe"></div>
+                                <div class="lobe left footer-lobe"></div>
+                                <div class="lobe right footer-lobe"></div>
                             </div>
                         </div>
-                        <span style="background: linear-gradient(45deg, #f8fafc, var(--accent)); -webkit-background-clip: text; background-clip: text; color: transparent; font-weight: 800;">QALLOUS.AI</span>
+                        <span style="background: linear-gradient(45deg, #f8fafc, var(--neon-purple)); -webkit-background-clip: text; background-clip: text; color: transparent; font-weight: 800;">QALLOUS.AI</span>
                     </div>
                     <p>Your AI-augmented workforce for the modern business landscape.</p>
                 </div>
