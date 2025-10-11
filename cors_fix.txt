@@ -1,0 +1,34 @@
+SIMPLE FIX FOR CORS:
+
+Open your app_orchestrated.py file and:
+
+1. After this line:
+   from fastapi import FastAPI, Request, Response, WebSocket, WebSocketDisconnect
+
+   Add this line:
+   from fastapi.middleware.cors import CORSMiddleware
+
+2. After these lines:
+   app = FastAPI(
+       title="Qallous AI Orchestrated",
+       version="1.0.0",
+       description="Modular Voice AI with Orchestrator Architecture"
+   )
+
+   Add these lines:
+
+   app.add_middleware(
+       CORSMiddleware,
+       allow_origins=["*"],
+       allow_credentials=True,
+       allow_methods=["*"],
+       allow_headers=["*"],
+   )
+
+That's it!
+
+Then run:
+python app_orchestrated.py
+
+
+
