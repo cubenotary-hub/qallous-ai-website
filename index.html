@@ -1668,17 +1668,21 @@
             id: "ceo-partnership",
             humanRole: "CEO",
             aiPartner: {
-                name: "Strategic Advisor AI",
-                qualifications: ["Harvard MBA", "20+ Years Fortune 500 CEO", "15 Successful IPOs"],
+                name: "Sage - Strategic Advisor AI",
+                qualifications: ["30+ Years Fortune 500 CEO", "15 Successful IPOs", "$50B+ in M&A Transactions"],
                 avatar: "👑",
-                specialties: ["Strategic Planning", "Investor Relations", "M&A Analysis"]
+                specialties: ["IPO Preparation", "M&A Strategy", "Crisis Management", "Strategic Planning", "Board Governance"]
             },
             synergy: {
                 speed: "10x",
                 outcomes: "95%",
                 timeSaved: "15h/week"
             },
-            price: "$5,000/month"
+            price: "$5,000/month",
+            sageAPI: {
+                enabled: true,
+                endpoint: "https://api.qallous.ai/api/ceo-advice"
+            }
         },
         {
             id: "cto-partnership", 
@@ -1762,6 +1766,155 @@
         }
     ];
 
+    // ========== SAGE CEO RAG API CLIENT ==========
+    class SageCEOClient {
+        constructor(apiEndpoint = 'http://localhost:8000') {
+            this.baseURL = apiEndpoint;
+            this.conversationHistory = [];
+        }
+
+        async askSage(question, userContext = null) {
+            try {
+                const response = await fetch(`${this.baseURL}/api/ceo-advice`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        user_query: question,
+                        conversation_context: this.conversationHistory,
+                        user_context: userContext || { industry: 'general', seniority_level: 'ceo' }
+                    })
+                });
+
+                if (!response.ok) throw new Error(`API error: ${response.status}`);
+                const data = await response.json();
+                
+                this.conversationHistory.push(
+                    { role: 'user', content: question },
+                    { role: 'assistant', content: data.response }
+                );
+                if (this.conversationHistory.length > 6) {
+                    this.conversationHistory = this.conversationHistory.slice(-6);
+                }
+                return data;
+            } catch (error) {
+                console.error('Sage API error:', error);
+                return {
+                    response: "I'm currently unavailable. Please ensure the Sage API is running on localhost:8000.",
+                    confidence: 0,
+                    reasoning: "API connection error",
+                    suggested_next_questions: []
+                };
+            }
+        }
+
+        async checkHealth() {
+            try {
+                const response = await fetch(`${this.baseURL}/health`);
+                return response.ok;
+            } catch (error) {
+                return false;
+            }
+        }
+
+        clearHistory() {
+            this.conversationHistory = [];
+        }
+    }
+
+    // Initialize Sage client
+    const sageClient = new SageCEOClient('https://api.qallous.ai');
+
+    // Sage Chat Functions
+    function openSageChat() {
+        document.getElementById('sageChatModal').style.display = 'flex';
+        checkSageHealth();
+        setTimeout(() => document.getElementById('sage-question-input').focus(), 300);
+    }
+
+    function closeSageChat() {
+        document.getElementById('sageChatModal').style.display = 'none';
+    }
+
+    async function checkSageHealth() {
+        const indicator = document.getElementById('sage-status-indicator');
+        const statusText = document.getElementById('sage-status-text');
+        const isHealthy = await sageClient.checkHealth();
+        
+        if (isHealthy) {
+            indicator.style.background = '#00ff88';
+            statusText.style.color = '#00ff88';
+            statusText.textContent = 'Sage is ready to advise';
+        } else {
+            indicator.style.background = '#ff4757';
+            statusText.style.color = '#ff4757';
+            statusText.textContent = 'Sage is offline (check API server)';
+        }
+    }
+
+    async function askSageQuestion() {
+        const input = document.getElementById('sage-question-input');
+        const question = input.value.trim();
+        if (!question) return;
+        
+        const askBtn = document.getElementById('sage-ask-btn');
+        input.disabled = true;
+        askBtn.disabled = true;
+        askBtn.textContent = 'Thinking...';
+        
+        addMessageToChat('user', question);
+        input.value = '';
+        
+        try {
+            const response = await sageClient.askSage(question);
+            addMessageToChat('sage', response.response, {
+                confidence: response.confidence,
+                reasoning: response.reasoning,
+                suggestedQuestions: response.suggested_next_questions
+            });
+            if (response.suggested_next_questions?.length > 0) {
+                showSuggestedQuestions(response.suggested_next_questions);
+            }
+        } catch (error) {
+            addMessageToChat('sage', "I'm having trouble connecting. Please ensure the Sage API is running.");
+        } finally {
+            input.disabled = false;
+            askBtn.disabled = false;
+            askBtn.textContent = 'Ask Sage';
+            input.focus();
+        }
+    }
+
+    function addMessageToChat(sender, message, metadata = {}) {
+        const messagesContainer = document.getElementById('sage-chat-messages');
+        const messageDiv = document.createElement('div');
+        messageDiv.style.cssText = `margin-bottom: 1.5rem; padding: 1.5rem; border-radius: 15px; animation: slideIn 0.3s ease;
+            ${sender === 'user' ? 'background: rgba(0, 212, 255, 0.1); border-left: 4px solid var(--accent); margin-left: 3rem;' : 'background: rgba(139, 92, 246, 0.1); border-left: 4px solid var(--neon-purple); margin-right: 3rem;'}`;
+        
+        messageDiv.innerHTML = `
+            <div style="margin-bottom: 0.5rem;">
+                <strong style="color: ${sender === 'user' ? 'var(--accent)' : 'var(--neon-purple)'};">${sender === 'user' ? '👤 You' : '👑 Sage'}</strong>
+                ${metadata.confidence ? `<span style="font-size: 0.8rem; color: var(--gray); margin-left: 0.5rem;">Confidence: ${(metadata.confidence * 100).toFixed(0)}%</span>` : ''}
+            </div>
+            <div style="color: var(--light); line-height: 1.7;">${message.replace(/\n/g, '<br>')}</div>
+            ${metadata.reasoning ? `<div style="margin-top: 1rem; padding: 0.8rem; background: rgba(0,0,0,0.3); border-radius: 8px; font-size: 0.85rem; color: var(--gray);">💡 ${metadata.reasoning}</div>` : ''}
+        `;
+        messagesContainer.appendChild(messageDiv);
+        messagesContainer.scrollTop = messagesContainer.scrollHeight;
+    }
+
+    function showSuggestedQuestions(questions) {
+        const container = document.getElementById('sage-suggested-questions');
+        const list = document.getElementById('suggested-questions-list');
+        if (!questions || questions.length === 0) {
+            container.style.display = 'none';
+            return;
+        }
+        list.innerHTML = questions.map(q => `<button onclick="document.getElementById('sage-question-input').value='${q.replace(/'/g, "\\'")}'; askSageQuestion();" 
+                style="background: rgba(0, 212, 255, 0.1); border: 1px solid rgba(0, 212, 255, 0.3); color: var(--accent); padding: 0.5rem 1rem; border-radius: 20px; cursor: pointer; font-size: 0.85rem; transition: all 0.2s;" 
+                onmouseover="this.style.background='rgba(0, 212, 255, 0.2)'" onmouseout="this.style.background='rgba(0, 212, 255, 0.1)'">${q}</button>`).join('');
+        container.style.display = 'block';
+    }
+
     // Render partnership cards
     function renderPartnershipCards() {
         const grid = document.getElementById('partnershipsGrid');
@@ -1816,9 +1969,16 @@
                 
                 <div class="partnership-footer">
                     <div class="price">${partnership.price}</div>
-                    <button class="btn btn-primary" onclick="openPartnershipModal('${partnership.id}')" style="width: 100%;">
-                        Augment My Role
-                    </button>
+                    ${partnership.id === 'ceo-partnership' && partnership.sageAPI?.enabled ? `
+                        <button class="btn btn-primary" onclick="openSageChat()" style="width: 100%; background: linear-gradient(135deg, #00d4ff, #8b5cf6); font-size: 1.1rem; padding: 1rem;">
+                            💬 Chat with Sage
+                        </button>
+                        <p style="text-align: center; margin-top: 0.5rem; font-size: 0.75rem; color: var(--gray);">Powered by Advanced RAG • 246 Knowledge Chunks</p>
+                    ` : `
+                        <button class="btn btn-primary" onclick="openPartnershipModal('${partnership.id}')" style="width: 100%;">
+                            Augment My Role
+                        </button>
+                    `}
                 </div>
             </div>
         `).join('');
@@ -2628,7 +2788,7 @@
         
         // API Configuration
         const API_CONFIG = {
-            baseURL: 'http://localhost:8000',  // Update with your production URL (e.g., 'https://api.qallous.ai')
+            baseURL: 'https://api.qallous.ai',  // Production API URL
             endpoints: {
                 health: '/health',
                 voiceProcess: '/api/voice/process',
@@ -3647,5 +3807,66 @@
             console.log('🤖 Partnership AI Chat Initialized');
         }
     </script>
+
+    <!-- Sage CEO Chat Modal -->
+    <div id="sageChatModal" class="modal" style="display: none;">
+        <div class="modal-content" style="max-width: 900px; max-height: 90vh; display: flex; flex-direction: column; background: var(--primary); border-radius: 20px; overflow: hidden;">
+            
+            <!-- Header -->
+            <div class="modal-header" style="background: linear-gradient(135deg, #00d4ff 0%, #8b5cf6 100%); padding: 2rem; border-radius: 20px 20px 0 0;">
+                <div style="display: flex; justify-content: space-between; align-items: center;">
+                    <div>
+                        <h2 style="margin: 0; font-size: 2rem; color: white;">👑 Sage - Your Fortune 500 CEO Advisor</h2>
+                        <p style="margin: 0.5rem 0 0 0; opacity: 0.9; color: white;">30+ years • 15 IPOs • $50B+ M&A</p>
+                    </div>
+                    <button onclick="closeSageChat()" style="background: none; border: none; color: white; font-size: 2rem; cursor: pointer; padding: 0; width: 40px; height: 40px; line-height: 1;">&times;</button>
+                </div>
+            </div>
+            
+            <!-- Status Bar -->
+            <div style="padding: 1rem; background: rgba(0, 212, 255, 0.1); border-bottom: 1px solid rgba(0, 212, 255, 0.2); display: flex; align-items: center; gap: 1rem;">
+                <div id="sage-status-indicator" style="width: 12px; height: 12px; border-radius: 50%; background: #00ff88;"></div>
+                <span id="sage-status-text" style="color: #00ff88; font-weight: 500;">Sage is ready to advise</span>
+            </div>
+            
+            <!-- Messages -->
+            <div id="sage-chat-messages" style="flex: 1; overflow-y: auto; padding: 2rem; max-height: 500px; background: rgba(10, 10, 15, 0.5);">
+                <div style="background: rgba(139, 92, 246, 0.1); padding: 1.5rem; border-radius: 15px; border-left: 4px solid var(--neon-purple); margin-right: 3rem;">
+                    <p style="margin: 0; color: white;"><strong>👑 Sage:</strong> I'm Sage, your Fortune 500 CEO advisor. I've led 15 companies through successful IPOs and managed over $50 billion in M&A transactions.</p>
+                    <p style="margin: 1rem 0 0 0; color: var(--gray);">Ask me about IPO preparation, M&A strategy, crisis management, strategic planning, or board governance.</p>
+                </div>
+            </div>
+            
+            <!-- Input Area -->
+            <div style="padding: 1.5rem; background: rgba(22, 33, 62, 0.8); border-top: 1px solid rgba(0, 212, 255, 0.2);">
+                <div id="sage-suggested-questions" style="margin-bottom: 1rem; display: none;">
+                    <p style="font-size: 0.9rem; color: var(--gray); margin-bottom: 0.5rem;">💡 Suggested questions:</p>
+                    <div id="suggested-questions-list" style="display: flex; flex-wrap: wrap; gap: 0.5rem;"></div>
+                </div>
+                
+                <div style="display: flex; gap: 1rem;">
+                    <input 
+                        type="text" 
+                        id="sage-question-input" 
+                        placeholder="Ask Sage about IPO, M&A, strategy, crisis management..."
+                        style="flex: 1; padding: 1rem; background: rgba(10, 10, 15, 0.8); border: 1px solid rgba(0, 212, 255, 0.3); border-radius: 10px; color: white; font-size: 1rem;"
+                        onkeypress="if(event.key === 'Enter') askSageQuestion()"
+                    />
+                    <button 
+                        onclick="askSageQuestion()" 
+                        class="btn btn-primary"
+                        id="sage-ask-btn"
+                        style="padding: 1rem 2rem; white-space: nowrap; background: linear-gradient(135deg, #00d4ff, #8b5cf6);">
+                        Ask Sage
+                    </button>
+                </div>
+                
+                <div style="margin-top: 0.5rem; font-size: 0.8rem; color: var(--gray); text-align: center;">
+                    <span id="sage-confidence"></span>
+                </div>
+            </div>
+        </div>
+    </div>
+
 </body>
 </html>
