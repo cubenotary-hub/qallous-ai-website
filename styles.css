@@ -52,12 +52,13 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background: radial-gradient(circle at 50% 50%, rgba(0, 212, 255, 0.03) 0%, transparent 70%);
+            background: 
+                radial-gradient(circle at 20% 80%, rgba(0, 212, 255, 0.08) 0%, transparent 50%),
+                radial-gradient(circle at 80% 20%, rgba(139, 92, 246, 0.08) 0%, transparent 50%),
+                radial-gradient(circle at 40% 40%, rgba(255, 107, 107, 0.03) 0%, transparent 50%);
             pointer-events: none;
             z-index: -1;
             will-change: auto;
-            transform: translateZ(0);
-        }
         }
         
         .container {
@@ -88,15 +89,15 @@
         }
         
         .logo {
-            font-size: 2.2rem;
+            font-size: 1.8rem;
             font-weight: 700;
             display: flex;
             align-items: center;
         }
         
         .logo-icon {
-            width: 75px;
-            height: 75px;
+            width: 60px;
+            height: 60px;
             position: relative;
             margin-right: 15px;
             display: flex;
@@ -105,8 +106,8 @@
         }
         
         .logo-cube {
-            width: 50px;
-            height: 50px;
+            width: 40px;
+            height: 40px;
             position: relative;
             transform-style: preserve-3d;
             animation: rotateY 6s infinite linear;
@@ -117,8 +118,8 @@
             position: absolute;
             top: 50%;
             left: 50%;
-            width: 15px;
-            height: 15px;
+            width: 12px;
+            height: 12px;
             background: rgba(0, 212, 255, 0.8);
             border: 2px solid var(--accent);
             transform: translate(-50%, -50%) rotate(45deg);
@@ -130,8 +131,8 @@
         /* Four Lobes */
         .lobe {
             position: absolute;
-            width: 22px;
-            height: 22px;
+            width: 18px;
+            height: 18px;
             border: 2px solid var(--accent);
             background: rgba(0, 212, 255, 0.1);
             backdrop-filter: blur(10px);
@@ -550,7 +551,7 @@
         }
         
         .service-content h3 {
-            font-size: 2.2rem;
+            font-size: 1.8rem;
             margin-bottom: 1.2rem;
             color: var(--light);
         }
@@ -585,7 +586,7 @@
         }
         
         .service-price {
-            font-size: 2.2rem;
+            font-size: 1.8rem;
             font-weight: 800;
             color: var(--light);
             margin: 1.5rem 0;
@@ -734,7 +735,7 @@
         }
         
         .footer-logo {
-            font-size: 2.2rem;
+            font-size: 1.8rem;
             font-weight: 700;
             margin-bottom: 1.5rem;
             display: flex;
@@ -983,8 +984,9 @@
             top: 0;
             width: 100%;
             height: 100%;
+            overflow-y: auto;
             background-color: rgba(0, 0, 0, 0.8);
-            backdrop-filter: blur(10px);
+            backdrop-filter: blur(5px);
         }
 
         .modal-content {
@@ -994,9 +996,12 @@
             border-radius: 20px;
             width: 90%;
             max-width: 500px;
+            max-height: 85vh;
             border: 1px solid var(--accent);
             box-shadow: 0 20px 60px rgba(0, 212, 255, 0.3);
             position: relative;
+            overflow-y: auto;
+            overflow-x: hidden;
         }
 
         .close {
@@ -1845,12 +1850,21 @@
             }
         }
 
-        /* Disable all animations for smooth scrolling performance */
-        .chat-toggle.pulse {
-            animation: none !important;
+        /* Smooth scrollbar styling for modals */
+        .modal-content::-webkit-scrollbar {
+            width: 8px;
         }
         
-        /* Remove smooth scrolling to eliminate glitch */
-        html {
-            scroll-behavior: auto !important;
+        .modal-content::-webkit-scrollbar-track {
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 10px;
+        }
+        
+        .modal-content::-webkit-scrollbar-thumb {
+            background: var(--neon-blue);
+            border-radius: 10px;
+        }
+        
+        .modal-content::-webkit-scrollbar-thumb:hover {
+            background: var(--neon-purple);
         }
