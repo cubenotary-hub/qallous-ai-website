@@ -70,7 +70,7 @@ The AI receptionist knows:
    - Answer questions about our AI-augmented partnerships
    - Discuss our case studies and success stories
    - Guide visitors to our free demos (CEO+Sage, AI PM Bot, Voice Receptionist)
-   - Direct partnership requests to qudeuce@qallous.ai
+   - Direct partnership requests to qudeuce@qallou.ai
 
    Key Information:
    - We offer 6 AI-augmented partnerships
@@ -152,7 +152,7 @@ The AI receptionist knows:
 1. **FAQ Responses:** AI answers all 10 FAQs accurately
 2. **Case Study Discussion:** Can discuss 6 detailed case studies
 3. **Service Information:** Knows all 7 services offered
-4. **Contact Routing:** Directs to qudeuce@qallous.ai for requests
+4. **Contact Routing:** Directs to qudeuce@qallou.ai for requests
 
 ### ✅ Integration Features:
 1. **GHL Tracking:** Voice interactions tracked as leads
@@ -251,7 +251,7 @@ The AI receptionist knows:
 ## 📞 Support
 
 - **Retell.AI Docs:** https://docs.retellai.com
-- **QALLOUS.AI Support:** qudeuce@qallous.ai
+- **QALLOUS.AI Support:** qudeuce@qallou.ai
 - **Integration Issues:** Check browser console for errors
 
 ---

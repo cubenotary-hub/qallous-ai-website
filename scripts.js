@@ -356,7 +356,7 @@
                         </a>
                         <p style="text-align: center; margin-top: 0.5rem; font-size: 0.75rem; color: var(--gray);">Live Demo • FREE Access</p>
            ` : partnership.isRequestPartner ? `
-               <a href="mailto:qudeuce@qallous.ai?subject=${encodeURIComponent(partnership.emailSubject)}&body=${encodeURIComponent(partnership.emailBody)}" class="btn btn-primary" style="width: 100%; background: linear-gradient(135deg, #00d4ff, #8b5cf6); font-size: 1.1rem; padding: 1rem; text-decoration: none;">
+               <a href="mailto:qudeuce@qallou.ai?subject=${encodeURIComponent(partnership.emailSubject)}&body=${encodeURIComponent(partnership.emailBody)}" class="btn btn-primary" style="width: 100%; background: linear-gradient(135deg, #00d4ff, #8b5cf6); font-size: 1.1rem; padding: 1rem; text-decoration: none;">
                    📧 Request Augment
                </a>
                <p style="text-align: center; margin-top: 0.5rem; font-size: 0.75rem; color: var(--gray);">Email Request • Direct Contact</p>
@@ -1264,6 +1264,19 @@
                 if (response.access_token || response.token) {
                     TokenManager.setToken(response.access_token || response.token);
                     
+                    // Send to GoHighLevel
+                    await sendToGoHighLevel({
+                        name: name,
+                        email: email,
+                        company: company,
+                        demo_type: 'Account Signup',
+                        message: 'New user account created',
+                        source: 'qallous.ai',
+                        lead_type: 'Account Signup',
+                        timestamp: new Date().toISOString(),
+                        page_url: window.location.href
+                    });
+                    
                     // Update header buttons
                     document.getElementById('loginBtn').style.display = 'none';
                     document.getElementById('signupBtn').style.display = 'none';
@@ -1282,6 +1295,20 @@
                 
             } catch (error) {
                 console.warn('Registration error, using demo mode:', error);
+                
+                // Send to GoHighLevel even in demo mode
+                await sendToGoHighLevel({
+                    name: name,
+                    email: email,
+                    company: company,
+                    demo_type: 'Account Signup (Demo Mode)',
+                    message: 'New user account created in demo mode',
+                    source: 'qallous.ai',
+                    lead_type: 'Account Signup',
+                    timestamp: new Date().toISOString(),
+                    page_url: window.location.href
+                });
+                
                 // Fallback to demo mode if API is unavailable
                 TokenManager.setToken('demo_token');
                 showClientDashboard();
@@ -1333,7 +1360,7 @@
             }
         });
 
-        document.getElementById('projectForm').addEventListener('submit', function(e) {
+        document.getElementById('projectForm').addEventListener('submit', async function(e) {
             e.preventDefault();
             const name = document.getElementById('projectName').value;
             const email = document.getElementById('projectEmail').value;
@@ -1344,8 +1371,33 @@
             const description = document.getElementById('projectDescription').value;
             
             if (name && email && company && service && budget && timeline && description) {
+                // Send to GoHighLevel
+                const leadData = {
+                    name: name,
+                    email: email,
+                    company: company,
+                    demo_type: service,
+                    message: `Budget: ${budget}, Timeline: ${timeline}, Description: ${description}`,
+                    source: 'qallous.ai',
+                    lead_type: 'Project Request',
+                    timestamp: new Date().toISOString(),
+                    page_url: window.location.href,
+                    budget: budget,
+                    timeline: timeline
+                };
+                
+                const ghlSuccess = await sendToGoHighLevel(leadData);
+                
                 closeModal('projectModal');
-                alert('Project request submitted! Our AI-augmented team will review your requirements and get back to you within 2 hours.');
+                
+                if (ghlSuccess) {
+                    alert('🎉 Project request submitted successfully!\n\nOur AI-augmented team will review your requirements and get back to you within 2 hours.\n\nCheck your email for next steps!');
+                } else {
+                    alert('Project request submitted! Our AI-augmented team will review your requirements and get back to you within 2 hours.');
+                }
+                
+                // Clear form
+                document.getElementById('projectForm').reset();
             } else {
                 alert('Please fill in all required fields.');
             }
