@@ -764,32 +764,62 @@
 
         let isChatOpen = false;
 
-        // Updated AI Responses for Augmented Partnership
+        // Enhanced AI Responses with FAQ and Case Study knowledge
         const aiResponses = {
             greeting: [
-                "🤝 Hello! I'm your AI guide to human-AI partnerships! Ready to find your perfect AI colleague?",
-                "🚀 Welcome to the augmented workforce revolution! I help professionals like you find AI partners with verified Fortune 500 experience.",
-                "👑 Greetings! I'm here to match you with AI colleagues that have better resumes than most humans. What role would you like to augment?"
+                "🤖 Hello! I'm your AI Receptionist from QALLOUS.AI! Ready to experience the future of work with our AI-augmented workforce?",
+                "🚀 Welcome! I'm here to help you find the perfect AI partnership. We've helped companies achieve 10-24x faster results. What brings you here today?",
+                "👋 Hi there! I can answer questions about our partnerships, show you case studies, or connect you with our team at qudeuce@qallous.ai. How can I help?"
             ],
             services: [
-                "We specialize in human-AI partnerships! CEOs with Sage advisor, Product Managers with AI PM Bot, Business Owners with Voice Receptionist, CTOs with AI architects, and more. Which role would you like to amplify?",
-                "Our augmented partnerships combine human leadership with AI execution. NEW: Try our AI PM Bot or Voice Receptionist FREE! We also have AI colleagues for executives, developers, legal professionals, and finance leaders.",
-                "We create powerful duos: Human expertise + AI execution. 🎉 3 FREE options: Sage CEO Advisor, AI PM Bot (mobile app), Voice Receptionist. Plus premium partnerships with verified Fortune 500 experience. Which interests you?"
+                "We offer 6 AI-augmented partnerships: CEO+Sage AI, Product Manager+AI Bot, Business Owner+Voice Agent, CTO+Architect AI, CMO+Marketing AI, and CFO+Finance AI. 🎉 3 are FREE! Which interests you?",
+                "Our partnerships combine human expertise with Fortune 500-level AI colleagues. Check out our <a href='case-studies.html' style='color: var(--neon-blue);'>Case Studies</a> to see real results: $8.5M raised, 50K users scaled, 97% satisfaction achieved!",
+                "We create powerful human-AI duos! 🎉 FREE: Sage CEO Advisor (30+ years), AI PM Bot (mobile-first), Voice Receptionist (24/7). Premium: CTO, CMO, CFO partnerships. Want to see our <a href='case-studies.html' style='color: var(--neon-blue);'>success stories</a>?"
             ],
             pricing: [
-                "🎉 TRIPLE FREE OFFER: Try CEO + Sage, AI PM Bot, OR AI Voice Receptionist absolutely FREE! Limited time. Other partnerships start at $3,000/month.",
-                "Get started FREE with your choice: Sage CEO Advisor, AI Product Manager Bot, or AI Voice Receptionist! Limited time offer. Other partnerships from $3,000/month.",
-                "3 FREE AI Partners available now: 1) CEO Strategic Advisor, 2) Product Manager Bot, 3) Voice Receptionist. Experience AI-augmented work with zero commitment!"
+                "🎉 TRIPLE FREE OFFER: CEO+Sage AI, AI PM Bot, or Voice Receptionist - completely FREE! Premium partnerships from $3,000-5,000/month. Check our <a href='faq.html' style='color: var(--neon-blue);'>FAQ</a> for details!",
+                "FREE partnerships available now! Try before you buy. For pricing details and custom quotes, visit our <a href='faq.html' style='color: var(--neon-blue);'>FAQ page</a> or email qudeuce@qallous.ai",
+                "Get started FREE with Sage AI, AI PM Bot, or Voice Receptionist! Other partnerships: CTO ($3,500/mo), CMO ($3,500/mo), CFO ($4,000/mo). Questions? See <a href='faq.html' style='color: var(--neon-blue);'>FAQ</a>"
             ],
             contact: [
-                "Ready to meet your AI partner? Take our 2-minute matching quiz to find your perfect augmentation match!",
-                "Let's find your AI counterpart! Would you like to see which AI colleague has the ideal resume to complement your skills?",
-                "Time to amplify your career! What's the best way to connect you with your future AI partner?"
+                "📧 Email us directly at <a href='mailto:qudeuce@qallous.ai' style='color: var(--neon-blue);'>qudeuce@qallous.ai</a> for partnership requests, demos, or questions. We typically respond within 2 hours!",
+                "Want to get started? Email <a href='mailto:qudeuce@qallous.ai' style='color: var(--neon-blue);'>qudeuce@qallous.ai</a> or take our 2-minute matching quiz to find your perfect AI partner!",
+                "Ready to transform your business? Contact qudeuce@qallous.ai for demos and consultations. Or explore our <a href='case-studies.html' style='color: var(--neon-blue);'>case studies</a> first!"
+            ],
+            faq: [
+                "Great question! I'd recommend checking our comprehensive <a href='faq.html' style='color: var(--neon-blue);'>FAQ page</a> - it covers partnerships, pricing, security, getting started, and more! Or email qudeuce@qallous.ai",
+                "You can find detailed answers in our <a href='faq.html' style='color: var(--neon-blue);'>FAQ section</a>! Topics include: What is QALLOUS.AI, partnerships offered, pricing, security (GDPR/HIPAA/SOC2), and how to start.",
+                "Check out our <a href='faq.html' style='color: var(--neon-blue);'>FAQ page</a> for detailed information! Can't find what you need? Email qudeuce@qallous.ai and we'll help immediately."
+            ],
+            caseStudies: [
+                "We have amazing <a href='case-studies.html' style='color: var(--neon-blue);'>success stories</a>! FinTech raised $8.5M, E-commerce scaled to 50K users with 93% success rate, Healthcare hit 97% satisfaction. Which industry interests you?",
+                "Check out our <a href='case-studies.html' style='color: var(--neon-blue);'>Case Studies page</a>: 340% ROI increase for marketing agency, 60% cost reduction for SaaS company, $2.3M saved for manufacturing. Real results!",
+                "Our clients achieve incredible results! See <a href='case-studies.html' style='color: var(--neon-blue);'>case studies</a>: 7-24x faster execution, 90-98% better outcomes, 10-30h/week saved. Want specifics for your industry?"
+            ],
+            results: [
+                "Our partnerships deliver: 7-24x faster execution, 90-98% better outcomes, 10-30h/week saved! See proof in our <a href='case-studies.html' style='color: var(--neon-blue);'>case studies</a>. Which metric matters most to you?",
+                "Real numbers: FinTech $8.5M raised (6 months), E-commerce 50K users (93% success), Healthcare 97% satisfaction. See all <a href='case-studies.html' style='color: var(--neon-blue);'>results here</a>!",
+                "Companies using QALLOUS.AI see 10-24x performance boosts! Check <a href='case-studies.html' style='color: var(--neon-blue);'>case studies</a> for your industry or email qudeuce@qallous.ai for a custom demo."
+            ],
+            free: [
+                "🎉 3 FREE partnerships: 1) CEO+Sage AI (30+ years Fortune 500), 2) AI PM Bot (mobile app for sprint planning), 3) Voice Receptionist (24/7 availability). Try them all! Which first?",
+                "FREE TIER: CEO Strategic Advisor, Product Manager Bot, or Voice Agent - no credit card needed! These are full-featured, not trials. Start now or email qudeuce@qallous.ai!",
+                "Limited-time FREE offer: Sage AI (IPO/M&A expert), AI PM Bot (backlog genius), Voice Receptionist (never miss calls). See <a href='faq.html' style='color: var(--neon-blue);'>FAQ</a> for details!"
+            ],
+            security: [
+                "Security is our priority! We're GDPR, HIPAA, SOC2, and ISO27001 compliant. Enterprise-grade encryption, 99.9% uptime, regular audits. Questions? See <a href='faq.html#security' style='color: var(--neon-blue);'>security FAQ</a>",
+                "Your data is safe! Full compliance with GDPR, HIPAA, SOC2, ISO27001. We never share data without consent. More details in our <a href='faq.html' style='color: var(--neon-blue);'>FAQ</a> or email qudeuce@qallous.ai",
+                "Enterprise security standards: end-to-end encryption, compliance certifications (GDPR/HIPAA/SOC2/ISO27001), 98/100 security score. Trust but verify? Email qudeuce@qallous.ai"
+            ],
+            demo: [
+                "Want a demo? Email <a href='mailto:qudeuce@qallous.ai?subject=Demo%20Request' style='color: var(--neon-blue);'>qudeuce@qallous.ai</a> to schedule! Or try our FREE partnerships instantly - no demo needed for Sage AI, AI PM Bot, or Voice Receptionist!",
+                "Free partnerships are ready NOW (no demo needed)! For premium partnerships (CTO/CMO/CFO), email qudeuce@qallous.ai to schedule a personalized demo. We'll show real-time results!",
+                "Try FREE: Sage AI, AI PM Bot, Voice Receptionist available immediately. Want CTO/CMO/CFO demo? Contact qudeuce@qallous.ai. Check <a href='case-studies.html' style='color: var(--neon-blue);'>case studies</a> first!"
             ],
             default: [
-                "Fascinating! Our augmented partnerships can handle that challenge and more. What's your primary professional role?",
-                "Perfect! Our human-AI duos excel at complex professional challenges. What specific outcomes are you looking to achieve?",
-                "Excellent! I specialize in matching professionals with AI colleagues. What role would you like to augment with AI superpowers?"
+                "Interesting question! I can help with partnerships, pricing, case studies, FAQs, or connect you with our team. Try asking about a specific partnership or email qudeuce@qallous.ai!",
+                "Let me help! I know about: 🤝 Partnerships, 💰 Pricing, 📊 Case Studies, ❓ FAQs, 🔒 Security. Or I can connect you with qudeuce@qallous.ai. What interests you?",
+                "I'm here to help! Want to see <a href='case-studies.html' style='color: var(--neon-blue);'>success stories</a>? Check <a href='faq.html' style='color: var(--neon-blue);'>FAQs</a>? Or email qudeuce@qallous.ai? Let me know!"
             ]
         };
 
@@ -813,7 +843,12 @@
         function addMessage(text, isUser = false) {
             const messageDiv = document.createElement('div');
             messageDiv.className = `message ${isUser ? 'user' : 'bot'}`;
-            messageDiv.textContent = text;
+            // Allow HTML in bot messages for links
+            if (isUser) {
+                messageDiv.textContent = text;
+            } else {
+                messageDiv.innerHTML = text;
+            }
             chatMessages.appendChild(messageDiv);
             chatMessages.scrollTop = chatMessages.scrollHeight;
         }
@@ -830,17 +865,58 @@
         function getAIResponse(userMessage) {
             const message = userMessage.toLowerCase();
             
-            if (message.includes('hello') || message.includes('hi') || message.includes('hey')) {
+            // Greeting detection
+            if (message.match(/\b(hello|hi|hey|greetings|good morning|good afternoon)\b/)) {
                 return aiResponses.greeting[Math.floor(Math.random() * aiResponses.greeting.length)];
-            } else if (message.includes('service') || message.includes('what do you do') || message.includes('offer')) {
-                return aiResponses.services[Math.floor(Math.random() * aiResponses.services.length)];
-            } else if (message.includes('price') || message.includes('cost') || message.includes('how much')) {
-                return aiResponses.pricing[Math.floor(Math.random() * aiResponses.pricing.length)];
-            } else if (message.includes('contact') || message.includes('reach') || message.includes('demo')) {
-                return aiResponses.contact[Math.floor(Math.random() * aiResponses.contact.length)];
-            } else {
-                return aiResponses.default[Math.floor(Math.random() * aiResponses.default.length)];
             }
+            
+            // FAQ related
+            if (message.match(/\b(faq|question|help|information|learn|know more)\b/)) {
+                return aiResponses.faq[Math.floor(Math.random() * aiResponses.faq.length)];
+            }
+            
+            // Case Studies related
+            if (message.match(/\b(case study|case studies|success|example|proof|results?|client|customer)\b/)) {
+                return aiResponses.caseStudies[Math.floor(Math.random() * aiResponses.caseStudies.length)];
+            }
+            
+            // Results/Performance related
+            if (message.match(/\b(outcome|performance|metric|faster|better|roi|savings?|achieve)\b/)) {
+                return aiResponses.results[Math.floor(Math.random() * aiResponses.results.length)];
+            }
+            
+            // FREE partnerships
+            if (message.match(/\b(free|trial|test|try)\b/)) {
+                return aiResponses.free[Math.floor(Math.random() * aiResponses.free.length)];
+            }
+            
+            // Security related
+            if (message.match(/\b(secure|security|safe|privacy|gdpr|hipaa|compliance|encrypt)\b/)) {
+                return aiResponses.security[Math.floor(Math.random() * aiResponses.security.length)];
+            }
+            
+            // Demo related
+            if (message.match(/\b(demo|demonstration|show|see|preview)\b/)) {
+                return aiResponses.demo[Math.floor(Math.random() * aiResponses.demo.length)];
+            }
+            
+            // Services/Partnerships
+            if (message.match(/\b(service|partnership|offer|provide|do|what|ceo|cto|cmo|cfo|product manager|voice|receptionist|sage)\b/)) {
+                return aiResponses.services[Math.floor(Math.random() * aiResponses.services.length)];
+            }
+            
+            // Pricing
+            if (message.match(/\b(price|pricing|cost|how much|expensive|cheap|rate|fee|pay)\b/)) {
+                return aiResponses.pricing[Math.floor(Math.random() * aiResponses.pricing.length)];
+            }
+            
+            // Contact/Email
+            if (message.match(/\b(contact|email|reach|speak|talk|call|qudeuce|schedule|meeting)\b/)) {
+                return aiResponses.contact[Math.floor(Math.random() * aiResponses.contact.length)];
+            }
+            
+            // Default fallback
+            return aiResponses.default[Math.floor(Math.random() * aiResponses.default.length)];
         }
 
         // Conversation ID for chat continuity
