@@ -1681,7 +1681,7 @@
             price: "$5,000/month",
             sageAPI: {
                 enabled: true,
-                endpoint: "https://api.qallous.ai/api/ceo-advice"
+                endpoint: "http://localhost:8000/api/ceo-advice"
             }
         },
         {
@@ -1821,8 +1821,8 @@
         }
     }
 
-    // Initialize Sage client
-    const sageClient = new SageCEOClient('https://api.qallous.ai');
+    // Initialize Sage client - Using local API for testing
+    const sageClient = new SageCEOClient('http://localhost:8000');
 
     // Sage Chat Functions
     function openSageChat() {
@@ -2788,7 +2788,7 @@
         
         // API Configuration
         const API_CONFIG = {
-            baseURL: 'https://api.qallous.ai',  // Production API URL
+            baseURL: 'http://localhost:8000',  // Using local API for testing
             endpoints: {
                 health: '/health',
                 voiceProcess: '/api/voice/process',
