@@ -356,10 +356,10 @@
                         </button>
                         <p style="text-align: center; margin-top: 0.5rem; font-size: 0.75rem; color: var(--gray);">Powered by Advanced RAG • 246 Knowledge Chunks</p>
                     ` : partnership.demoLink ? `
-                        <button class="btn btn-primary" onclick="window.open('${partnership.demoLink}', '_blank')" style="width: 100%; background: linear-gradient(135deg, #00ff88, #00d4ff); font-size: 1.1rem; padding: 1rem;">
-                            ${partnership.id === 'pm-partnership' ? '📱 Try AI PM Bot FREE' : '📞 Try Voice Agent FREE'}
+                        <button class="btn btn-primary" onclick="requestDemoAccess('${partnership.id}')" style="width: 100%; background: linear-gradient(135deg, #00ff88, #00d4ff); font-size: 1.1rem; padding: 1rem;">
+                            ${partnership.id === 'pm-partnership' ? '📱 Request AI PM Bot Demo' : '📞 Request Voice Agent Demo'}
                         </button>
-                        <p style="text-align: center; margin-top: 0.5rem; font-size: 0.75rem; color: var(--gray);">GitHub Demo • Open Source</p>
+                        <p style="text-align: center; margin-top: 0.5rem; font-size: 0.75rem; color: var(--gray);">Live Demo Access • FREE Trial</p>
                     ` : `
                         <button class="btn btn-primary" onclick="openPartnershipModal('${partnership.id}')" style="width: 100%;">
                             Augment My Role
@@ -1092,6 +1092,33 @@
             
             // Close any open modals
             closeModal('partnershipQuizModal');
+        }
+
+        function requestDemoAccess(partnershipId) {
+            const partnership = PARTNERSHIPS.find(p => p.id === partnershipId);
+            
+            if (!partnership) return;
+            
+            // Open demo request modal
+            const demoName = partnership.id === 'pm-partnership' ? 'AI Product Manager Bot' : 'AI Voice Receptionist';
+            const demoUrl = partnership.id === 'pm-partnership' 
+                ? 'https://apex-pm.qallous.ai (deploying soon)' 
+                : 'https://voice.qallous.ai (deploying soon)';
+            
+            const message = `🎉 Request ${demoName} Demo Access\n\n` +
+                `You're requesting access to our ${demoName}!\n\n` +
+                `📧 Please email us at: demo@qallous.ai\n` +
+                `Or fill out our contact form.\n\n` +
+                `Our team will provide you with:\n` +
+                `• Live demo access credentials\n` +
+                `• Setup assistance\n` +
+                `• FREE trial period\n\n` +
+                `Demo URL: ${demoUrl}`;
+            
+            alert(message);
+            
+            // Optionally open the demo modal or contact form
+            openModal('demoModal');
         }
 
         // Form Submissions
