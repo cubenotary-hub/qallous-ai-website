@@ -717,28 +717,7 @@
             });
         });
 
-        // Header background change on scroll (with throttling for smooth performance)
-        let scrollTimeout;
-        let ticking = false;
-        
-        function updateHeader() {
-            const header = document.querySelector('header');
-            if (window.scrollY > 50) {
-                header.style.background = 'rgba(2, 6, 23, 0.95)';
-                header.style.boxShadow = '0 4px 20px rgba(0, 0, 0, 0.2)';
-            } else {
-                header.style.background = 'rgba(2, 6, 23, 0.8)';
-                header.style.boxShadow = 'none';
-            }
-            ticking = false;
-        }
-        
-        window.addEventListener('scroll', function() {
-            if (!ticking) {
-                window.requestAnimationFrame(updateHeader);
-                ticking = true;
-            }
-        }, { passive: true });
+        // Removed scroll event listener - static header for better performance
 
         // Simple animation for step elements
         const observerOptions = {
