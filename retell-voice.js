@@ -33,7 +33,7 @@ const RETELL_CONFIG = {
             },
             {
                 question: "How do I request a partnership?",
-                answer: "For the free partnerships, you can try them directly on our website. For CTO, CMO, and CFO partnerships, click the 'Request Augment' button to send an email to qudeuce@qallou.ai with your details."
+                answer: "For the free partnerships, you can try them directly on our website. For CTO, CMO, and CFO partnerships, click the 'Request Augment' button to send an email to qudeuce@qallous.ai with your details."
             },
             {
                 question: "What AI tools do you use?",
@@ -111,8 +111,8 @@ const RETELL_CONFIG = {
         ],
         
         contactInfo: {
-            email: "qudeuce@qallou.ai",
-            requestAugment: "Email qudeuce@qallou.ai to request a custom partnership",
+            email: "qudeuce@qallous.ai",
+            requestAugment: "Email qudeuce@qallous.ai to request a custom partnership",
             freeDemos: "Try our FREE demos: Sage AI, AI PM Bot, Voice Receptionist"
         }
     }
@@ -223,7 +223,7 @@ async function startVoiceCall() {
         // Track call in GHL
         if (typeof sendToGoHighLevel === 'function') {
             sendToGoHighLevel({
-                email: 'voice-interaction@qallou.ai',
+                email: 'voice-interaction@qallous.ai',
                 name: 'Voice AI Call',
                 demo_type: 'Voice Receptionist',
                 lead_type: 'voice_call',

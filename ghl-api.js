@@ -52,8 +52,8 @@ async function sendGHLNotification(leadData) {
     const emailPayload = {
         type: 'Email',
         locationId: LOCATION_ID,
-        emailFrom: 'noreply@qallou.ai',
-        emailTo: 'qudeuce@qallou.ai', // Your notification email
+        emailFrom: 'noreply@qallous.ai',
+        emailTo: 'qudeuce@qallous.ai', // Your notification email
         subject: `🚨 New Demo Request from ${leadData.name}`,
         html: `
             <h2>New Lead from QALLOUS.AI Website!</h2>

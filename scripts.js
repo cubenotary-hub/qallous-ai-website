@@ -356,7 +356,7 @@
                         </a>
                         <p style="text-align: center; margin-top: 0.5rem; font-size: 0.75rem; color: var(--gray);">Live Demo • FREE Access</p>
            ` : partnership.isRequestPartner ? `
-               <a href="mailto:qudeuce@qallou.ai?subject=${encodeURIComponent(partnership.emailSubject)}&body=${encodeURIComponent(partnership.emailBody)}" class="btn btn-primary" style="width: 100%; background: linear-gradient(135deg, #00d4ff, #8b5cf6); font-size: 1.1rem; padding: 1rem; text-decoration: none;">
+               <a href="mailto:qudeuce@qallous.ai?subject=${encodeURIComponent(partnership.emailSubject)}&body=${encodeURIComponent(partnership.emailBody)}" class="btn btn-primary" style="width: 100%; background: linear-gradient(135deg, #00d4ff, #8b5cf6); font-size: 1.1rem; padding: 1rem; text-decoration: none;">
                    📧 Request Augment
                </a>
                <p style="text-align: center; margin-top: 0.5rem; font-size: 0.75rem; color: var(--gray);">Email Request • Direct Contact</p>
