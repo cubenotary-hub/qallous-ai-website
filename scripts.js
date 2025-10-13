@@ -1110,29 +1110,72 @@
             closeModal('partnershipQuizModal');
         }
 
-        // GoHighLevel Integration
+        // GoHighLevel Direct API Integration
+        const GHL_API_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJsb2NhdGlvbl9pZCI6IlZ5SmNIQWpmbkloVlludjlydzVLIiwidmVyc2lvbiI6MSwiaWF0IjoxNzYwMzYwMjcxMzY0LCJzdWIiOiJPS3d6a0RYWG5NeXhnMWlBakNTUCJ9.82-5bQFv9DWPdi-UmhJVidqgUPlE5O9k0G8zMLvy3MU';
         const GHL_WEBHOOK_URL = 'https://services.leadconnectorhq.com/hooks/VyJcHAjfnIhVYnv9rw5K/webhook-trigger/e72f8def-b814-41aa-a407-54073461cdf7';
 
         async function sendToGoHighLevel(leadData) {
+            // Send to both webhook AND create contact directly via API
+            const results = await Promise.allSettled([
+                // Method 1: Webhook (for workflow triggers)
+                fetch(GHL_WEBHOOK_URL, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(leadData)
+                }),
+                
+                // Method 2: Direct API (creates contact immediately)
+                createGHLContact(leadData)
+            ]);
+
+            const webhookSuccess = results[0].status === 'fulfilled' && results[0].value.ok;
+            const apiSuccess = results[1].status === 'fulfilled' && results[1].value;
+
+            console.log('GHL Integration:', { webhook: webhookSuccess, api: apiSuccess });
+            return webhookSuccess || apiSuccess;
+        }
+
+        async function createGHLContact(leadData) {
             try {
-                const response = await fetch(GHL_WEBHOOK_URL, {
+                const contactPayload = {
+                    email: leadData.email,
+                    firstName: leadData.name?.split(' ')[0] || 'Lead',
+                    lastName: leadData.name?.split(' ').slice(1).join(' ') || '',
+                    companyName: leadData.company || '',
+                    source: leadData.source || 'qallous.ai',
+                    tags: [
+                        'Website Lead',
+                        'Demo Request',
+                        leadData.demo_type || 'General'
+                    ],
+                    customFields: [
+                        { key: 'demo_type', field_value: leadData.demo_type },
+                        { key: 'lead_type', field_value: leadData.lead_type },
+                        { key: 'message', field_value: leadData.message || '' }
+                    ]
+                };
+
+                const response = await fetch('https://services.leadconnectorhq.com/contacts/', {
                     method: 'POST',
                     headers: {
+                        'Authorization': `Bearer ${GHL_API_KEY}`,
                         'Content-Type': 'application/json',
+                        'Version': '2021-07-28'
                     },
-                    body: JSON.stringify(leadData)
+                    body: JSON.stringify(contactPayload)
                 });
-                
+
                 if (response.ok) {
-                    console.log('Lead sent to GoHighLevel successfully');
-                    return true;
+                    const result = await response.json();
+                    console.log('✅ GHL Contact Created:', result.contact?.id);
+                    return result;
                 } else {
-                    console.error('GHL webhook error:', response.statusText);
-                    return false;
+                    console.error('GHL API Error:', response.status, await response.text());
+                    return null;
                 }
             } catch (error) {
-                console.error('Error sending to GoHighLevel:', error);
-                return false;
+                console.error('Error creating GHL contact:', error);
+                return null;
             }
         }
 
