@@ -117,7 +117,7 @@
             },
             price: "FREE",
             isFree: true,
-            demoLink: "https://github.com/cubenotary-hub/apex-pm-mobile",
+            demoLink: "/demos/apex-pm-demo/",
             description: "AI-powered product management mobile app for sprint planning and backlog management"
         },
         {
@@ -136,7 +136,7 @@
             },
             price: "FREE",
             isFree: true,
-            demoLink: "https://github.com/cubenotary-hub/qallous-ai-mvp",
+            demoLink: "/demos/voice-agent-demo/",
             description: "AI-powered voice receptionist that handles calls, schedules appointments, and qualifies leads"
         }
     ];
@@ -356,10 +356,10 @@
                         </button>
                         <p style="text-align: center; margin-top: 0.5rem; font-size: 0.75rem; color: var(--gray);">Powered by Advanced RAG • 246 Knowledge Chunks</p>
                     ` : partnership.demoLink ? `
-                        <button class="btn btn-primary" onclick="requestDemoAccess('${partnership.id}')" style="width: 100%; background: linear-gradient(135deg, #00ff88, #00d4ff); font-size: 1.1rem; padding: 1rem;">
-                            ${partnership.id === 'pm-partnership' ? '📱 Request AI PM Bot Demo' : '📞 Request Voice Agent Demo'}
-                        </button>
-                        <p style="text-align: center; margin-top: 0.5rem; font-size: 0.75rem; color: var(--gray);">Live Demo Access • FREE Trial</p>
+                        <a href="${partnership.demoLink}" class="btn btn-primary" style="width: 100%; background: linear-gradient(135deg, #00ff88, #00d4ff); font-size: 1.1rem; padding: 1rem; text-decoration: none;">
+                            ${partnership.id === 'pm-partnership' ? '📱 Try AI PM Bot FREE' : '📞 Try Voice Agent FREE'}
+                        </a>
+                        <p style="text-align: center; margin-top: 0.5rem; font-size: 0.75rem; color: var(--gray);">Live Demo • FREE Access</p>
                     ` : `
                         <button class="btn btn-primary" onclick="openPartnershipModal('${partnership.id}')" style="width: 100%;">
                             Augment My Role

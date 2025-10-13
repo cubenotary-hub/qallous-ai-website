@@ -1,0 +1,594 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Product Manager Bot | Apex PM - QALLOUS.AI</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #0a0a0f;
+            --primary-dark: #050508;
+            --light: #ffffff;
+            --gray: #8b9dc3;
+            --neon-blue: #00d4ff;
+            --neon-purple: #8b5cf6;
+            --neon-green: #00ff88;
+            --gradient: linear-gradient(135deg, #00d4ff 0%, #8b5cf6 50%, #ff6b6b 100%);
+            --gradient-dark: linear-gradient(135deg, #0a0a0f 0%, #1a1a2e 50%, #16213e 100%);
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Inter', sans-serif;
+        }
+        
+        body {
+            background: var(--gradient-dark);
+            color: var(--light);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+        
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: 
+                radial-gradient(circle at 20% 80%, rgba(0, 212, 255, 0.08) 0%, transparent 50%),
+                radial-gradient(circle at 80% 20%, rgba(139, 92, 246, 0.08) 0%, transparent 50%);
+            pointer-events: none;
+            z-index: -1;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        /* Header */
+        header {
+            background: rgba(10, 10, 15, 0.95);
+            backdrop-filter: blur(20px);
+            padding: 1rem 0;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            border-bottom: 1px solid rgba(0, 212, 255, 0.2);
+        }
+        
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .logo {
+            font-size: 1.5rem;
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+        }
+        
+        .logo-icon {
+            width: 50px;
+            height: 50px;
+            position: relative;
+            margin-right: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .logo-cube {
+            width: 35px;
+            height: 35px;
+            position: relative;
+            transform-style: preserve-3d;
+            animation: rotateY 6s infinite linear;
+        }
+        
+        .central-diamond {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 10px;
+            height: 10px;
+            background: rgba(0, 212, 255, 0.8);
+            border: 2px solid var(--neon-blue);
+            transform: translate(-50%, -50%) rotate(45deg);
+            backdrop-filter: blur(10px);
+            box-shadow: 0 0 15px rgba(0, 212, 255, 0.6);
+            animation: pulse 2s infinite;
+        }
+        
+        .lobe {
+            position: absolute;
+            width: 15px;
+            height: 15px;
+            border: 2px solid var(--neon-blue);
+            background: rgba(0, 212, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border-radius: 50%;
+            box-shadow: 0 0 12px rgba(0, 212, 255, 0.4);
+            animation: lobePulse 3s infinite;
+        }
+        
+        .lobe.top {
+            top: 2px;
+            left: 50%;
+            transform: translateX(-50%);
+        }
+        
+        .lobe.bottom {
+            bottom: 2px;
+            left: 50%;
+            transform: translateX(-50%);
+        }
+        
+        .lobe.left {
+            left: 2px;
+            top: 50%;
+            transform: translateY(-50%);
+        }
+        
+        .lobe.right {
+            right: 2px;
+            top: 50%;
+            transform: translateY(-50%);
+        }
+        
+        .connector {
+            position: absolute;
+            border: 1px solid rgba(0, 212, 255, 0.6);
+            background: rgba(0, 212, 255, 0.05);
+        }
+        
+        .connector.horizontal {
+            width: 24px;
+            height: 2px;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            border-radius: 1px;
+        }
+        
+        .connector.vertical {
+            width: 2px;
+            height: 24px;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            border-radius: 1px;
+        }
+        
+        @keyframes rotateY {
+            0% { transform: rotateY(0deg); }
+            100% { transform: rotateY(360deg); }
+        }
+        
+        @keyframes lobePulse {
+            0%, 100% { opacity: 0.6; }
+            50% { opacity: 1; }
+        }
+        
+        /* Hero Section */
+        .hero {
+            padding: 6rem 0 4rem;
+            text-align: center;
+        }
+        
+        .hero h1 {
+            font-size: 3.5rem;
+            font-weight: 800;
+            margin-bottom: 1.5rem;
+            background: linear-gradient(135deg, var(--neon-blue), var(--neon-purple), var(--neon-green));
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            line-height: 1.2;
+        }
+        
+        .hero .subtitle {
+            font-size: 1.5rem;
+            color: var(--gray);
+            margin-bottom: 2rem;
+        }
+        
+        .badge {
+            display: inline-block;
+            background: linear-gradient(135deg, #00ff88, #00d4ff);
+            color: var(--primary);
+            padding: 0.75rem 2rem;
+            border-radius: 50px;
+            font-weight: 800;
+            font-size: 1.2rem;
+            margin-bottom: 2rem;
+            animation: pulse 2s infinite;
+        }
+        
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+        }
+        
+        /* Features Grid */
+        .features {
+            padding: 4rem 0;
+        }
+        
+        .section-title {
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+        
+        .section-title h2 {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+        }
+        
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+        
+        .feature-card {
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(0, 212, 255, 0.2);
+            border-radius: 20px;
+            padding: 2rem;
+            transition: all 0.3s;
+        }
+        
+        .feature-card:hover {
+            transform: translateY(-5px);
+            border-color: var(--neon-blue);
+            box-shadow: 0 10px 40px rgba(0, 212, 255, 0.3);
+        }
+        
+        .feature-icon {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+        }
+        
+        .feature-card h3 {
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+            color: var(--neon-blue);
+        }
+        
+        /* Demo Section */
+        .demo-section {
+            padding: 4rem 0;
+            background: rgba(0, 212, 255, 0.05);
+            border-radius: 30px;
+            margin: 4rem 0;
+        }
+        
+        .demo-mockup {
+            background: rgba(10, 10, 15, 0.8);
+            border: 2px solid var(--neon-blue);
+            border-radius: 20px;
+            padding: 2rem;
+            margin: 2rem 0;
+            min-height: 400px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .demo-mockup::before {
+            content: '📱';
+            font-size: 15rem;
+            opacity: 0.1;
+            position: absolute;
+        }
+        
+        .demo-content {
+            position: relative;
+            z-index: 1;
+            text-align: center;
+        }
+        
+        /* CTA Buttons */
+        .cta-buttons {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+            margin-top: 2rem;
+            flex-wrap: wrap;
+        }
+        
+        .btn {
+            padding: 1rem 2.5rem;
+            border-radius: 50px;
+            font-weight: 600;
+            font-size: 1.1rem;
+            text-decoration: none;
+            transition: all 0.3s;
+            border: none;
+            cursor: pointer;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        
+        .btn-primary {
+            background: linear-gradient(135deg, var(--neon-blue), var(--neon-purple));
+            color: white;
+        }
+        
+        .btn-primary:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 30px rgba(0, 212, 255, 0.4);
+        }
+        
+        .btn-outline {
+            background: transparent;
+            border: 2px solid var(--neon-blue);
+            color: var(--neon-blue);
+        }
+        
+        .btn-outline:hover {
+            background: rgba(0, 212, 255, 0.1);
+            transform: translateY(-3px);
+        }
+        
+        /* Tech Stack */
+        .tech-stack {
+            padding: 4rem 0;
+            text-align: center;
+        }
+        
+        .tech-badges {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+            flex-wrap: wrap;
+            margin-top: 2rem;
+        }
+        
+        .tech-badge {
+            background: rgba(139, 92, 246, 0.1);
+            border: 1px solid var(--neon-purple);
+            padding: 0.5rem 1.5rem;
+            border-radius: 20px;
+            color: var(--neon-purple);
+            font-weight: 600;
+        }
+        
+        /* Stats */
+        .stats {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 2rem;
+            margin: 3rem 0;
+        }
+        
+        .stat {
+            text-align: center;
+        }
+        
+        .stat-value {
+            font-size: 3rem;
+            font-weight: 800;
+            background: var(--gradient);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+        
+        .stat-label {
+            color: var(--gray);
+            font-size: 1.1rem;
+        }
+        
+        /* Footer */
+        footer {
+            padding: 3rem 0;
+            text-align: center;
+            border-top: 1px solid rgba(0, 212, 255, 0.2);
+            margin-top: 4rem;
+        }
+        
+        .back-link {
+            color: var(--neon-blue);
+            text-decoration: none;
+            font-weight: 600;
+        }
+        
+        .back-link:hover {
+            text-decoration: underline;
+        }
+        
+        @media (max-width: 768px) {
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+            
+            .features-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container">
+            <div class="header-content">
+                <div class="logo">
+                    <div class="logo-icon">
+                        <div class="logo-cube">
+                            <div class="central-diamond"></div>
+                            <div class="connector horizontal"></div>
+                            <div class="connector vertical"></div>
+                            <div class="lobe top"></div>
+                            <div class="lobe bottom"></div>
+                            <div class="lobe left"></div>
+                            <div class="lobe right"></div>
+                        </div>
+                    </div>
+                    <span style="background: linear-gradient(45deg, #f8fafc, var(--neon-blue)); -webkit-background-clip: text; background-clip: text; color: transparent; font-weight: 800;">QALLOUS.AI</span>
+                </div>
+                <a href="https://qallous-ai-website.vercel.app" class="back-link">← Back to Main Site</a>
+            </div>
+        </div>
+    </header>
+
+    <main>
+        <!-- Hero Section -->
+        <section class="hero">
+            <div class="container">
+                <div class="badge">🎉 FREE - LIMITED TIME OFFER</div>
+                <h1>AI Product Manager Bot</h1>
+                <p class="subtitle">Transform product ideas into code-aware implementation plans</p>
+                
+                <div class="stats">
+                    <div class="stat">
+                        <div class="stat-value">12x</div>
+                        <div class="stat-label">Faster Sprint Planning</div>
+                    </div>
+                    <div class="stat">
+                        <div class="stat-value">93%</div>
+                        <div class="stat-label">Better Outcomes</div>
+                    </div>
+                    <div class="stat">
+                        <div class="stat-value">16h</div>
+                        <div class="stat-label">Time Saved Per Week</div>
+                    </div>
+                </div>
+                
+                <div class="cta-buttons">
+                    <a href="mailto:demo@qallous.ai?subject=Apex%20PM%20Demo%20Request" class="btn btn-primary">
+                        <i class="fas fa-envelope"></i> Request Demo Access
+                    </a>
+                    <a href="https://github.com/cubenotary-hub/apex-pm-mobile" target="_blank" class="btn btn-outline">
+                        <i class="fab fa-github"></i> View on GitHub
+                    </a>
+                </div>
+            </div>
+        </section>
+
+        <!-- Features Section -->
+        <section class="features">
+            <div class="container">
+                <div class="section-title">
+                    <h2>Key Features</h2>
+                    <p style="color: var(--gray);">AI-powered product management for modern teams</p>
+                </div>
+                
+                <div class="features-grid">
+                    <div class="feature-card">
+                        <div class="feature-icon">📋</div>
+                        <h3>Sprint Planning</h3>
+                        <p>Automated sprint planning with AI-powered story estimation and resource allocation</p>
+                    </div>
+                    
+                    <div class="feature-card">
+                        <div class="feature-icon">🎯</div>
+                        <h3>Backlog Management</h3>
+                        <p>Intelligent backlog prioritization based on business value and dependencies</p>
+                    </div>
+                    
+                    <div class="feature-card">
+                        <div class="feature-icon">📝</div>
+                        <h3>User Story Creation</h3>
+                        <p>Generate comprehensive user stories with acceptance criteria automatically</p>
+                    </div>
+                    
+                    <div class="feature-card">
+                        <div class="feature-icon">🚀</div>
+                        <h3>Feature Prioritization</h3>
+                        <p>Data-driven feature prioritization using AI analysis of market trends</p>
+                    </div>
+                    
+                    <div class="feature-card">
+                        <div class="feature-icon">📊</div>
+                        <h3>Analytics Dashboard</h3>
+                        <p>Real-time sprint metrics and team performance insights</p>
+                    </div>
+                    
+                    <div class="feature-card">
+                        <div class="feature-icon">🤝</div>
+                        <h3>Stakeholder Alignment</h3>
+                        <p>Automated reporting and stakeholder communication tools</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Demo Mockup Section -->
+        <section class="demo-section">
+            <div class="container">
+                <div class="section-title">
+                    <h2>Mobile-First Design</h2>
+                    <p style="color: var(--gray);">Manage your product on the go with our React Native app</p>
+                </div>
+                
+                <div class="demo-mockup">
+                    <div class="demo-content">
+                        <i class="fas fa-mobile-alt" style="font-size: 5rem; color: var(--neon-blue); margin-bottom: 2rem;"></i>
+                        <h3 style="font-size: 2rem; margin-bottom: 1rem;">Coming Soon</h3>
+                        <p style="color: var(--gray); font-size: 1.2rem;">Live interactive demo deploying...</p>
+                        <p style="color: var(--gray); margin-top: 1rem;">Request early access to be notified when the demo is ready!</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Tech Stack -->
+        <section class="tech-stack">
+            <div class="container">
+                <div class="section-title">
+                    <h2>Built With Modern Tech</h2>
+                </div>
+                
+                <div class="tech-badges">
+                    <span class="tech-badge">React Native 0.72+</span>
+                    <span class="tech-badge">FastAPI</span>
+                    <span class="tech-badge">Python 3.8+</span>
+                    <span class="tech-badge">TypeScript 4.9+</span>
+                    <span class="tech-badge">PostgreSQL</span>
+                    <span class="tech-badge">Redis</span>
+                    <span class="tech-badge">Docker</span>
+                    <span class="tech-badge">AWS ECS</span>
+                </div>
+            </div>
+        </section>
+
+        <!-- Final CTA -->
+        <section class="hero" style="padding: 3rem 0;">
+            <div class="container">
+                <h2 style="font-size: 2.5rem; margin-bottom: 1rem;">Ready to Transform Your Product Management?</h2>
+                <p style="color: var(--gray); font-size: 1.2rem; margin-bottom: 2rem;">Get FREE access to Apex PM Bot and experience 12x faster sprint planning</p>
+                
+                <div class="cta-buttons">
+                    <a href="mailto:demo@qallous.ai?subject=Apex%20PM%20Demo%20Request&body=Hi%20QALLOUS.AI%20team,%0D%0A%0D%0AI'd%20like%20to%20request%20demo%20access%20to%20the%20AI%20Product%20Manager%20Bot.%0D%0A%0D%0AName:%20%0D%0ACompany:%20%0D%0ARole:%20%0D%0A%0D%0AThank%20you!" class="btn btn-primary" style="font-size: 1.3rem; padding: 1.2rem 3rem;">
+                        <i class="fas fa-rocket"></i> Request FREE Demo Access
+                    </a>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <div class="container">
+            <p style="color: var(--gray); margin-bottom: 1rem;">Part of the QALLOUS.AI AI-Augmented Workforce Platform</p>
+            <a href="https://qallous-ai-website.vercel.app" class="back-link">← Back to Main Website</a>
+            <p style="color: var(--gray); margin-top: 1rem; font-size: 0.9rem;">© 2024 QALLOUS.AI. All rights reserved.</p>
+        </div>
+    </footer>
+</body>
+</html>
+
