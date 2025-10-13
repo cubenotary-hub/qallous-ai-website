@@ -226,10 +226,26 @@
         }
     }
 
+    let sageFirstInteraction = true;
+    
     async function askSageQuestion() {
         const input = document.getElementById('sage-question-input');
         const question = input.value.trim();
         if (!question) return;
+        
+        // Track first Sage interaction in GoHighLevel
+        if (sageFirstInteraction) {
+            sageFirstInteraction = false;
+            const leadData = {
+                demo_type: 'CEO + Sage Advisor',
+                message: question,
+                source: 'qallous.ai',
+                lead_type: 'Sage Chat Engagement',
+                timestamp: new Date().toISOString(),
+                page_url: window.location.href
+            };
+            sendToGoHighLevel(leadData).catch(err => console.error('GHL tracking error:', err));
+        }
         
         const askBtn = document.getElementById('sage-ask-btn');
         input.disabled = true;
@@ -1094,31 +1110,45 @@
             closeModal('partnershipQuizModal');
         }
 
+        // GoHighLevel Integration
+        const GHL_WEBHOOK_URL = 'https://services.leadconnectorhq.com/hooks/VyJcHAjfnIhVYnv9rw5K/webhook-trigger/e72f8def-b814-41aa-a407-54073461cdf7';
+
+        async function sendToGoHighLevel(leadData) {
+            try {
+                const response = await fetch(GHL_WEBHOOK_URL, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify(leadData)
+                });
+                
+                if (response.ok) {
+                    console.log('Lead sent to GoHighLevel successfully');
+                    return true;
+                } else {
+                    console.error('GHL webhook error:', response.statusText);
+                    return false;
+                }
+            } catch (error) {
+                console.error('Error sending to GoHighLevel:', error);
+                return false;
+            }
+        }
+
         function requestDemoAccess(partnershipId) {
             const partnership = PARTNERSHIPS.find(p => p.id === partnershipId);
             
             if (!partnership) return;
             
-            // Open demo request modal
+            // Open demo request modal with GHL integration
             const demoName = partnership.id === 'pm-partnership' ? 'AI Product Manager Bot' : 'AI Voice Receptionist';
-            const demoUrl = partnership.id === 'pm-partnership' 
-                ? 'https://apex-pm.qallous.ai (deploying soon)' 
-                : 'https://voice.qallous.ai (deploying soon)';
             
-            const message = `🎉 Request ${demoName} Demo Access\n\n` +
-                `You're requesting access to our ${demoName}!\n\n` +
-                `📧 Please email us at: demo@qallous.ai\n` +
-                `Or fill out our contact form.\n\n` +
-                `Our team will provide you with:\n` +
-                `• Live demo access credentials\n` +
-                `• Setup assistance\n` +
-                `• FREE trial period\n\n` +
-                `Demo URL: ${demoUrl}`;
-            
-            alert(message);
-            
-            // Optionally open the demo modal or contact form
+            // Optionally open the demo modal for lead capture
             openModal('demoModal');
+            
+            // Store the demo type for form submission
+            document.getElementById('demoService').value = demoName;
         }
 
         // Form Submissions
@@ -1237,7 +1267,7 @@
             }
         });
 
-        document.getElementById('demoForm').addEventListener('submit', function(e) {
+        document.getElementById('demoForm').addEventListener('submit', async function(e) {
             e.preventDefault();
             const name = document.getElementById('demoName').value;
             const email = document.getElementById('demoEmail').value;
@@ -1246,8 +1276,31 @@
             const message = document.getElementById('demoMessage').value;
             
             if (name && email && company && service) {
+                // Send to GoHighLevel
+                const leadData = {
+                    name: name,
+                    email: email,
+                    company: company,
+                    demo_type: service,
+                    message: message,
+                    source: 'qallous.ai',
+                    lead_type: 'Demo Request',
+                    timestamp: new Date().toISOString(),
+                    page_url: window.location.href
+                };
+                
+                const ghlSuccess = await sendToGoHighLevel(leadData);
+                
                 closeModal('demoModal');
-                alert('Demo request submitted! Our AI team will contact you within 24 hours.');
+                
+                if (ghlSuccess) {
+                    alert('🎉 Demo request submitted successfully!\n\nOur AI team will contact you within 2 hours.\n\nCheck your email for next steps!');
+                } else {
+                    alert('Demo request received! Our team will contact you within 24 hours.');
+                }
+                
+                // Clear form
+                document.getElementById('demoForm').reset();
             } else {
                 alert('Please fill in all required fields.');
             }
