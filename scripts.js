@@ -100,6 +100,44 @@
                 timeSaved: "20h/week" 
             },
             price: "$3,000/month"
+        },
+        {
+            id: "pm-partnership",
+            humanRole: "Product Manager",
+            aiPartner: {
+                name: "AI Product Manager Bot",
+                qualifications: ["Mobile-First Design Expert", "Agile Sprint Master", "Product Analytics Specialist"],
+                avatar: "📱",
+                specialties: ["Sprint Planning", "Backlog Management", "User Story Creation", "Feature Prioritization", "Stakeholder Alignment"]
+            },
+            synergy: {
+                speed: "12x",
+                outcomes: "93%",
+                timeSaved: "16h/week"
+            },
+            price: "FREE",
+            isFree: true,
+            demoLink: "https://github.com/cubenotary-hub/apex-pm-mobile",
+            description: "AI-powered product management mobile app for sprint planning and backlog management"
+        },
+        {
+            id: "receptionist-partnership",
+            humanRole: "Business Owner",
+            aiPartner: {
+                name: "AI Voice Receptionist",
+                qualifications: ["24/7 Voice Assistant", "Multi-Language Support", "Smart Call Routing"],
+                avatar: "📞",
+                specialties: ["Call Screening", "Appointment Scheduling", "Customer Queries", "Message Taking", "Lead Qualification"]
+            },
+            synergy: {
+                speed: "24x",
+                outcomes: "97%",
+                timeSaved: "30h/week"
+            },
+            price: "FREE",
+            isFree: true,
+            demoLink: "https://github.com/cubenotary-hub/qallous-ai-mvp",
+            description: "AI-powered voice receptionist that handles calls, schedules appointments, and qualifies leads"
         }
     ];
 
@@ -317,6 +355,11 @@
                             💬 Try Sage FREE Now
                         </button>
                         <p style="text-align: center; margin-top: 0.5rem; font-size: 0.75rem; color: var(--gray);">Powered by Advanced RAG • 246 Knowledge Chunks</p>
+                    ` : partnership.demoLink ? `
+                        <button class="btn btn-primary" onclick="window.open('${partnership.demoLink}', '_blank')" style="width: 100%; background: linear-gradient(135deg, #00ff88, #00d4ff); font-size: 1.1rem; padding: 1rem;">
+                            ${partnership.id === 'pm-partnership' ? '📱 Try AI PM Bot FREE' : '📞 Try Voice Agent FREE'}
+                        </button>
+                        <p style="text-align: center; margin-top: 0.5rem; font-size: 0.75rem; color: var(--gray);">GitHub Demo • Open Source</p>
                     ` : `
                         <button class="btn btn-primary" onclick="openPartnershipModal('${partnership.id}')" style="width: 100%;">
                             Augment My Role
@@ -739,14 +782,14 @@
                 "👑 Greetings! I'm here to match you with AI colleagues that have better resumes than most humans. What role would you like to augment?"
             ],
             services: [
-                "We specialize in human-AI partnerships! We match CEOs with AI strategic partners, CTOs with AI architects, CMOs with AI marketing geniuses, and more. Which role would you like to amplify?",
-                "Our augmented partnerships combine human leadership with AI execution. We have AI colleagues for executives, developers, legal professionals, and finance leaders. What's your primary role?",
-                "We create powerful duos: Human expertise + AI execution. Our AI partners come with verified resumes including Harvard MBAs, Fortune 500 experience, and specialized certifications. Which partnership interests you?"
+                "We specialize in human-AI partnerships! CEOs with Sage advisor, Product Managers with AI PM Bot, Business Owners with Voice Receptionist, CTOs with AI architects, and more. Which role would you like to amplify?",
+                "Our augmented partnerships combine human leadership with AI execution. NEW: Try our AI PM Bot or Voice Receptionist FREE! We also have AI colleagues for executives, developers, legal professionals, and finance leaders.",
+                "We create powerful duos: Human expertise + AI execution. 🎉 3 FREE options: Sage CEO Advisor, AI PM Bot (mobile app), Voice Receptionist. Plus premium partnerships with verified Fortune 500 experience. Which interests you?"
             ],
             pricing: [
-                "🎉 SPECIAL OFFER: CEO + Sage partnership is FREE for a limited time! Try our Fortune 500 CEO advisor at no cost. Other partnerships start at $3,000/month.",
-                "Get started FREE with Sage, our CEO advisor AI! Limited time offer. Other partnerships: CTO: $4,500/month, CMO: $4,000/month, CFO: $4,500/month.",
-                "Try our CEO + Sage partnership absolutely FREE! Experience AI-augmented leadership with no commitment. Other professional partnerships available from $3,000/month."
+                "🎉 TRIPLE FREE OFFER: Try CEO + Sage, AI PM Bot, OR AI Voice Receptionist absolutely FREE! Limited time. Other partnerships start at $3,000/month.",
+                "Get started FREE with your choice: Sage CEO Advisor, AI Product Manager Bot, or AI Voice Receptionist! Limited time offer. Other partnerships from $3,000/month.",
+                "3 FREE AI Partners available now: 1) CEO Strategic Advisor, 2) Product Manager Bot, 3) Voice Receptionist. Experience AI-augmented work with zero commitment!"
             ],
             contact: [
                 "Ready to meet your AI partner? Take our 2-minute matching quiz to find your perfect augmentation match!",
