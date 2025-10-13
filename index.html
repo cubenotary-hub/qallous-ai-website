@@ -7,6 +7,9 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="styles.css">
+    
+    <!-- Retell.AI Voice Integration -->
+    <script src="https://cdn.retellai.com/web-client-sdk/index.js"></script>
 </head>
 <body>
     <!-- Header -->
@@ -908,4 +911,11 @@
         </div>
     </div>
 
+    <!-- Retell.AI Voice Receptionist Button -->
+    <button id="voice-receptionist-btn" class="voice-ai-button" title="Talk to our AI Receptionist">
+        <i class="fas fa-microphone"></i>
+        <span class="voice-pulse"></span>
+    </button>
+
 </body>
+<script src="retell-voice.js"></script>
