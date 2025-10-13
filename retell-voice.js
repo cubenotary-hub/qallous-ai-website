@@ -312,7 +312,7 @@ function showVoiceTooltip() {
     const tooltip = document.createElement('div');
     tooltip.style.cssText = `
         position: fixed;
-        bottom: 180px;
+        bottom: 190px;
         right: 30px;
         background: linear-gradient(135deg, #00ff88, #00d4ff);
         color: var(--primary);
@@ -325,7 +325,7 @@ function showVoiceTooltip() {
         animation: slideIn 0.3s ease, fadeOut 0.3s ease 5s forwards;
         white-space: nowrap;
     `;
-    tooltip.innerHTML = '🎙️ Try our AI Voice Receptionist!';
+    tooltip.innerHTML = '💬 Talk to QALLOUS.AI Voice Receptionist!';
     document.body.appendChild(tooltip);
 
     setTimeout(() => {
