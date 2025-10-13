@@ -1,5 +1,6 @@
     // Partnership data - will be moved to external config later
     const PARTNERSHIPS = [
+        // WORKING BOTS - Top Row (3 in a row)
         {
             id: "ceo-partnership",
             humanRole: "CEO",
@@ -21,6 +22,45 @@
                 endpoint: "http://localhost:8000/api/ceo-advice"
             }
         },
+        {
+            id: "pm-partnership",
+            humanRole: "Product Manager",
+            aiPartner: {
+                name: "AI Product Manager Bot",
+                qualifications: ["Mobile-First Design Expert", "Agile Sprint Master", "Product Analytics Specialist"],
+                avatar: "📱",
+                specialties: ["Sprint Planning", "Backlog Management", "User Story Creation", "Feature Prioritization", "Stakeholder Alignment"]
+            },
+            synergy: {
+                speed: "12x",
+                outcomes: "93%",
+                timeSaved: "16h/week"
+            },
+            price: "FREE",
+            isFree: true,
+            demoLink: "/demos/apex-pm-demo/",
+            description: "AI-powered product management mobile app for sprint planning and backlog management"
+        },
+        {
+            id: "receptionist-partnership",
+            humanRole: "Business Owner",
+            aiPartner: {
+                name: "AI Voice Receptionist",
+                qualifications: ["24/7 Voice Assistant", "Multi-Language Support", "Smart Call Routing"],
+                avatar: "📞",
+                specialties: ["Call Screening", "Appointment Scheduling", "Customer Queries", "Message Taking", "Lead Qualification"]
+            },
+            synergy: {
+                speed: "24x",
+                outcomes: "97%",
+                timeSaved: "30h/week"
+            },
+            price: "FREE",
+            isFree: true,
+            demoLink: "/demos/voice-agent-demo/",
+            description: "AI-powered voice receptionist that handles calls, schedules appointments, and qualifies leads"
+        },
+        // REQUEST AUGMENT PARTNERSHIPS - Bottom Row (3 in a row)
         {
             id: "cto-partnership",
             humanRole: "CTO",
@@ -77,82 +117,6 @@
             isRequestPartner: true,
             emailSubject: "CFO + Financial Strategist AI Partnership Request",
             emailBody: "Hi QALLOUS.AI team,%0D%0A%0D%0AI'm interested in the CFO + Financial Strategist AI partnership.%0D%0A%0D%0AName: %0D%0ACompany: %0D%0ARole: CFO%0D%0A%0D%0AThank you!"
-        },
-        {
-            id: "legal-partnership",
-            humanRole: "Legal Counsel",
-            aiPartner: {
-                name: "Legal Expert AI",
-                qualifications: ["JD, Yale Law", "Supreme Court Clerk", "15 Years Big Law"],
-                avatar: "⚖️",
-                specialties: ["Contract Review", "Compliance", "Legal Research"]
-            },
-            synergy: {
-                speed: "12x",
-                outcomes: "98%",
-                timeSaved: "18h/week"
-            },
-            price: "Request Augment",
-            isRequestPartner: true,
-            emailSubject: "Legal Counsel + Legal Expert AI Partnership Request",
-            emailBody: "Hi QALLOUS.AI team,%0D%0A%0D%0AI'm interested in the Legal Counsel + Legal Expert AI partnership.%0D%0A%0D%0AName: %0D%0ACompany: %0D%0ARole: Legal Counsel%0D%0A%0D%0AThank you!"
-        },
-        {
-            id: "dev-partnership",
-            humanRole: "Lead Developer",
-            aiPartner: {
-                name: "Code Architect AI",
-                qualifications: ["CS PhD, MIT", "10 Years Principal Engineer", "System Design Expert"],
-                avatar: "👨‍💻",
-                specialties: ["System Design", "Code Review", "Architecture Planning"]
-            },
-            synergy: {
-                speed: "15x",
-                outcomes: "96%",
-                timeSaved: "20h/week"
-            },
-            price: "Request Augment",
-            isRequestPartner: true,
-            emailSubject: "Lead Developer + Code Architect AI Partnership Request",
-            emailBody: "Hi QALLOUS.AI team,%0D%0A%0D%0AI'm interested in the Lead Developer + Code Architect AI partnership.%0D%0A%0D%0AName: %0D%0ACompany: %0D%0ARole: Lead Developer%0D%0A%0D%0AThank you!"
-        },
-        {
-            id: "pm-partnership",
-            humanRole: "Product Manager",
-            aiPartner: {
-                name: "AI Product Manager Bot",
-                qualifications: ["Mobile-First Design Expert", "Agile Sprint Master", "Product Analytics Specialist"],
-                avatar: "📱",
-                specialties: ["Sprint Planning", "Backlog Management", "User Story Creation", "Feature Prioritization", "Stakeholder Alignment"]
-            },
-            synergy: {
-                speed: "12x",
-                outcomes: "93%",
-                timeSaved: "16h/week"
-            },
-            price: "FREE",
-            isFree: true,
-            demoLink: "/demos/apex-pm-demo/",
-            description: "AI-powered product management mobile app for sprint planning and backlog management"
-        },
-        {
-            id: "receptionist-partnership",
-            humanRole: "Business Owner",
-            aiPartner: {
-                name: "AI Voice Receptionist",
-                qualifications: ["24/7 Voice Assistant", "Multi-Language Support", "Smart Call Routing"],
-                avatar: "📞",
-                specialties: ["Call Screening", "Appointment Scheduling", "Customer Queries", "Message Taking", "Lead Qualification"]
-            },
-            synergy: {
-                speed: "24x",
-                outcomes: "97%",
-                timeSaved: "30h/week"
-            },
-            price: "FREE",
-            isFree: true,
-            demoLink: "/demos/voice-agent-demo/",
-            description: "AI-powered voice receptionist that handles calls, schedules appointments, and qualifies leads"
         }
     ];
 
@@ -1559,4 +1523,3 @@
             // This function ensures the AI chat reflects the new partnership model
             console.log('🤖 Partnership AI Chat Initialized');
         }
-// Force deployment Mon Oct 13 08:50:34 CDT 2025
