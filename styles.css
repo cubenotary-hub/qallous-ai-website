@@ -1849,22 +1849,3 @@
                 font-size: 0.7rem;
             }
         }
-
-        /* Smooth scrollbar styling for modals */
-        .modal-content::-webkit-scrollbar {
-            width: 8px;
-        }
-        
-        .modal-content::-webkit-scrollbar-track {
-            background: rgba(255, 255, 255, 0.05);
-            border-radius: 10px;
-        }
-        
-        .modal-content::-webkit-scrollbar-thumb {
-            background: var(--neon-blue);
-            border-radius: 10px;
-        }
-        
-        .modal-content::-webkit-scrollbar-thumb:hover {
-            background: var(--neon-purple);
-        }
