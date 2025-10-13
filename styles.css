@@ -52,13 +52,12 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background: 
-                radial-gradient(circle at 20% 80%, rgba(0, 212, 255, 0.08) 0%, transparent 50%),
-                radial-gradient(circle at 80% 20%, rgba(139, 92, 246, 0.08) 0%, transparent 50%),
-                radial-gradient(circle at 40% 40%, rgba(255, 107, 107, 0.03) 0%, transparent 50%);
+            background: radial-gradient(circle at 50% 50%, rgba(0, 212, 255, 0.03) 0%, transparent 70%);
             pointer-events: none;
             z-index: -1;
             will-change: auto;
+            transform: translateZ(0);
+        }
         }
         
         .container {
@@ -1846,15 +1845,12 @@
             }
         }
 
-        /* Disable animations in header logo for smooth scrolling */
-        header .logo-cube,
-        header .central-diamond,
-        header .lobe {
+        /* Disable all animations for smooth scrolling performance */
+        .chat-toggle.pulse {
             animation: none !important;
         }
         
-        header .central-diamond,
-        header .lobe {
-            backdrop-filter: none !important;
-            -webkit-backdrop-filter: none !important;
+        /* Remove smooth scrolling to eliminate glitch */
+        html {
+            scroll-behavior: auto !important;
         }
