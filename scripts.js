@@ -22,7 +22,7 @@
             }
         },
         {
-            id: "cto-partnership", 
+            id: "cto-partnership",
             humanRole: "CTO",
             aiPartner: {
                 name: "Chief Architect AI",
@@ -32,14 +32,17 @@
             },
             synergy: {
                 speed: "8x",
-                outcomes: "92%", 
+                outcomes: "92%",
                 timeSaved: "12h/week"
             },
-            price: "$4,500/month"
+            price: "Request Augment",
+            isRequestPartner: true,
+            emailSubject: "CTO + Chief Architect AI Partnership Request",
+            emailBody: "Hi QALLOUS.AI team,%0D%0A%0D%0AI'm interested in the CTO + Chief Architect AI partnership.%0D%0A%0D%0AName: %0D%0ACompany: %0D%0ARole: CTO%0D%0A%0D%0AThank you!"
         },
         {
             id: "cmo-partnership",
-            humanRole: "CMO", 
+            humanRole: "CMO",
             aiPartner: {
                 name: "Marketing Genius AI",
                 qualifications: ["Marketing PhD", "15 Years Fortune 100 CMO", "Brand Strategy Expert"],
@@ -51,23 +54,29 @@
                 outcomes: "90%",
                 timeSaved: "10h/week"
             },
-            price: "$4,000/month"
+            price: "Request Augment",
+            isRequestPartner: true,
+            emailSubject: "CMO + Marketing Genius AI Partnership Request",
+            emailBody: "Hi QALLOUS.AI team,%0D%0A%0D%0AI'm interested in the CMO + Marketing Genius AI partnership.%0D%0A%0D%0AName: %0D%0ACompany: %0D%0ARole: CMO%0D%0A%0D%0AThank you!"
         },
         {
             id: "cfo-partnership",
             humanRole: "CFO",
             aiPartner: {
-                name: "Financial Strategist AI", 
+                name: "Financial Strategist AI",
                 qualifications: ["CPA, Harvard MBA", "18 Years Fortune 500 CFO", "M&A Specialist"],
                 avatar: "💰",
                 specialties: ["Financial Modeling", "Risk Assessment", "Investment Strategy"]
             },
             synergy: {
-                speed: "9x", 
+                speed: "9x",
                 outcomes: "94%",
                 timeSaved: "14h/week"
             },
-            price: "$4,500/month"
+            price: "Request Augment",
+            isRequestPartner: true,
+            emailSubject: "CFO + Financial Strategist AI Partnership Request",
+            emailBody: "Hi QALLOUS.AI team,%0D%0A%0D%0AI'm interested in the CFO + Financial Strategist AI partnership.%0D%0A%0D%0AName: %0D%0ACompany: %0D%0ARole: CFO%0D%0A%0D%0AThank you!"
         },
         {
             id: "legal-partnership",
@@ -80,10 +89,13 @@
             },
             synergy: {
                 speed: "12x",
-                outcomes: "98%", 
+                outcomes: "98%",
                 timeSaved: "18h/week"
             },
-            price: "$3,500/month"
+            price: "Request Augment",
+            isRequestPartner: true,
+            emailSubject: "Legal Counsel + Legal Expert AI Partnership Request",
+            emailBody: "Hi QALLOUS.AI team,%0D%0A%0D%0AI'm interested in the Legal Counsel + Legal Expert AI partnership.%0D%0A%0D%0AName: %0D%0ACompany: %0D%0ARole: Legal Counsel%0D%0A%0D%0AThank you!"
         },
         {
             id: "dev-partnership",
@@ -97,9 +109,12 @@
             synergy: {
                 speed: "15x",
                 outcomes: "96%",
-                timeSaved: "20h/week" 
+                timeSaved: "20h/week"
             },
-            price: "$3,000/month"
+            price: "Request Augment",
+            isRequestPartner: true,
+            emailSubject: "Lead Developer + Code Architect AI Partnership Request",
+            emailBody: "Hi QALLOUS.AI team,%0D%0A%0D%0AI'm interested in the Lead Developer + Code Architect AI partnership.%0D%0A%0D%0AName: %0D%0ACompany: %0D%0ARole: Lead Developer%0D%0A%0D%0AThank you!"
         },
         {
             id: "pm-partnership",
@@ -376,11 +391,16 @@
                             ${partnership.id === 'pm-partnership' ? '📱 Try AI PM Bot FREE' : '📞 Try Voice Agent FREE'}
                         </a>
                         <p style="text-align: center; margin-top: 0.5rem; font-size: 0.75rem; color: var(--gray);">Live Demo • FREE Access</p>
-                    ` : `
-                        <button class="btn btn-primary" onclick="openPartnershipModal('${partnership.id}')" style="width: 100%;">
-                            Augment My Role
-                        </button>
-                    `}
+           ` : partnership.isRequestPartner ? `
+               <a href="mailto:qudeuce@qallous.ai?subject=${encodeURIComponent(partnership.emailSubject)}&body=${encodeURIComponent(partnership.emailBody)}" class="btn btn-primary" style="width: 100%; background: linear-gradient(135deg, #00d4ff, #8b5cf6); font-size: 1.1rem; padding: 1rem; text-decoration: none;">
+                   📧 Request Augment
+               </a>
+               <p style="text-align: center; margin-top: 0.5rem; font-size: 0.75rem; color: var(--gray);">Email Request • Direct Contact</p>
+           ` : `
+               <button class="btn btn-primary" onclick="openPartnershipModal('${partnership.id}')" style="width: 100%;">
+                   Augment My Role
+               </button>
+           `}
                 </div>
             </div>
         `).join('');
