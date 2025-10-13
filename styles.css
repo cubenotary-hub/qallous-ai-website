@@ -688,7 +688,14 @@
             margin-bottom: 1.5rem;
         }
         
+        .tool-icon-inline {
+            display: none;
+        }
+        
         .tool-card h3 {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
             font-size: 1.6rem;
             margin-bottom: 1.2rem;
             color: var(--light);
