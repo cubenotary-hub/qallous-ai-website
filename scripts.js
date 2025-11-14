@@ -57,7 +57,7 @@
             },
             price: "FREE",
             isFree: true,
-            demoLink: "/demos/voice-agent-demo/",
+            demoLink: "https://voice.qallous.ai/",
             description: "AI-powered voice receptionist that handles calls, schedules appointments, and qualifies leads"
         },
         // REQUEST AUGMENT PARTNERSHIPS - Bottom Row (3 in a row)
@@ -351,7 +351,7 @@
                         </button>
                         <p style="text-align: center; margin-top: 0.5rem; font-size: 0.75rem; color: var(--gray);">Powered by Advanced RAG • 246 Knowledge Chunks</p>
                     ` : partnership.demoLink ? `
-                        <a href="${partnership.demoLink}" class="btn btn-primary" style="width: 100%; background: linear-gradient(135deg, #00ff88, #00d4ff); font-size: 1.1rem; padding: 1rem; text-decoration: none;">
+                        <a href="${partnership.demoLink}" target="_blank" class="btn btn-primary" style="width: 100%; background: linear-gradient(135deg, #00ff88, #00d4ff); font-size: 1.1rem; padding: 1rem; text-decoration: none;">
                             ${partnership.id === 'pm-partnership' ? '📱 Try AI PM Bot FREE' : '📞 Try Voice Agent FREE'}
                         </a>
                         <p style="text-align: center; margin-top: 0.5rem; font-size: 0.75rem; color: var(--gray);">Live Demo • FREE Access</p>
@@ -533,9 +533,24 @@
             // Health Check
             static async healthCheck() {
                 try {
-                    const response = await fetch(`${API_CONFIG.baseURL}${API_CONFIG.endpoints.health}`);
+                    // Add timeout to prevent hanging
+                    const controller = new AbortController();
+                    const timeoutId = setTimeout(() => controller.abort(), 5000); // 5 second timeout
+                    
+                    const response = await fetch(`${API_CONFIG.baseURL}${API_CONFIG.endpoints.health}`, {
+                        signal: controller.signal,
+                        method: 'GET',
+                        headers: { 'Content-Type': 'application/json' }
+                    });
+                    
+                    clearTimeout(timeoutId);
                     return response.ok;
-                } catch {
+                } catch (error) {
+                    if (error.name === 'AbortError') {
+                        console.warn('API health check timed out');
+                    } else {
+                        console.warn('API health check failed:', error.message);
+                    }
                     return false;
                 }
             }
@@ -554,6 +569,11 @@
             currentAPIStatus.lastChecked = new Date();
             currentAPIStatus.checkCount++;
 
+            // Update modal status if it exists
+            updateAPIStatusModal();
+            
+            // Note: apiStatusIcon, apiStatusText, apiStatusIndicator are optional
+            // They may not exist in the DOM if there's no header indicator
             const statusIcon = document.getElementById('apiStatusIcon');
             const statusText = document.getElementById('apiStatusText');
             const statusIndicator = document.getElementById('apiStatusIndicator');
@@ -643,12 +663,26 @@
 
         // Retry API Connection
         async function retryAPIConnection() {
-            const retryBtn = event.target;
+            const retryBtn = event.target.closest('button') || event.target;
             const originalText = retryBtn.innerHTML;
             retryBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Connecting...';
             retryBtn.disabled = true;
 
             try {
+                // Update modal to show checking state
+                const modalIcon = document.getElementById('modalApiStatusIcon');
+                const modalTitle = document.getElementById('modalApiStatusTitle');
+                const modalMessage = document.getElementById('modalApiStatusMessage');
+                const connectionStatus = document.getElementById('connectionStatus');
+                
+                if (modalIcon) modalIcon.textContent = '🟡';
+                if (modalTitle) modalTitle.textContent = 'Checking...';
+                if (modalMessage) modalMessage.textContent = 'Connecting to QALLOUS.AI backend...';
+                if (connectionStatus) {
+                    connectionStatus.textContent = 'Checking...';
+                    connectionStatus.style.color = 'var(--warning)';
+                }
+                
                 const isHealthy = await QallousAPI.healthCheck();
                 updateAPIStatus(isHealthy);
                 updateAPIStatusModal();
@@ -659,6 +693,9 @@
                     alert('⚠️ Could not connect to API. Please check if the backend is running.');
                 }
             } catch (error) {
+                console.error('Retry connection error:', error);
+                updateAPIStatus(false);
+                updateAPIStatusModal();
                 alert('❌ Connection failed: ' + error.message);
             } finally {
                 retryBtn.innerHTML = originalText;
@@ -681,14 +718,25 @@
         }
 
         // Check API health on load
-        QallousAPI.healthCheck().then(isHealthy => {
-            updateAPIStatus(isHealthy);
-            if (isHealthy) {
-                console.log('✅ Qallous.ai API Connected');
-            } else {
-                console.warn('⚠️ Qallous.ai API Unavailable - Using demo mode');
+        async function initializeAPIStatus() {
+            try {
+                const isHealthy = await QallousAPI.healthCheck();
+                updateAPIStatus(isHealthy);
+                updateAPIStatusModal(); // Ensure modal is updated
+                if (isHealthy) {
+                    console.log('✅ Qallous.ai API Connected');
+                } else {
+                    console.warn('⚠️ Qallous.ai API Unavailable - Using demo mode');
+                }
+            } catch (error) {
+                console.error('API health check error:', error);
+                updateAPIStatus(false);
+                updateAPIStatusModal();
             }
-        });
+        }
+        
+        // Initialize API status on page load
+        initializeAPIStatus();
 
         // Check authentication status
         checkAuthenticationOnLoad();
