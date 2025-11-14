@@ -96,8 +96,8 @@
         }
         
         .logo-icon {
-            width: 60px;
-            height: 60px;
+            width: 75px;
+            height: 75px;
             position: relative;
             margin-right: 15px;
             display: flex;
@@ -106,8 +106,8 @@
         }
         
         .logo-cube {
-            width: 40px;
-            height: 40px;
+            width: 50px;
+            height: 50px;
             position: relative;
             transform-style: preserve-3d;
             animation: rotateY 6s infinite linear;
@@ -118,8 +118,8 @@
             position: absolute;
             top: 50%;
             left: 50%;
-            width: 12px;
-            height: 12px;
+            width: 15px;
+            height: 15px;
             background: rgba(0, 212, 255, 0.8);
             border: 2px solid var(--accent);
             transform: translate(-50%, -50%) rotate(45deg);
@@ -131,8 +131,8 @@
         /* Four Lobes */
         .lobe {
             position: absolute;
-            width: 18px;
-            height: 18px;
+            width: 22px;
+            height: 22px;
             border: 2px solid var(--accent);
             background: rgba(0, 212, 255, 0.1);
             backdrop-filter: blur(10px);
@@ -174,7 +174,7 @@
         }
         
         .connector.horizontal {
-            width: 28px;
+            width: 35px;
             height: 2px;
             top: 50%;
             left: 50%;
@@ -184,7 +184,7 @@
         
         .connector.vertical {
             width: 2px;
-            height: 28px;
+            height: 35px;
             top: 50%;
             left: 50%;
             transform: translate(-50%, -50%);
@@ -219,26 +219,26 @@
 
         /* Footer Logo Styles (Purple Theme) */
         .footer-logo-icon {
-            width: 40px;
-            height: 40px;
+            width: 50px;
+            height: 50px;
         }
 
         .footer-logo-cube {
-            width: 28px;
-            height: 28px;
+            width: 35px;
+            height: 35px;
         }
 
         .footer-diamond {
-            width: 8px;
-            height: 8px;
+            width: 10px;
+            height: 10px;
             background: rgba(139, 92, 246, 0.8);
             border-color: var(--neon-purple);
             box-shadow: 0 0 10px rgba(139, 92, 246, 0.6);
         }
 
         .footer-lobe {
-            width: 12px;
-            height: 12px;
+            width: 15px;
+            height: 15px;
             border-color: var(--neon-purple);
             background: rgba(139, 92, 246, 0.1);
             box-shadow: 0 0 8px rgba(139, 92, 246, 0.4);
@@ -250,11 +250,11 @@
         }
 
         .footer-connector.horizontal {
-            width: 20px;
+            width: 25px;
         }
 
         .footer-connector.vertical {
-            height: 20px;
+            height: 25px;
         }
 
         .footer-lobe.top {
