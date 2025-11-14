@@ -57,7 +57,7 @@
             },
             price: "FREE",
             isFree: true,
-            demoLink: "https://qallous.ai/",
+            demoLink: "https://voice.qallous.ai/",
             description: "AI-powered voice receptionist that handles calls, schedules appointments, and qualifies leads"
         },
         // REQUEST AUGMENT PARTNERSHIPS - Bottom Row (3 in a row)
