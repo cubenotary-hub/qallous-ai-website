@@ -1085,7 +1085,7 @@
 
         function openSignupModal() {
             // Redirect to voice.qallous.ai signup instead of opening modal
-            window.location.href = 'https://voice.qallous.ai/signup';
+            window.location.href = 'https://voice.qallous.ai/';
             return;
         }
 
@@ -1414,7 +1414,7 @@
         document.getElementById('signupForm').addEventListener('submit', async function(e) {
             e.preventDefault();
             // Redirect to voice.qallous.ai signup instead of local form submission
-            window.location.href = 'https://voice.qallous.ai/signup';
+            window.location.href = 'https://voice.qallous.ai/';
             return;
             
             // Archived: Original form submission code below
