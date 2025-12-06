@@ -378,6 +378,11 @@
             }
         }
         
+        @keyframes glow {
+            0%, 100% { transform: scale(1); opacity: 0.3; }
+            50% { transform: scale(1.2); opacity: 0.5; }
+        }
+        
         @keyframes lobePulse {
             0%, 100% { opacity: 0.6; }
             50% { opacity: 0.9; }
