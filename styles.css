@@ -598,32 +598,40 @@
         
         /* Services Section */
         .section {
-            padding: 6rem 0;
+            padding: var(--space-3xl) 0;
+            position: relative;
         }
         
         .section-title {
             text-align: center;
-            margin-bottom: 4rem;
+            margin-bottom: var(--space-3xl);
         }
         
         .section-title h2 {
-            font-size: 2.8rem;
+            font-size: clamp(2rem, 4vw, 3rem);
             color: var(--light);
-            margin-bottom: 1.5rem;
-            font-weight: 700;
+            margin-bottom: var(--space-lg);
+            font-weight: 800;
+            letter-spacing: -0.02em;
+            background: linear-gradient(180deg, var(--light) 0%, var(--gray) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
         }
         
         .section-title p {
             color: var(--gray);
             max-width: 700px;
             margin: 0 auto;
-            font-size: 1.2rem;
+            font-size: clamp(1rem, 1.5vw, 1.2rem);
+            line-height: 1.7;
         }
         
-        .services-grid {
+        .services-grid,
+        .features-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 2rem;
+            gap: var(--space-xl);
         }
         
         .service-card {
