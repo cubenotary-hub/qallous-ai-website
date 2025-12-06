@@ -1413,6 +1413,12 @@
 
         document.getElementById('signupForm').addEventListener('submit', async function(e) {
             e.preventDefault();
+            // Redirect to voice.qallous.ai signup instead of local form submission
+            window.location.href = 'https://voice.qallous.ai/signup';
+            return;
+            
+            // Archived: Original form submission code below
+            /*
             const name = document.getElementById('signupName').value;
             const email = document.getElementById('signupEmail').value;
             const company = document.getElementById('signupCompany').value;
