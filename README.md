@@ -1,117 +1,115 @@
-# QALLOUS.AI - AI-Augmented Partnership Platform
+# QALLOUS.AI - Voice AI Receptionist Marketing Website
 
 ## 🚀 Overview
 
-QALLOUS.AI connects professionals with AI colleagues that have verified Fortune 500 experience. Experience the power of human-AI partnerships delivering 10x faster results.
+QALLOUS.AI is a marketing website for our Voice AI Receptionist platform (`voice.qallous.ai`). The site drives signups and educates visitors about our AI-powered phone answering service that understands your business and automates your workflows.
 
 ## ✨ Features
 
-### AI-Augmented Professional Partnerships
-- **CEO + Strategic Advisor AI** - Harvard MBA, 20+ Years Fortune 500 CEO experience
-- **CTO + Chief Architect AI** - CS PhD Stanford, 12 Years Google Principal Architect
-- **CMO + Marketing Genius AI** - Marketing PhD, 15 Years Fortune 100 CMO
-- **CFO + Financial Strategist AI** - CPA Harvard MBA, 18 Years Fortune 500 CFO
-- **Legal Counsel + Legal Expert AI** - JD Yale Law, Supreme Court Clerk
-- **Lead Developer + Code Architect AI** - CS PhD MIT, 10 Years Principal Engineer
+### Voice AI Receptionist Capabilities
+- **24/7 Availability** - Never miss a call again
+- **Custom Workflow Automation** - Every call triggers YOUR specific workflows
+- **Business-Specific AI Training** - Trained on your SOPs, terminology, and brand voice
+- **GHL/CRM Integration** - Seamlessly integrates with GoHighLevel, CRM, calendar, email
+- **Industry-Ready Templates** - Pre-built workflows for healthcare, legal, real estate, restaurants, e-commerce
+- **Call Analytics & Insights** - Track call volume, response times, conversion rates
 
-### Interactive Features
-- **Partnership Quiz** - 5-step intelligent matching system
-- **Dynamic Partnership Cards** - Verified qualifications and synergy metrics
-- **AI Chat Assistant** - Partnership-focused receptionist
-- **Client Dashboard** - Project management and team overview
+### Website Features
+- **Conversion-Focused Design** - Optimized for signups to voice.qallous.ai
+- **Industry Pages** - Solutions for healthcare, legal, real estate, restaurants, e-commerce
+- **Case Studies** - Real success stories from businesses using our voice AI
+- **Pricing Page** - Transparent pricing tiers (Starter, Professional, Enterprise)
+- **FAQ** - Comprehensive answers about voice AI receptionist
 
-## 🎯 Performance Metrics
-- **10x-15x** faster execution
-- **90-98%** better outcomes  
-- **10-20h/week** time saved
+## 🎯 How It Works
+
+1. **Systems Audit** - We map your workflows, processes, and integrations
+2. **Custom Automation Design** - We design automations that match YOUR business
+3. **AI Training** - We train the AI on your business specifics
+4. **Go Live** - Every call triggers your custom workflows
 
 ## 💰 Pricing
-- Executive Partnerships: $4,000-$5,000/month
-- Professional Partnerships: $3,000-$3,500/month
+
+- **Starter**: Basic receptionist + 1 automation
+- **Professional**: Advanced features + systems audit + 5 automations
+- **Enterprise**: Custom pricing - Unlimited automations + dedicated support
+
+Contact us for detailed pricing information. See [pricing.html](pricing.html) for plan details.
 
 ## 🛠️ Tech Stack
 - Pure HTML5, CSS3, JavaScript (ES6+)
 - No framework dependencies
 - Fully responsive design
-- API-ready with demo mode fallback
+- SEO optimized with schema markup
+- Conversion-focused CTAs linking to voice.qallous.ai
 
 ## 📦 Deployment
 
 ### Quick Start
 ```bash
 # Clone the repository
-git clone https://github.com/cubenotary/qallous-ai-website.git
+git clone https://github.com/cubenotary-hub/qallous-ai-website.git
 
 # Open in browser
 open index.html
 ```
 
-### GitHub Pages
-This site is configured for instant deployment via GitHub Pages. Simply enable it in repository settings.
+### GitHub Pages / Vercel
+This site is configured for instant deployment via GitHub Pages or Vercel. Simply enable it in repository settings.
 
 ### Custom Hosting
-Upload `index.html` to any web hosting service - no build process required.
-
-## 🔧 Configuration
-
-### API Integration
-The site supports backend API integration:
-- Default endpoint: `http://localhost:8000`
-- Automatic demo mode fallback
-- JWT authentication ready
-- Edit `API_CONFIG` in the JavaScript section
-
-### Customize Partnerships
-Edit partnership data starting at line 1417 in `index.html`:
-```javascript
-const PARTNERSHIPS = [
-  {
-    id: "ceo-partnership",
-    humanRole: "CEO",
-    aiPartner: {
-      name: "Strategic Advisor AI",
-      qualifications: [...],
-      ...
-    }
-  },
-  ...
-];
-```
+Upload all files to any web hosting service - no build process required.
 
 ## 📊 File Structure
 ```
 qallous-ai-website/
-├── index.html          # Main website (135 KB)
+├── index.html          # Homepage - Voice AI receptionist marketing
+├── pricing.html        # Pricing page with three tiers
+├── industries.html     # Industry-specific solutions
+├── case-studies.html   # Success stories
+├── faq.html           # Frequently asked questions
+├── scripts.js         # JavaScript functionality
+├── styles.css         # Styling
+├── ghl-api.js         # GoHighLevel API integration
 └── README.md          # This file
 ```
 
-## 🎨 Features Overview
+## 🎨 Website Features
 
-### Partnership System
-- Dynamic rendering of 6 professional partnerships
-- Verified AI colleague qualifications
-- Real-time synergy metrics
-- Interactive selection and matching
+### Homepage
+- Hero section with clear value proposition
+- Voice AI features showcase
+- How It Works process explanation
+- Value propositions (custom workflows, automation, etc.)
+- Call-to-action buttons linking to voice.qallous.ai/signup
 
-### Quiz System
-- 5-step intelligent matching
-- Role-based recommendations
-- Progress tracking
-- Results with actionable CTAs
+### Pages
+- **Pricing** - Three-tier pricing structure
+- **Industries** - Solutions for healthcare, legal, real estate, restaurants, e-commerce
+- **Case Studies** - Real success stories with metrics
+- **FAQ** - Comprehensive voice AI receptionist questions
 
 ### Design
 - Modern dark theme with neon accents
 - Smooth animations and transitions
 - Fully responsive (desktop, tablet, mobile)
-- Accessibility-focused
+- SEO optimized with meta tags and schema markup
+- Conversion-focused with strategic CTA placement
+
+## 🔗 Links
+
+- **Marketing Website**: https://qallous.ai (this repository)
+- **Product Platform**: https://voice.qallous.ai
+- **Signup**: https://voice.qallous.ai/signup
+- **Book Systems Audit**: https://voice.qallous.ai/book-audit
 
 ## 📝 License
 © 2024 QALLOUS.AI - All rights reserved
 
 ## 🤝 Contributing
-This is a private project. For inquiries, contact the development team.
+This is a private project. For inquiries, contact qudeuce@qallous.ai
 
 ---
 
-**Built with ❤️ for the future of augmented work**
+**Built with ❤️ for small businesses who need intelligent automation**
 

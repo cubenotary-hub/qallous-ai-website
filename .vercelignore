@@ -1,0 +1,19 @@
+# Vercel ignore file
+node_modules/
+.git/
+.vercel/
+*.log
+.DS_Store
+.env
+.env.local
+
+# Development files
+ceo/
+demos/
+*.md
+!README.md
+
+# Temporary files
+cors_fix.txt
+qallous-ai-receptionist
+

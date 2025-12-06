@@ -1,4 +1,6 @@
-    // Partnership data - will be moved to external config later
+    // ========== ARCHIVED: Partnership data (kept for reference) ==========
+    // Partnership data - Archived as we pivot to Voice AI Receptionist focus
+    /*
     const PARTNERSHIPS = [
         // WORKING BOTS - Top Row (3 in a row)
         {
@@ -285,7 +287,9 @@
         container.style.display = 'block';
     }
 
-    // Render partnership cards
+    // ========== ARCHIVED: Partnership card rendering ==========
+    // Render partnership cards - Archived as we pivot to Voice AI Receptionist
+    /*
     function renderPartnershipCards() {
         const grid = document.getElementById('partnershipsGrid');
         if (!grid) return;
@@ -370,11 +374,68 @@
         `).join('');
     }
 
-    // Initialize on load - will be properly integrated later
+    // Initialize on load - Archived partnership rendering
+    /*
     if (document.readyState === 'loading') {
         document.addEventListener('DOMContentLoaded', renderPartnershipCards);
     } else {
         renderPartnershipCards();
+    }
+    */
+    
+    // ========== VOICE AI FEATURES RENDERING ==========
+    const VOICE_AI_FEATURES = [
+        {
+            icon: "📞",
+            title: "24/7 Availability",
+            description: "Never miss a call again. Your AI receptionist works around the clock to handle customer inquiries, even outside business hours."
+        },
+        {
+            icon: "⚙️",
+            title: "Custom Workflow Automation",
+            description: "Every call triggers YOUR specific workflows. We audit your business and build automations that match how you operate."
+        },
+        {
+            icon: "🎓",
+            title: "Business-Specific AI Training",
+            description: "Trained on your SOPs, terminology, and brand voice. The AI understands YOUR business, not just generic customer service."
+        },
+        {
+            icon: "🔌",
+            title: "GHL/CRM Integration",
+            description: "Seamlessly integrates with GoHighLevel, your CRM, calendar, email, and other tools. No disruption to your current workflows."
+        },
+        {
+            icon: "🏢",
+            title: "Industry-Ready Templates",
+            description: "Pre-built workflows for healthcare, legal, real estate, restaurants, and more. Customize to fit your exact needs."
+        },
+        {
+            icon: "📊",
+            title: "Call Analytics & Insights",
+            description: "Track call volume, response times, conversion rates, and more. Get insights to optimize your phone operations."
+        }
+    ];
+    
+    // Render voice AI features
+    function renderVoiceAIFeatures() {
+        const grid = document.getElementById('voiceAIFeaturesGrid');
+        if (!grid) return;
+        
+        grid.innerHTML = VOICE_AI_FEATURES.map(feature => `
+            <div class="feature-card" style="background: rgba(255, 255, 255, 0.03); border: 1px solid rgba(0, 212, 255, 0.2); border-radius: 20px; padding: 2rem; transition: all 0.3s;">
+                <div style="font-size: 3rem; margin-bottom: 1rem; text-align: center;">${feature.icon}</div>
+                <h3 style="color: var(--neon-blue); margin-bottom: 1rem; font-size: 1.5rem; text-align: center;">${feature.title}</h3>
+                <p style="color: var(--gray); line-height: 1.6; text-align: center;">${feature.description}</p>
+            </div>
+        `).join('');
+    }
+    
+    // Initialize voice AI features on load
+    if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', renderVoiceAIFeatures);
+    } else {
+        renderVoiceAIFeatures();
     }
         // ============================================
         // QALLOUS.AI - API Integration Configuration
@@ -1023,7 +1084,9 @@
         }
 
         function openSignupModal() {
-            document.getElementById('signupModal').style.display = 'block';
+            // Redirect to voice.qallous.ai signup instead of opening modal
+            window.location.href = 'https://voice.qallous.ai/signup';
+            return;
         }
 
         function openDemoModal() {
@@ -1676,9 +1739,16 @@
         // Initialize partnership features
         document.addEventListener('DOMContentLoaded', function() {
             // Ensure partnership cards are rendered
-            if (typeof renderPartnershipCards === 'function') {
-                console.log('✨ Initializing Partnership Features');
-                renderPartnershipCards();
+            // Archived: Partnership cards rendering
+            // if (typeof renderPartnershipCards === 'function') {
+            //     console.log('✨ Initializing Partnership Features');
+            //     renderPartnershipCards();
+            // }
+            
+            // Render voice AI features instead
+            if (typeof renderVoiceAIFeatures === 'function') {
+                console.log('✨ Initializing Voice AI Features');
+                renderVoiceAIFeatures();
             }
             
             // Update any existing service references in the chat
