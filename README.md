@@ -81,7 +81,7 @@ qallous-ai-website/
 - Voice AI features showcase
 - How It Works process explanation
 - Value propositions (custom workflows, automation, etc.)
-- Call-to-action buttons linking to voice.qallous.ai/signup
+- Call-to-action buttons linking to voice.qallous.ai/
 
 ### Pages
 - **Pricing** - Three-tier pricing structure
