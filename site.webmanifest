@@ -1,0 +1,29 @@
+{
+  "name": "QALLOUS.AI - AI Business Solutions",
+  "short_name": "QALLOUS.AI",
+  "description": "AI Business Solutions, Voice Receptionist & Consulting Services",
+  "icons": [
+    {
+      "src": "/assets/images/favicon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "/assets/images/android-chrome-192x192.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "/assets/images/android-chrome-512x512.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ],
+  "theme_color": "#00d4ff",
+  "background_color": "#0a0a0f",
+  "display": "standalone",
+  "start_url": "/",
+  "scope": "/"
+}
+
