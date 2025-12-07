@@ -932,24 +932,27 @@
             ]
         };
 
-        // Chat functionality
-        chatToggle.addEventListener('click', () => {
-            isChatOpen = !isChatOpen;
-            chatWindow.classList.toggle('active', isChatOpen);
-            chatToggle.classList.toggle('pulse', !isChatOpen);
-            
-            if (isChatOpen) {
-                chatInput.focus();
-            }
-        });
+        // Chat functionality - Only attach if chat elements exist
+        if (chatToggle && chatWindow && chatClose && chatInput) {
+            chatToggle.addEventListener('click', () => {
+                isChatOpen = !isChatOpen;
+                chatWindow.classList.toggle('active', isChatOpen);
+                chatToggle.classList.toggle('pulse', !isChatOpen);
+                
+                if (isChatOpen && chatInput) {
+                    chatInput.focus();
+                }
+            });
 
-        chatClose.addEventListener('click', () => {
-            isChatOpen = false;
-            chatWindow.classList.remove('active');
-            chatToggle.classList.add('pulse');
-        });
+            chatClose.addEventListener('click', () => {
+                isChatOpen = false;
+                chatWindow.classList.remove('active');
+                chatToggle.classList.add('pulse');
+            });
+        }
 
         function addMessage(text, isUser = false) {
+            if (!chatMessages) return;
             const messageDiv = document.createElement('div');
             messageDiv.className = `message ${isUser ? 'user' : 'bot'}`;
             // Allow HTML in bot messages for links
@@ -963,11 +966,13 @@
         }
 
         function showTyping() {
+            if (!typingIndicator || !chatMessages) return;
             typingIndicator.style.display = 'flex';
             chatMessages.scrollTop = chatMessages.scrollHeight;
         }
 
         function hideTyping() {
+            if (!typingIndicator) return;
             typingIndicator.style.display = 'none';
         }
 
@@ -1064,23 +1069,28 @@
             }
         }
 
-        chatSend.addEventListener('click', sendMessage);
-        chatInput.addEventListener('keypress', (e) => {
-            if (e.key === 'Enter') {
-                sendMessage();
-            }
-        });
+        if (chatSend && chatInput) {
+            chatSend.addEventListener('click', sendMessage);
+            chatInput.addEventListener('keypress', (e) => {
+                if (e.key === 'Enter') {
+                    sendMessage();
+                }
+            });
+        }
 
         // Auto-open chat after 10 seconds
-        setTimeout(() => {
-            if (!isChatOpen) {
-                chatToggle.classList.add('pulse');
-            }
-        }, 10000);
+        if (chatToggle) {
+            setTimeout(() => {
+                if (!isChatOpen) {
+                    chatToggle.classList.add('pulse');
+                }
+            }, 10000);
+        }
 
         // Modal Functions
         function openLoginModal() {
-            document.getElementById('loginModal').style.display = 'block';
+            const modal = document.getElementById('loginModal');
+            if (modal) modal.style.display = 'block';
         }
 
         function openSignupModal() {
@@ -1090,16 +1100,20 @@
         }
 
         function openDemoModal() {
-            document.getElementById('demoModal').style.display = 'block';
+            const modal = document.getElementById('demoModal');
+            if (modal) modal.style.display = 'block';
         }
 
         function openProjectModal(serviceName) {
-            document.getElementById('projectService').value = serviceName;
-            document.getElementById('projectModal').style.display = 'block';
+            const projectService = document.getElementById('projectService');
+            const modal = document.getElementById('projectModal');
+            if (projectService) projectService.value = serviceName;
+            if (modal) modal.style.display = 'block';
         }
 
         function closeModal(modalId) {
-            document.getElementById(modalId).style.display = 'none';
+            const modal = document.getElementById(modalId);
+            if (modal) modal.style.display = 'none';
         }
 
         function switchToSignup() {
@@ -1355,9 +1369,11 @@
             document.getElementById('demoService').value = demoName;
         }
 
-        // Form Submissions
-        document.getElementById('loginForm').addEventListener('submit', async function(e) {
-            e.preventDefault();
+        // Form Submissions - Only attach if forms exist
+        const loginForm = document.getElementById('loginForm');
+        if (loginForm) {
+            loginForm.addEventListener('submit', async function(e) {
+                e.preventDefault();
             const email = document.getElementById('loginEmail').value;
             const password = document.getElementById('loginPassword').value;
             
@@ -1409,9 +1425,12 @@
                 submitBtn.textContent = 'Login';
                 submitBtn.disabled = false;
             }
-        });
+            });
+        }
 
-        document.getElementById('signupForm').addEventListener('submit', async function(e) {
+        const signupForm = document.getElementById('signupForm');
+        if (signupForm) {
+            signupForm.addEventListener('submit', async function(e) {
             e.preventDefault();
             // Redirect to voice.qallous.ai signup instead of local form submission
             window.location.href = 'https://voice.qallous.ai/';
@@ -1502,9 +1521,13 @@
                 submitBtn.textContent = 'Create Account';
                 submitBtn.disabled = false;
             }
-        });
+            */
+            });
+        }
 
-        document.getElementById('demoForm').addEventListener('submit', async function(e) {
+        const demoForm = document.getElementById('demoForm');
+        if (demoForm) {
+            demoForm.addEventListener('submit', async function(e) {
             e.preventDefault();
             const name = document.getElementById('demoName').value;
             const email = document.getElementById('demoEmail').value;
@@ -1541,9 +1564,12 @@
             } else {
                 alert('Please fill in all required fields.');
             }
-        });
+            });
+        }
 
-        document.getElementById('projectForm').addEventListener('submit', async function(e) {
+        const projectForm = document.getElementById('projectForm');
+        if (projectForm) {
+            projectForm.addEventListener('submit', async function(e) {
             e.preventDefault();
             const name = document.getElementById('projectName').value;
             const email = document.getElementById('projectEmail').value;
@@ -1584,7 +1610,8 @@
             } else {
                 alert('Please fill in all required fields.');
             }
-        });
+            });
+        }
 
         // Client Dashboard Functions
         async function loadDashboardData() {
