@@ -808,7 +808,7 @@
             updateAPIStatus(isHealthy);
         }, 30000);
 
-        // Simple smooth scrolling for navigation links
+        // Optimized smooth scrolling for navigation links using requestAnimationFrame
         document.querySelectorAll('a[href^="#"]').forEach(anchor => {
             anchor.addEventListener('click', function (e) {
                 e.preventDefault();
@@ -818,12 +818,36 @@
                 
                 const targetElement = document.querySelector(targetId);
                 if (targetElement) {
-                    window.scrollTo({
-                        top: targetElement.offsetTop - 150,
-                        behavior: 'smooth'
-                    });
+                    // Use getBoundingClientRect for more accurate positioning
+                    const headerHeight = 150;
+                    const targetPosition = targetElement.getBoundingClientRect().top + window.pageYOffset - headerHeight;
+                    
+                    // Smooth scroll with requestAnimationFrame for better performance
+                    const startPosition = window.pageYOffset;
+                    const distance = targetPosition - startPosition;
+                    const duration = 600; // milliseconds
+                    let start = null;
+                    
+                    function smoothScroll(timestamp) {
+                        if (!start) start = timestamp;
+                        const progress = timestamp - start;
+                        const percentage = Math.min(progress / duration, 1);
+                        
+                        // Easing function for smooth deceleration
+                        const ease = percentage < 0.5 
+                            ? 2 * percentage * percentage 
+                            : 1 - Math.pow(-2 * percentage + 2, 2) / 2;
+                        
+                        window.scrollTo(0, startPosition + distance * ease);
+                        
+                        if (progress < duration) {
+                            requestAnimationFrame(smoothScroll);
+                        }
+                    }
+                    
+                    requestAnimationFrame(smoothScroll);
                 }
-            });
+            }, { passive: false });
         });
 
         // Removed scroll event listener - static header for better performance

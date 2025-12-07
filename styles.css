@@ -75,6 +75,13 @@
         html {
             scroll-behavior: smooth;
             -webkit-overflow-scrolling: touch;
+            scroll-padding-top: 150px;
+        }
+        
+        /* Optimize scroll performance */
+        * {
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
         }
         
         body {
@@ -86,6 +93,8 @@
             position: relative;
             -webkit-font-smoothing: antialiased;
             -moz-osx-font-smoothing: grayscale;
+            /* Optimize scroll performance */
+            overscroll-behavior: contain;
         }
         
         @media (min-width: 768px) {
@@ -137,8 +146,7 @@
             border-bottom: 1px solid rgba(0, 212, 255, 0.3);
             box-shadow: 0 8px 32px rgba(0, 212, 255, 0.2), 0 0 0 1px rgba(255, 255, 255, 0.05) inset;
             transition: all var(--transition-base);
-            transform: translateZ(0);
-            will-change: auto;
+            /* Removed transform: translateZ(0) and will-change for better scroll performance */
         }
         
         header:hover {
@@ -739,20 +747,24 @@
             }
         }
         
-        /* Performance optimizations */
+        /* Performance optimizations for smooth scrolling */
         html {
             scroll-behavior: smooth;
         }
         
-        .hero h1, .service-card, .btn, .chat-toggle, .section-title, .hero-content {
-            transform: translateZ(0);
-            backface-visibility: hidden;
+        /* Only apply hardware acceleration where needed - not everywhere */
+        .hero h1, .service-card, .btn, .chat-toggle {
+            will-change: auto;
         }
         
-        /* Optimize scrolling performance */
+        /* Optimize scrolling performance - use containment sparingly */
         section {
-            contain: layout style paint;
-            transform: translateZ(0);
+            contain: layout style;
+        }
+        
+        /* Remove unnecessary transforms that cause repaints */
+        .section-title, .hero-content {
+            /* Removed transform: translateZ(0) - causes unnecessary repaints */
         }
         
         /* Reduce animations on low-end devices */
@@ -779,10 +791,16 @@
         }
         
         /* Performance optimizations for scrolling */
-        /* Optimize transforms and animations */
-        .logo-cube, .hero::before, body::before {
+        /* Only apply hardware acceleration to animated elements */
+        .logo-cube {
             transform: translateZ(0);
             backface-visibility: hidden;
+            will-change: transform;
+        }
+        
+        /* Remove hardware acceleration from pseudo-elements for better scroll performance */
+        .hero::before, body::before {
+            /* Removed transform: translateZ(0) - causes scroll stuttering */
         }
         
         /* Reduce animation complexity on mobile */
@@ -2139,6 +2157,17 @@
                 padding-top: 240px; /* Increased padding to prevent header overlap on mobile */
                 padding-bottom: 4rem;
                 min-height: auto;
+            }
+            
+            /* Specific fix for pricing page hero on mobile */
+            .pricing-hero {
+                padding-top: calc(200px + 4rem) !important;
+            }
+            
+            @media (max-width: 480px) {
+                .pricing-hero {
+                    padding-top: calc(220px + 4rem) !important;
+                }
             }
             
             /* Fix section padding on mobile for pages with fixed header */
