@@ -1897,6 +1897,42 @@
             to { opacity: 1; transform: translateY(0); }
         }
 
+        /* Value Propositions Grid - Compact 4 Column Layout */
+        .value-props-grid {
+            display: grid;
+            grid-template-columns: repeat(4, minmax(0, 1fr));
+            gap: 1rem;
+            margin-top: 3rem;
+            grid-auto-flow: row;
+            width: 100%;
+        }
+        
+        .value-prop-card {
+            text-align: center;
+            padding: 1rem;
+            min-width: 0;
+            max-width: 100%;
+            overflow-wrap: break-word;
+        }
+        
+        .value-prop-icon {
+            font-size: 2rem;
+            margin-bottom: 0.5rem;
+        }
+        
+        .value-prop-card h3 {
+            color: var(--light);
+            margin-bottom: 0.5rem;
+            font-size: 1.1rem;
+            font-weight: 600;
+        }
+        
+        .value-prop-card p {
+            color: var(--gray);
+            font-size: 0.85rem;
+            line-height: 1.4;
+        }
+
         /* Responsive Design */
         @media (max-width: 968px) {
             .process-steps {
@@ -1910,6 +1946,10 @@
             
             .hero h1 {
                 font-size: 2.8rem;
+            }
+            
+            .value-props-grid {
+                grid-template-columns: repeat(2, minmax(0, 1fr));
             }
         }
         
@@ -1938,6 +1978,11 @@
             
             .section-title h2 {
                 font-size: 2.2rem;
+            }
+            
+            .value-props-grid {
+                grid-template-columns: 1fr;
+                gap: 2rem;
             }
         }
 
