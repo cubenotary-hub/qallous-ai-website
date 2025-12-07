@@ -876,29 +876,29 @@
         // Enhanced AI Responses with FAQ and Case Study knowledge
         const aiResponses = {
             greeting: [
-                "🤖 Hello! I'm your AI Receptionist from QALLOUS.AI! Ready to experience the future of work with our AI-augmented workforce?",
-                "🚀 Welcome! I'm here to help you find the perfect AI partnership. We've helped companies achieve 10-24x faster results. What brings you here today?",
-                "👋 Hi there! I can answer questions about our partnerships, show you case studies, or connect you with our team at qudeuce@qallous.ai. How can I help?"
+                "🤖 Hello! I'm your AI Receptionist from QALLOUS.AI! I can help you learn about our Voice AI Receptionist, AI business solutions, workflow automation, and more. How can I assist you today?",
+                "🚀 Welcome! I'm here to help you discover how our Voice AI Receptionist can transform your phone operations. We help businesses automate calls 24/7, capture leads, and integrate with their systems. What would you like to know?",
+                "👋 Hi there! I can answer questions about our Voice AI Receptionist, AI business solutions, case studies, pricing, or connect you with our team. How can I help you today?"
             ],
             services: [
-                "We offer 6 AI-augmented partnerships: CEO+Sage AI, Product Manager+AI Bot, Business Owner+Voice Agent, CTO+Architect AI, CMO+Marketing AI, and CFO+Finance AI. 🎉 3 are FREE! Which interests you?",
-                "Our partnerships combine human expertise with Fortune 500-level AI colleagues. Check out our <a href='case-studies.html' style='color: var(--neon-blue);'>Case Studies</a> to see real results: $8.5M raised, 50K users scaled, 97% satisfaction achieved!",
-                "We create powerful human-AI duos! 🎉 FREE: Sage CEO Advisor (30+ years), AI PM Bot (mobile-first), Voice Receptionist (24/7). Premium: CTO, CMO, CFO partnerships. Want to see our <a href='case-studies.html' style='color: var(--neon-blue);'>success stories</a>?"
+                "QALLOUS.AI offers comprehensive AI business solutions: Voice AI Receptionist (our featured product), system audits, workflow automation, custom software development, RAG knowledge bases, and AI consulting. The Voice AI Receptionist handles calls 24/7, captures leads, and automates workflows. Which service interests you?",
+                "Our Voice AI Receptionist is an intelligent phone system that never misses a call! It features inbound and outbound capabilities with customizable sales personalities, multi-language support, and seamless integrations with your CRM and business tools. Check out our <a href='case-studies.html' style='color: var(--neon-blue);'>Case Studies</a> to see real results!",
+                "We provide AI business solutions including Voice AI Receptionist, system audits, workflow automation, software development, and AI consulting. Our Voice AI Receptionist is available 24/7, handles calls with custom workflows, and integrates with your existing systems. Want to learn more? Check our <a href='case-studies.html' style='color: var(--neon-blue);'>case studies</a> or <a href='book-audit.html' style='color: var(--neon-blue);'>book a free systems audit</a>!"
             ],
             pricing: [
-                "🎉 TRIPLE FREE OFFER: CEO+Sage AI, AI PM Bot, or Voice Receptionist - completely FREE! Premium partnerships from $3,000-5,000/month. Check our <a href='faq.html' style='color: var(--neon-blue);'>FAQ</a> for details!",
-                "FREE partnerships available now! Try before you buy. For pricing details and custom quotes, visit our <a href='faq.html' style='color: var(--neon-blue);'>FAQ page</a> or email qudeuce@qallous.ai",
-                "Get started FREE with Sage AI, AI PM Bot, or Voice Receptionist! Other partnerships: CTO ($3,500/mo), CMO ($3,500/mo), CFO ($4,000/mo). Questions? See <a href='faq.html' style='color: var(--neon-blue);'>FAQ</a>"
+                "We offer flexible pricing for our Voice AI Receptionist and custom AI business solutions. Start with a <a href='https://voice.qallous.ai/' style='color: var(--neon-blue);'>free trial</a> or <a href='book-audit.html' style='color: var(--neon-blue);'>book a free systems audit</a> to see how we'd automate your workflows. For detailed pricing information, check our <a href='pricing.html' style='color: var(--neon-blue);'>Pricing page</a> or <a href='faq.html' style='color: var(--neon-blue);'>FAQ</a>!",
+                "Pricing varies based on your needs and custom requirements. We offer a <a href='https://voice.qallous.ai/' style='color: var(--neon-blue);'>free trial</a> to get started. For detailed pricing and custom quotes for AI business solutions, visit our <a href='pricing.html' style='color: var(--neon-blue);'>Pricing page</a> or email qudeuce@qallous.ai",
+                "Start with a <a href='https://voice.qallous.ai/' style='color: var(--neon-blue);'>free trial</a> of our Voice AI Receptionist! For custom AI solutions, workflow automation, and consulting services, pricing is tailored to your needs. Check our <a href='pricing.html' style='color: var(--neon-blue);'>Pricing page</a> or <a href='faq.html' style='color: var(--neon-blue);'>FAQ</a> for more details!"
             ],
             contact: [
-                "📧 Email us directly at <a href='mailto:qudeuce@qallous.ai' style='color: var(--neon-blue);'>qudeuce@qallous.ai</a> for partnership requests, demos, or questions. We typically respond within 2 hours!",
-                "Want to get started? Email <a href='mailto:qudeuce@qallous.ai' style='color: var(--neon-blue);'>qudeuce@qallous.ai</a> or take our 2-minute matching quiz to find your perfect AI partner!",
-                "Ready to transform your business? Contact qudeuce@qallous.ai for demos and consultations. Or explore our <a href='case-studies.html' style='color: var(--neon-blue);'>case studies</a> first!"
+                "📧 Email us directly at <a href='mailto:qudeuce@qallous.ai' style='color: var(--neon-blue);'>qudeuce@qallous.ai</a> for questions, demos, or to <a href='book-audit.html' style='color: var(--neon-blue);'>book a free systems audit</a>. We typically respond within 2 hours!",
+                "Want to get started? <a href='book-audit.html' style='color: var(--neon-blue);'>Book a free systems audit</a> or email <a href='mailto:qudeuce@qallous.ai' style='color: var(--neon-blue);'>qudeuce@qallous.ai</a> to discuss your AI business solutions needs!",
+                "Ready to transform your business? <a href='book-audit.html' style='color: var(--neon-blue);'>Book a free systems audit</a> or contact qudeuce@qallous.ai for consultations. Or explore our <a href='case-studies.html' style='color: var(--neon-blue);'>case studies</a> first!"
             ],
             faq: [
-                "Great question! I'd recommend checking our comprehensive <a href='faq.html' style='color: var(--neon-blue);'>FAQ page</a> - it covers partnerships, pricing, security, getting started, and more! Or email qudeuce@qallous.ai",
-                "You can find detailed answers in our <a href='faq.html' style='color: var(--neon-blue);'>FAQ section</a>! Topics include: What is QALLOUS.AI, partnerships offered, pricing, security (GDPR/HIPAA/SOC2), and how to start.",
-                "Check out our <a href='faq.html' style='color: var(--neon-blue);'>FAQ page</a> for detailed information! Can't find what you need? Email qudeuce@qallous.ai and we'll help immediately."
+                "Great question! I'd recommend checking our comprehensive <a href='faq.html' style='color: var(--neon-blue);'>FAQ page</a> - it covers Voice AI Receptionist features, pricing, security, getting started, and more! Or email qudeuce@qallous.ai",
+                "You can find detailed answers in our <a href='faq.html' style='color: var(--neon-blue);'>FAQ section</a>! Topics include: Voice AI Receptionist capabilities, pricing, security (GDPR/HIPAA/SOC2), integrations, and how to get started.",
+                "Check out our <a href='faq.html' style='color: var(--neon-blue);'>FAQ page</a> for detailed information about our Voice AI Receptionist and AI business solutions! Can't find what you need? Email qudeuce@qallous.ai and we'll help immediately."
             ],
             caseStudies: [
                 "We have amazing <a href='case-studies.html' style='color: var(--neon-blue);'>success stories</a>! FinTech raised $8.5M, E-commerce scaled to 50K users with 93% success rate, Healthcare hit 97% satisfaction. Which industry interests you?",
@@ -911,9 +911,9 @@
                 "Companies using QALLOUS.AI see 10-24x performance boosts! Check <a href='case-studies.html' style='color: var(--neon-blue);'>case studies</a> for your industry or email qudeuce@qallous.ai for a custom demo."
             ],
             free: [
-                "🎉 3 FREE partnerships: 1) CEO+Sage AI (30+ years Fortune 500), 2) AI PM Bot (mobile app for sprint planning), 3) Voice Receptionist (24/7 availability). Try them all! Which first?",
-                "FREE TIER: CEO Strategic Advisor, Product Manager Bot, or Voice Agent - no credit card needed! These are full-featured, not trials. Start now or email qudeuce@qallous.ai!",
-                "Limited-time FREE offer: Sage AI (IPO/M&A expert), AI PM Bot (backlog genius), Voice Receptionist (never miss calls). See <a href='faq.html' style='color: var(--neon-blue);'>FAQ</a> for details!"
+                "🎉 Start with a <a href='https://voice.qallous.ai/' style='color: var(--neon-blue);'>free trial</a> of our Voice AI Receptionist - no credit card required! You can also <a href='book-audit.html' style='color: var(--neon-blue);'>book a free systems audit</a> to see how we'd customize workflows for your business. Ready to get started?",
+                "FREE to get started! <a href='https://voice.qallous.ai/' style='color: var(--neon-blue);'>Start your free trial</a> of our Voice AI Receptionist or <a href='book-audit.html' style='color: var(--neon-blue);'>book a free systems audit</a> - no credit card needed! Email qudeuce@qallous.ai with any questions!",
+                "Try our Voice AI Receptionist FREE! <a href='https://voice.qallous.ai/' style='color: var(--neon-blue);'>Start your free trial</a> or <a href='book-audit.html' style='color: var(--neon-blue);'>book a free systems audit</a> to see how we automate phone calls and workflows. See our <a href='faq.html' style='color: var(--neon-blue);'>FAQ</a> for more details!"
             ],
             security: [
                 "Security is our priority! We're GDPR, HIPAA, SOC2, and ISO27001 compliant. Enterprise-grade encryption, 99.9% uptime, regular audits. Questions? See <a href='faq.html#security' style='color: var(--neon-blue);'>security FAQ</a>",
@@ -921,14 +921,14 @@
                 "Enterprise security standards: end-to-end encryption, compliance certifications (GDPR/HIPAA/SOC2/ISO27001), 98/100 security score. Trust but verify? Email qudeuce@qallous.ai"
             ],
             demo: [
-                "Want a demo? Email <a href='mailto:qudeuce@qallous.ai?subject=Demo%20Request' style='color: var(--neon-blue);'>qudeuce@qallous.ai</a> to schedule! Or try our FREE partnerships instantly - no demo needed for Sage AI, AI PM Bot, or Voice Receptionist!",
-                "Free partnerships are ready NOW (no demo needed)! For premium partnerships (CTO/CMO/CFO), email qudeuce@qallous.ai to schedule a personalized demo. We'll show real-time results!",
-                "Try FREE: Sage AI, AI PM Bot, Voice Receptionist available immediately. Want CTO/CMO/CFO demo? Contact qudeuce@qallous.ai. Check <a href='case-studies.html' style='color: var(--neon-blue);'>case studies</a> first!"
+                "Want to see how it works? Start with a <a href='https://voice.qallous.ai/' style='color: var(--neon-blue);'>free trial</a> or <a href='book-audit.html' style='color: var(--neon-blue);'>book a free systems audit</a>! You can also email <a href='mailto:qudeuce@qallous.ai?subject=Demo%20Request' style='color: var(--neon-blue);'>qudeuce@qallous.ai</a> to schedule a personalized demo.",
+                "Get started instantly with a <a href='https://voice.qallous.ai/' style='color: var(--neon-blue);'>free trial</a> of our Voice AI Receptionist! Or <a href='book-audit.html' style='color: var(--neon-blue);'>book a free systems audit</a> to see how we'd customize workflows for your business. Email qudeuce@qallous.ai for more information!",
+                "Try our Voice AI Receptionist with a <a href='https://voice.qallous.ai/' style='color: var(--neon-blue);'>free trial</a>! For custom AI solutions, <a href='book-audit.html' style='color: var(--neon-blue);'>book a free systems audit</a>. Check out our <a href='case-studies.html' style='color: var(--neon-blue);'>case studies</a> to see real results!"
             ],
             default: [
-                "Interesting question! I can help with partnerships, pricing, case studies, FAQs, or connect you with our team. Try asking about a specific partnership or email qudeuce@qallous.ai!",
-                "Let me help! I know about: 🤝 Partnerships, 💰 Pricing, 📊 Case Studies, ❓ FAQs, 🔒 Security. Or I can connect you with qudeuce@qallous.ai. What interests you?",
-                "I'm here to help! Want to see <a href='case-studies.html' style='color: var(--neon-blue);'>success stories</a>? Check <a href='faq.html' style='color: var(--neon-blue);'>FAQs</a>? Or email qudeuce@qallous.ai? Let me know!"
+                "Interesting question! I can help you learn about our Voice AI Receptionist, AI business solutions, pricing, case studies, FAQs, or connect you with our team. Try asking about Voice AI features, booking a consultation, or email qudeuce@qallous.ai!",
+                "Let me help! I know about: 📞 Voice AI Receptionist, 🤖 AI Business Solutions, 💰 Pricing, 📊 Case Studies, ❓ FAQs, 🔒 Security, 📅 Booking consultations. Or I can connect you with qudeuce@qallous.ai. What interests you?",
+                "I'm here to help! Want to learn about our <a href='index.html#voice-ai-features' style='color: var(--neon-blue);'>Voice AI Receptionist</a>? See <a href='case-studies.html' style='color: var(--neon-blue);'>success stories</a>? Check <a href='faq.html' style='color: var(--neon-blue);'>FAQs</a>? Or <a href='book-audit.html' style='color: var(--neon-blue);'>book a consultation</a>? Let me know!"
             ]
         };
 
@@ -1403,7 +1403,7 @@
                     await loadDashboardData();
                     showClientDashboard();
                     closeModal('loginModal');
-                    alert('Login successful! Welcome to your AI-augmented workforce portal.');
+                    alert('Login successful! Welcome to QALLOUS.AI.');
                 } else {
                     throw new Error('Invalid response from server');
                 }
