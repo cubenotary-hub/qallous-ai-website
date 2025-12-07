@@ -2074,7 +2074,7 @@
             }
             
             .hero {
-                padding-top: 200px; /* Reduced header height on mobile - more compact */
+                padding-top: 240px; /* Increased padding to prevent header overlap on mobile */
                 padding-bottom: 4rem;
                 min-height: auto;
             }
