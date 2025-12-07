@@ -883,6 +883,11 @@
             position: relative;
         }
         
+        /* Add scroll margin for anchor-linked sections */
+        section[id] {
+            scroll-margin-top: 150px; /* Account for fixed header when scrolling to anchor links */
+        }
+        
         .section-title {
             text-align: center;
             margin-bottom: var(--space-3xl);
