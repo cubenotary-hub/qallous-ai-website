@@ -642,7 +642,8 @@
         /* Hero Section - Modern Design */
         .hero {
             padding: 8rem 0 8rem;
-            padding-top: calc(120px + 6rem); /* Account for fixed header (~110px) + border + spacing */
+            padding-top: 280px; /* Fixed large padding to ensure header doesn't overlap - accounts for ~110px header + spacing */
+            margin-top: 0;
             background: linear-gradient(180deg, #0a0a0f 0%, #1a1a2e 40%, #16213e 80%, #0f0f23 100%);
             position: relative;
             overflow: hidden;
@@ -690,6 +691,7 @@
             max-width: 900px;
             margin: 0 auto;
             animation: fadeInUp 0.8s ease-out;
+            scroll-margin-top: 150px; /* Ensure smooth scrolling past fixed header */
         }
         
         @keyframes fadeInUp {
@@ -1996,7 +1998,7 @@
             }
             
             .hero {
-                padding-top: calc(120px + 6rem); /* Account for header + spacing on tablets */
+                padding-top: 240px; /* Account for header + spacing on tablets */
             }
             
             .process-steps {
@@ -2072,7 +2074,7 @@
             }
             
             .hero {
-                padding-top: calc(120px + 3rem); /* Reduced header height on mobile - more compact */
+                padding-top: 200px; /* Reduced header height on mobile - more compact */
                 padding-bottom: 4rem;
                 min-height: auto;
             }
