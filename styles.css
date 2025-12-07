@@ -2143,6 +2143,11 @@
             
             /* Fix section padding on mobile for pages with fixed header */
             .section[style*="padding-top"] {
+                padding-top: calc(180px + 4rem) !important;
+            }
+            
+            /* Ensure industries and booking pages have enough spacing on mobile */
+            .section:first-of-type:not(.hero) {
                 padding-top: calc(160px + 4rem) !important;
             }
             
