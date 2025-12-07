@@ -1244,6 +1244,7 @@
             bottom: 20px;
             right: 20px;
             z-index: 1000;
+            display: none; /* Hidden for now */
         }
         
         .chat-toggle {
@@ -2137,7 +2138,7 @@
             
             /* Fix section padding on mobile for pages with fixed header */
             .section[style*="padding-top"] {
-                padding-top: calc(140px + 4rem) !important;
+                padding-top: calc(160px + 4rem) !important;
             }
             
             /* Make phone button text shorter on very small screens */
