@@ -101,7 +101,7 @@ qallous-ai-website/
 - **Marketing Website**: https://qallous.ai (this repository)
 - **Product Platform**: https://voice.qallous.ai
 - **Signup**: https://voice.qallous.ai/
-- **Book Systems Audit**: https://voice.qallous.ai/book-audit
+- **Book Systems Audit**: https://qallous.ai/book-audit.html
 
 ## 📝 License
 © 2024 QALLOUS.AI - All rights reserved
