@@ -143,6 +143,7 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
+            gap: 2rem;
         }
         
         .logo {
@@ -150,6 +151,27 @@
             font-weight: 700;
             display: flex;
             align-items: center;
+        }
+        
+        .logo-text {
+            font-size: 1.75rem;
+            font-weight: 800;
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+            background: linear-gradient(135deg, #ffffff 0%, #00d4ff 50%, #8b5cf6 100%);
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-size: 200% 200%;
+            animation: gradientShift 4s ease infinite;
+            text-shadow: 0 0 40px rgba(0, 212, 255, 0.3);
+            font-family: 'Inter', sans-serif;
+            line-height: 1.2;
+        }
+        
+        @keyframes gradientShift {
+            0%, 100% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
         }
         
         .logo-icon {
@@ -395,29 +417,29 @@
 
         /* Footer Logo Styles (Purple Theme) */
         .footer-logo-icon {
-            width: 50px;
-            height: 50px;
+            width: 90px;
+            height: 90px;
         }
 
         .footer-logo-cube {
-            width: 35px;
-            height: 35px;
+            width: 60px;
+            height: 60px;
         }
 
         .footer-diamond {
-            width: 10px;
-            height: 10px;
+            width: 15px;
+            height: 15px;
             background: rgba(139, 92, 246, 0.8);
             border-color: var(--neon-purple);
-            box-shadow: 0 0 10px rgba(139, 92, 246, 0.6);
+            box-shadow: 0 0 15px rgba(139, 92, 246, 0.6);
         }
 
         .footer-lobe {
-            width: 15px;
-            height: 15px;
+            width: 22px;
+            height: 22px;
             border-color: var(--neon-purple);
             background: rgba(139, 92, 246, 0.1);
-            box-shadow: 0 0 8px rgba(139, 92, 246, 0.4);
+            box-shadow: 0 0 12px rgba(139, 92, 246, 0.4);
         }
 
         .footer-connector {
@@ -426,27 +448,29 @@
         }
 
         .footer-connector.horizontal {
-            width: 25px;
+            width: 42px;
+            height: 2px;
         }
 
         .footer-connector.vertical {
-            height: 25px;
+            width: 2px;
+            height: 42px;
         }
 
         .footer-lobe.top {
-            top: 2px;
+            top: 4px;
         }
 
         .footer-lobe.bottom {
-            bottom: 2px;
+            bottom: 4px;
         }
 
         .footer-lobe.left {
-            left: 2px;
+            left: 4px;
         }
 
         .footer-lobe.right {
-            right: 2px;
+            right: 4px;
         }
 
         .footer-logo-glow {
@@ -473,10 +497,13 @@
         nav ul {
             display: flex;
             list-style: none;
+            gap: 1.5rem;
+            margin: 0;
+            padding: 0;
         }
         
         nav ul li {
-            margin-left: 2rem;
+            margin: 0;
         }
         
         nav ul li a {
@@ -486,8 +513,9 @@
             transition: all var(--transition-base);
             font-size: 1rem;
             position: relative;
-            padding: var(--space-xs) var(--space-sm);
+            padding: var(--space-xs) var(--space-md);
             border-radius: var(--radius-sm);
+            white-space: nowrap;
         }
         
         nav ul li a::before {
@@ -514,6 +542,8 @@
         .auth-buttons {
             display: flex;
             align-items: center;
+            gap: 1rem;
+            margin-left: 2rem;
         }
         
         .btn {
@@ -611,7 +641,8 @@
         
         /* Hero Section - Modern Design */
         .hero {
-            padding: 12rem 0 8rem;
+            padding: 8rem 0 8rem;
+            padding-top: calc(120px + 6rem); /* Account for fixed header (~110px) + border + spacing */
             background: linear-gradient(180deg, #0a0a0f 0%, #1a1a2e 40%, #16213e 80%, #0f0f23 100%);
             position: relative;
             overflow: hidden;
@@ -1083,11 +1114,27 @@
         }
         
         .footer-logo {
-            font-size: 1.8rem;
-            font-weight: 700;
+            font-size: 1.75rem;
+            font-weight: 800;
             margin-bottom: 1.5rem;
             display: flex;
             align-items: center;
+        }
+        
+        .footer-logo-text {
+            font-size: 1.75rem;
+            font-weight: 800;
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+            background: linear-gradient(135deg, #ffffff 0%, #8b5cf6 50%, #00d4ff 100%);
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-size: 200% 200%;
+            animation: gradientShift 4s ease infinite;
+            text-shadow: 0 0 40px rgba(139, 92, 246, 0.3);
+            font-family: 'Inter', sans-serif;
+            line-height: 1.2;
         }
         
         .footer-logo i {
@@ -1935,6 +1982,23 @@
 
         /* Responsive Design */
         @media (max-width: 968px) {
+            .header-content {
+                gap: 1.5rem;
+            }
+            
+            nav ul {
+                gap: 1rem;
+            }
+            
+            .auth-buttons {
+                margin-left: 1.5rem;
+                gap: 0.75rem;
+            }
+            
+            .hero {
+                padding-top: calc(120px + 6rem); /* Account for header + spacing on tablets */
+            }
+            
             .process-steps {
                 flex-direction: column;
                 gap: 3rem;
@@ -1957,15 +2021,27 @@
             .header-content {
                 flex-direction: column;
                 text-align: center;
+                gap: 1rem;
             }
             
             nav ul {
                 margin: 1rem 0;
                 justify-content: center;
+                flex-wrap: wrap;
+                gap: 0.75rem;
             }
             
-            nav ul li {
-                margin: 0 0.5rem;
+            .auth-buttons {
+                margin-left: 0;
+                justify-content: center;
+                flex-wrap: wrap;
+                gap: 0.75rem;
+            }
+            
+            .hero {
+                padding-top: calc(180px + 4rem); /* Account for taller stacked header on mobile */
+                padding-bottom: 4rem;
+                min-height: auto;
             }
             
             .hero h1 {
