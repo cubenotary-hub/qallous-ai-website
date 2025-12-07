@@ -1,0 +1,662 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Book Free Systems Audit - QALLOUS.AI</title>
+    <meta name="description" content="Schedule a free systems audit with QALLOUS.AI. Book a consultation to discuss AI business solutions, workflow automation, and Voice AI Receptionist for your business.">
+    <meta name="keywords" content="book consultation, systems audit, AI consulting, workflow automation, voice AI consultation">
+    <link rel="canonical" href="https://qallous.ai/book-audit.html">
+    <meta name="robots" content="index, follow">
+    
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://qallous.ai/book-audit.html">
+    <meta property="og:title" content="Book Free Systems Audit - QALLOUS.AI">
+    <meta property="og:description" content="Schedule a free systems audit and consultation with QALLOUS.AI to discuss AI business solutions.">
+    <meta property="og:image" content="https://qallous.ai/assets/images/qallous-og-image.png">
+    
+    <!-- Twitter -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:url" content="https://qallous.ai/book-audit.html">
+    <meta name="twitter:title" content="Book Free Systems Audit - QALLOUS.AI">
+    <meta name="twitter:description" content="Schedule a free systems audit and consultation with QALLOUS.AI.">
+    <meta name="twitter:image" content="https://qallous.ai/assets/images/qallous-og-image.png">
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css?v=3.1">
+    
+    <style>
+        .booking-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+        
+        .booking-header {
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+        
+        .booking-header h1 {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+            background: linear-gradient(135deg, var(--neon-blue), var(--neon-purple));
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+        
+        .booking-header p {
+            font-size: 1.2rem;
+            color: var(--gray);
+        }
+        
+        .booking-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 3rem;
+            margin-top: 3rem;
+        }
+        
+        @media (max-width: 968px) {
+            .booking-content {
+                grid-template-columns: 1fr;
+            }
+        }
+        
+        .calendar-section {
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(0, 212, 255, 0.2);
+            border-radius: 20px;
+            padding: 2rem;
+            backdrop-filter: blur(10px);
+        }
+        
+        .calendar-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1.5rem;
+        }
+        
+        .calendar-nav-btn {
+            background: rgba(0, 212, 255, 0.1);
+            border: 1px solid rgba(0, 212, 255, 0.3);
+            color: var(--neon-blue);
+            padding: 0.5rem 1rem;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        
+        .calendar-nav-btn:hover {
+            background: rgba(0, 212, 255, 0.2);
+            transform: translateY(-2px);
+        }
+        
+        .calendar-grid {
+            display: grid;
+            grid-template-columns: repeat(7, 1fr);
+            gap: 0.5rem;
+            margin-bottom: 1rem;
+        }
+        
+        .calendar-day-header {
+            text-align: center;
+            font-weight: 600;
+            color: var(--gray);
+            padding: 0.5rem;
+            font-size: 0.9rem;
+        }
+        
+        .calendar-day {
+            aspect-ratio: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border: 1px solid rgba(0, 212, 255, 0.1);
+            border-radius: 10px;
+            cursor: pointer;
+            transition: all 0.3s;
+            color: var(--light);
+            font-weight: 500;
+        }
+        
+        .calendar-day:hover {
+            background: rgba(0, 212, 255, 0.1);
+            border-color: var(--neon-blue);
+        }
+        
+        .calendar-day.disabled {
+            opacity: 0.3;
+            cursor: not-allowed;
+        }
+        
+        .calendar-day.selected {
+            background: linear-gradient(135deg, var(--neon-blue), var(--neon-purple));
+            border-color: var(--neon-blue);
+            color: var(--primary);
+            font-weight: 700;
+        }
+        
+        .calendar-day.today {
+            border-color: var(--neon-green);
+        }
+        
+        .time-slots {
+            margin-top: 2rem;
+        }
+        
+        .time-slots h3 {
+            margin-bottom: 1rem;
+            color: var(--light);
+        }
+        
+        .time-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+            gap: 0.75rem;
+        }
+        
+        .time-slot {
+            padding: 0.75rem 1rem;
+            background: rgba(0, 212, 255, 0.1);
+            border: 1px solid rgba(0, 212, 255, 0.3);
+            border-radius: 10px;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s;
+            color: var(--light);
+            font-weight: 500;
+        }
+        
+        .time-slot:hover {
+            background: rgba(0, 212, 255, 0.2);
+            transform: translateY(-2px);
+        }
+        
+        .time-slot.selected {
+            background: linear-gradient(135deg, var(--neon-blue), var(--neon-purple));
+            border-color: var(--neon-blue);
+            color: var(--primary);
+            font-weight: 700;
+        }
+        
+        .time-slot.disabled {
+            opacity: 0.3;
+            cursor: not-allowed;
+        }
+        
+        .booking-form-section {
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(0, 212, 255, 0.2);
+            border-radius: 20px;
+            padding: 2rem;
+            backdrop-filter: blur(10px);
+        }
+        
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+        
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            color: var(--light);
+            font-weight: 500;
+        }
+        
+        .form-group input,
+        .form-group textarea,
+        .form-group select {
+            width: 100%;
+            padding: 0.75rem 1rem;
+            background: rgba(0, 0, 0, 0.3);
+            border: 1px solid rgba(0, 212, 255, 0.3);
+            border-radius: 10px;
+            color: var(--light);
+            font-size: 1rem;
+            transition: all 0.3s;
+        }
+        
+        .form-group input:focus,
+        .form-group textarea:focus,
+        .form-group select:focus {
+            outline: none;
+            border-color: var(--neon-blue);
+            box-shadow: 0 0 0 3px rgba(0, 212, 255, 0.1);
+        }
+        
+        .form-group textarea {
+            min-height: 120px;
+            resize: vertical;
+        }
+        
+        .selected-info {
+            background: rgba(0, 212, 255, 0.1);
+            border: 1px solid rgba(0, 212, 255, 0.3);
+            border-radius: 10px;
+            padding: 1rem;
+            margin-bottom: 1.5rem;
+        }
+        
+        .selected-info p {
+            margin: 0.5rem 0;
+            color: var(--light);
+        }
+        
+        .selected-info strong {
+            color: var(--neon-blue);
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <div class="container">
+            <div class="header-content">
+                <a href="index.html" class="logo" style="text-decoration: none; display: flex; align-items: center;">
+                    <img src="assets/images/qallous-logo.png" alt="QALLOUS.AI Logo" class="logo-image" style="height: 70px; width: auto; margin-right: 15px;" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+                    <div class="logo-icon" style="display: none;">
+                        <div class="logo-glow"></div>
+                        <div class="logo-cube">
+                            <div class="central-diamond"></div>
+                            <div class="connector horizontal"></div>
+                            <div class="connector vertical"></div>
+                            <div class="lobe top"></div>
+                            <div class="lobe bottom"></div>
+                            <div class="lobe left"></div>
+                            <div class="lobe right"></div>
+                        </div>
+                    </div>
+                    <span style="background: linear-gradient(45deg, #f8fafc, var(--accent)); -webkit-background-clip: text; background-clip: text; color: transparent; font-weight: 800;">QALLOUS.AI</span>
+                </a>
+                <nav>
+                    <ul>
+                        <li><a href="index.html#voice-ai-features">Voice AI</a></li>
+                        <li><a href="index.html#how-it-works">How It Works</a></li>
+                        <li><a href="industries.html">Industries</a></li>
+                        <li><a href="case-studies.html">Case Studies</a></li>
+                        <li><a href="pricing.html">Pricing</a></li>
+                    </ul>
+                </nav>
+                <div class="auth-buttons">
+                    <a href="tel:+1-555-123-4567" class="btn btn-outline" style="margin-right: 1rem; text-decoration: none;">
+                        <i class="fas fa-phone"></i> (555) 123-4567
+                    </a>
+                    <a href="https://voice.qallous.ai/" class="btn btn-primary" id="signupBtn">Start Free Trial</a>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Booking Section -->
+    <section class="section" style="padding-top: 8rem;">
+        <div class="booking-container">
+            <div class="booking-header">
+                <h1>Book Your Free Systems Audit</h1>
+                <p>Schedule a consultation to discuss how AI can transform your business operations</p>
+            </div>
+            
+            <div class="booking-content">
+                <!-- Calendar Section -->
+                <div class="calendar-section">
+                    <div class="calendar-header">
+                        <button class="calendar-nav-btn" id="prevMonth">
+                            <i class="fas fa-chevron-left"></i>
+                        </button>
+                        <h2 id="currentMonth" style="color: var(--light); margin: 0;"></h2>
+                        <button class="calendar-nav-btn" id="nextMonth">
+                            <i class="fas fa-chevron-right"></i>
+                        </button>
+                    </div>
+                    
+                    <div class="calendar-grid" id="calendarGrid">
+                        <!-- Calendar will be generated by JavaScript -->
+                    </div>
+                    
+                    <div class="time-slots" id="timeSlots" style="display: none;">
+                        <h3>Select a Time</h3>
+                        <div class="time-grid" id="timeGrid">
+                            <!-- Time slots will be generated by JavaScript -->
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Booking Form Section -->
+                <div class="booking-form-section">
+                    <h2 style="color: var(--light); margin-bottom: 1.5rem;">Your Information</h2>
+                    
+                    <div class="selected-info" id="selectedInfo" style="display: none;">
+                        <p><strong>Selected Date:</strong> <span id="selectedDate"></span></p>
+                        <p><strong>Selected Time:</strong> <span id="selectedTime"></span></p>
+                    </div>
+                    
+                    <form id="bookingForm">
+                        <div class="form-group">
+                            <label for="fullName">Full Name *</label>
+                            <input type="text" id="fullName" name="fullName" required>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="email">Email Address *</label>
+                            <input type="email" id="email" name="email" required>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="phone">Phone Number *</label>
+                            <input type="tel" id="phone" name="phone" required>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="company">Company Name</label>
+                            <input type="text" id="company" name="company">
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="service">Service Interest *</label>
+                            <select id="service" name="service" required>
+                                <option value="">Select a service...</option>
+                                <option value="Systems Audit">Systems Audit</option>
+                                <option value="Voice AI Receptionist">Voice AI Receptionist</option>
+                                <option value="Workflow Automation">Workflow Automation</option>
+                                <option value="Custom Software Development">Custom Software Development</option>
+                                <option value="RAG Knowledge Base">RAG Knowledge Base</option>
+                                <option value="AI Consulting">AI Consulting</option>
+                                <option value="Other">Other</option>
+                            </select>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="message">Additional Information</label>
+                            <textarea id="message" name="message" placeholder="Tell us about your business needs..."></textarea>
+                        </div>
+                        
+                        <button type="submit" class="btn btn-primary btn-large" style="width: 100%; font-size: 1.1rem; padding: 1rem;">
+                            Confirm Booking
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-about">
+                    <div class="footer-logo" style="display: flex; align-items: center;">
+                        <img src="assets/images/qallous-logo-white.png" alt="QALLOUS.AI Logo" class="footer-logo-image" style="height: 50px; width: auto; margin-right: 12px;" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+                        <div class="logo-icon footer-logo-icon" style="display: none;">
+                            <div class="logo-glow footer-logo-glow"></div>
+                            <div class="logo-cube footer-logo-cube">
+                                <div class="central-diamond footer-diamond"></div>
+                                <div class="connector horizontal footer-connector"></div>
+                                <div class="connector vertical footer-connector"></div>
+                                <div class="lobe top footer-lobe"></div>
+                                <div class="lobe bottom footer-lobe"></div>
+                                <div class="lobe left footer-lobe"></div>
+                                <div class="lobe right footer-lobe"></div>
+                            </div>
+                        </div>
+                        <span style="background: linear-gradient(45deg, #f8fafc, var(--neon-purple)); -webkit-background-clip: text; background-clip: text; color: transparent; font-weight: 800;">QALLOUS.AI</span>
+                    </div>
+                    <p>Your AI voice receptionist that understands your business and automates your workflows.</p>
+                    <p style="margin-top: 1rem; color: var(--gray);">
+                        <i class="fas fa-phone" style="margin-right: 0.5rem;"></i>
+                        <a href="tel:+1-555-123-4567" style="color: var(--neon-blue); text-decoration: none;">(555) 123-4567</a>
+                    </p>
+                    <p style="color: var(--gray);">
+                        <i class="fas fa-envelope" style="margin-right: 0.5rem;"></i>
+                        <a href="mailto:qudeuce@qallous.ai" style="color: var(--neon-blue); text-decoration: none;">qudeuce@qallous.ai</a>
+                    </p>
+                </div>
+                
+                <div class="footer-links">
+                    <h4>Voice AI Receptionist</h4>
+                    <ul>
+                        <li><a href="index.html#voice-ai-features">Features</a></li>
+                        <li><a href="index.html#how-it-works">How It Works</a></li>
+                        <li><a href="industries.html">Industries</a></li>
+                        <li><a href="pricing.html">Pricing</a></li>
+                        <li><a href="case-studies.html">Case Studies</a></li>
+                        <li><a href="faq.html">FAQ</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-links">
+                    <h4>Company</h4>
+                    <ul>
+                        <li><a href="#">About Us</a></li>
+                        <li><a href="#">Our Team</a></li>
+                        <li><a href="#">Careers</a></li>
+                        <li><a href="mailto:qudeuce@qallous.ai?subject=QALLOUS.AI%20Inquiry">Contact</a></li>
+                        <li><a href="tel:+1-555-123-4567">Support: (555) 123-4567</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-links">
+                    <h4>Resources</h4>
+                    <ul>
+                        <li><a href="#">Blog</a></li>
+                        <li><a href="case-studies.html">Case Studies</a></li>
+                        <li><a href="#">Webinars</a></li>
+                        <li><a href="faq.html">FAQ</a></li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="footer-bottom">
+                <p>&copy; 2024 QALLOUS.AI. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Calendar functionality
+        let currentDate = new Date();
+        let selectedDate = null;
+        let selectedTime = null;
+        
+        const timeSlots = [
+            '9:00 AM', '9:30 AM', '10:00 AM', '10:30 AM', '11:00 AM', '11:30 AM',
+            '12:00 PM', '12:30 PM', '1:00 PM', '1:30 PM', '2:00 PM', '2:30 PM',
+            '3:00 PM', '3:30 PM', '4:00 PM', '4:30 PM', '5:00 PM'
+        ];
+        
+        const monthNames = ['January', 'February', 'March', 'April', 'May', 'June',
+            'July', 'August', 'September', 'October', 'November', 'December'];
+        
+        const dayNames = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
+        
+        function renderCalendar() {
+            const year = currentDate.getFullYear();
+            const month = currentDate.getMonth();
+            
+            document.getElementById('currentMonth').textContent = `${monthNames[month]} ${year}`;
+            
+            const firstDay = new Date(year, month, 1).getDay();
+            const daysInMonth = new Date(year, month + 1, 0).getDate();
+            const today = new Date();
+            
+            const grid = document.getElementById('calendarGrid');
+            grid.innerHTML = '';
+            
+            // Day headers
+            dayNames.forEach(day => {
+                const header = document.createElement('div');
+                header.className = 'calendar-day-header';
+                header.textContent = day;
+                grid.appendChild(header);
+            });
+            
+            // Empty cells for days before month starts
+            for (let i = 0; i < firstDay; i++) {
+                const empty = document.createElement('div');
+                empty.className = 'calendar-day disabled';
+                grid.appendChild(empty);
+            }
+            
+            // Days of the month
+            for (let day = 1; day <= daysInMonth; day++) {
+                const dayElement = document.createElement('div');
+                dayElement.className = 'calendar-day';
+                dayElement.textContent = day;
+                
+                const cellDate = new Date(year, month, day);
+                
+                // Disable past dates
+                if (cellDate < today.setHours(0, 0, 0, 0)) {
+                    dayElement.classList.add('disabled');
+                } else {
+                    dayElement.addEventListener('click', () => selectDate(cellDate));
+                }
+                
+                // Highlight today
+                if (cellDate.toDateString() === today.toDateString()) {
+                    dayElement.classList.add('today');
+                }
+                
+                grid.appendChild(dayElement);
+            }
+        }
+        
+        function selectDate(date) {
+            selectedDate = date;
+            selectedTime = null;
+            
+            // Update UI
+            document.querySelectorAll('.calendar-day').forEach(day => {
+                day.classList.remove('selected');
+            });
+            
+            event.target.classList.add('selected');
+            
+            // Show time slots
+            document.getElementById('timeSlots').style.display = 'block';
+            renderTimeSlots();
+            
+            // Update selected info
+            updateSelectedInfo();
+        }
+        
+        function renderTimeSlots() {
+            const grid = document.getElementById('timeGrid');
+            grid.innerHTML = '';
+            
+            timeSlots.forEach(time => {
+                const slot = document.createElement('div');
+                slot.className = 'time-slot';
+                slot.textContent = time;
+                slot.addEventListener('click', () => selectTime(time));
+                grid.appendChild(slot);
+            });
+        }
+        
+        function selectTime(time) {
+            selectedTime = time;
+            
+            // Update UI
+            document.querySelectorAll('.time-slot').forEach(slot => {
+                slot.classList.remove('selected');
+            });
+            
+            event.target.classList.add('selected');
+            
+            // Update selected info
+            updateSelectedInfo();
+        }
+        
+        function updateSelectedInfo() {
+            if (selectedDate && selectedTime) {
+                const dateStr = selectedDate.toLocaleDateString('en-US', { 
+                    weekday: 'long', 
+                    year: 'numeric', 
+                    month: 'long', 
+                    day: 'numeric' 
+                });
+                
+                document.getElementById('selectedDate').textContent = dateStr;
+                document.getElementById('selectedTime').textContent = selectedTime;
+                document.getElementById('selectedInfo').style.display = 'block';
+            }
+        }
+        
+        document.getElementById('prevMonth').addEventListener('click', () => {
+            currentDate.setMonth(currentDate.getMonth() - 1);
+            renderCalendar();
+        });
+        
+        document.getElementById('nextMonth').addEventListener('click', () => {
+            currentDate.setMonth(currentDate.getMonth() + 1);
+            renderCalendar();
+        });
+        
+        // Form submission
+        document.getElementById('bookingForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            if (!selectedDate || !selectedTime) {
+                alert('Please select a date and time for your consultation.');
+                return;
+            }
+            
+            const formData = {
+                fullName: document.getElementById('fullName').value,
+                email: document.getElementById('email').value,
+                phone: document.getElementById('phone').value,
+                company: document.getElementById('company').value,
+                service: document.getElementById('service').value,
+                message: document.getElementById('message').value,
+                date: selectedDate.toLocaleDateString('en-US', { 
+                    weekday: 'long', 
+                    year: 'numeric', 
+                    month: 'long', 
+                    day: 'numeric' 
+                }),
+                time: selectedTime
+            };
+            
+            // Create email body
+            const emailSubject = encodeURIComponent(`Consultation Booking Request - ${formData.service}`);
+            const emailBody = encodeURIComponent(
+                `New Consultation Booking Request\n\n` +
+                `Name: ${formData.fullName}\n` +
+                `Email: ${formData.email}\n` +
+                `Phone: ${formData.phone}\n` +
+                `Company: ${formData.company || 'N/A'}\n` +
+                `Service Interest: ${formData.service}\n` +
+                `Preferred Date: ${formData.date}\n` +
+                `Preferred Time: ${formData.time}\n\n` +
+                `Additional Information:\n${formData.message || 'None'}\n\n` +
+                `---\n` +
+                `This booking was submitted through the QALLOUS.AI booking system.`
+            );
+            
+            // Open email client
+            window.location.href = `mailto:qudeuce@qallous.ai?subject=${emailSubject}&body=${emailBody}`;
+            
+            // Show success message
+            alert('✅ Booking request prepared! Your email client will open. Please send the email to confirm your booking.\n\nWe will contact you within 24 hours to confirm your appointment.');
+            
+            // Reset form
+            this.reset();
+            selectedDate = null;
+            selectedTime = null;
+            document.getElementById('selectedInfo').style.display = 'none';
+            document.getElementById('timeSlots').style.display = 'none';
+            document.querySelectorAll('.calendar-day').forEach(day => day.classList.remove('selected'));
+            document.querySelectorAll('.time-slot').forEach(slot => slot.classList.remove('selected'));
+        });
+        
+        // Initialize calendar
+        renderCalendar();
+    </script>
+    
+    <script src="scripts.js"></script>
+</body>
+</html>
+
