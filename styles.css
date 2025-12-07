@@ -79,13 +79,19 @@
         
         body {
             background: linear-gradient(180deg, #0a0a0f 0%, #1a1a2e 40%, #16213e 80%, #0f0f23 100%);
-            background-attachment: fixed;
+            background-attachment: scroll;
             color: var(--light);
             line-height: 1.6;
             overflow-x: hidden;
             position: relative;
             -webkit-font-smoothing: antialiased;
             -moz-osx-font-smoothing: grayscale;
+        }
+        
+        @media (min-width: 768px) {
+            body {
+                background-attachment: fixed;
+            }
         }
         
         body::before {
@@ -120,8 +126,8 @@
         /* Header Styles - Modern Glassmorphism */
         header {
             background: rgba(10, 10, 15, 0.95);
-            backdrop-filter: blur(30px) saturate(200%);
-            -webkit-backdrop-filter: blur(30px) saturate(200%);
+            backdrop-filter: blur(10px) saturate(150%);
+            -webkit-backdrop-filter: blur(10px) saturate(150%);
             color: var(--light);
             padding: 1.25rem 0;
             position: fixed;
@@ -131,6 +137,8 @@
             border-bottom: 1px solid rgba(0, 212, 255, 0.3);
             box-shadow: 0 8px 32px rgba(0, 212, 255, 0.2), 0 0 0 1px rgba(255, 255, 255, 0.05) inset;
             transition: all var(--transition-base);
+            transform: translateZ(0);
+            will-change: auto;
         }
         
         header:hover {
@@ -664,7 +672,9 @@
                 radial-gradient(circle at 80% 70%, rgba(139, 92, 246, 0.15) 0%, transparent 50%);
             pointer-events: none;
             animation: heroGradient 20s ease-in-out infinite alternate;
-            filter: blur(60px);
+            filter: blur(30px);
+            will-change: transform, opacity;
+            transform: translateZ(0);
         }
         
         .hero::after {
@@ -730,10 +740,33 @@
         }
         
         /* Performance optimizations */
+        html {
+            scroll-behavior: smooth;
+        }
+        
         .hero h1, .service-card, .btn, .chat-toggle, .section-title, .hero-content {
             transform: translateZ(0);
             backface-visibility: hidden;
-            will-change: auto;
+        }
+        
+        /* Optimize scrolling performance */
+        section {
+            contain: layout style paint;
+            transform: translateZ(0);
+        }
+        
+        /* Reduce animations on low-end devices */
+        @media (prefers-reduced-motion: no-preference) {
+            @media (max-width: 768px) {
+                .hero::before {
+                    animation: none;
+                    filter: blur(20px);
+                }
+                
+                body::before {
+                    animation: none;
+                }
+            }
         }
         
         /* Reduce motion for better performance */
@@ -742,6 +775,28 @@
                 animation-duration: 0.01ms !important;
                 animation-iteration-count: 1 !important;
                 transition-duration: 0.01ms !important;
+            }
+        }
+        
+        /* Performance optimizations for scrolling */
+        /* Optimize transforms and animations */
+        .logo-cube, .hero::before, body::before {
+            transform: translateZ(0);
+            backface-visibility: hidden;
+        }
+        
+        /* Reduce animation complexity on mobile */
+        @media (max-width: 768px) {
+            .logo-cube {
+                animation-duration: 12s;
+            }
+            
+            body::before {
+                animation-duration: 40s;
+            }
+            
+            .hero::before {
+                animation-duration: 40s;
             }
         }
         
@@ -782,8 +837,8 @@
         
         .hero-feature-card {
             background: rgba(30, 41, 59, 0.6);
-            backdrop-filter: blur(20px);
-            -webkit-backdrop-filter: blur(20px);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
             border: 1px solid rgba(255, 255, 255, 0.1);
             border-radius: var(--radius-lg);
             padding: var(--space-lg) var(--space-xl);
@@ -870,8 +925,8 @@
         
         .service-card {
             background: rgba(22, 33, 62, 0.6);
-            backdrop-filter: blur(30px) saturate(180%);
-            -webkit-backdrop-filter: blur(30px) saturate(180%);
+            backdrop-filter: blur(10px) saturate(150%);
+            -webkit-backdrop-filter: blur(10px) saturate(150%);
             border-radius: 24px;
             overflow: hidden;
             box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3), 0 0 0 1px rgba(255, 255, 255, 0.1) inset;
@@ -882,6 +937,7 @@
             flex-direction: column;
             height: 100%;
             position: relative;
+            transform: translateZ(0);
         }
         
         .service-card::before {
