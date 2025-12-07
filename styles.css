@@ -2135,6 +2135,11 @@
                 min-height: auto;
             }
             
+            /* Fix section padding on mobile for pages with fixed header */
+            .section[style*="padding-top"] {
+                padding-top: calc(140px + 4rem) !important;
+            }
+            
             /* Make phone button text shorter on very small screens */
             @media (max-width: 480px) {
                 .auth-buttons .btn-outline {
