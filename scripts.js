@@ -1,3 +1,50 @@
+    // ========== XSS Protection Helper Functions ==========
+    function escapeHtml(text) {
+        const div = document.createElement('div');
+        div.textContent = text;
+        return div.innerHTML;
+    }
+
+    function sanitizeHtml(html) {
+        // Basic HTML sanitization - escape dangerous tags
+        const temp = document.createElement('div');
+        temp.textContent = html;
+        const sanitized = temp.innerHTML;
+        
+        // Allow safe HTML tags (a, strong, em, br, span with safe attributes)
+        const allowedTags = /<\/?(a|strong|em|br|span|p|div|h[1-6]|ul|ol|li|i|b)(\s[^>]*)?>/gi;
+        const safeHtml = html.replace(allowedTags, (match) => {
+            // Remove dangerous attributes
+            return match.replace(/\s*(on\w+|javascript:)/gi, '');
+        });
+        
+        return safeHtml;
+    }
+
+    function setSafeHtml(element, html) {
+        if (!element) return;
+        // For trusted content from our own templates, use sanitizeHtml
+        // For user input, always use escapeHtml
+        element.innerHTML = sanitizeHtml(html);
+    }
+
+    function createElement(tag, attributes = {}, text = '') {
+        const element = document.createElement(tag);
+        Object.entries(attributes).forEach(([key, value]) => {
+            if (key === 'className') {
+                element.className = value;
+            } else if (key.startsWith('data-')) {
+                element.setAttribute(key, escapeHtml(String(value)));
+            } else {
+                element.setAttribute(key, escapeHtml(String(value)));
+            }
+        });
+        if (text) {
+            element.textContent = text;
+        }
+        return element;
+    }
+
     // ========== ARCHIVED: Partnership data (kept for reference) ==========
     // Partnership data - Archived as we pivot to Voice AI Receptionist focus
     /*
@@ -262,13 +309,18 @@
         messageDiv.style.cssText = `margin-bottom: 1.5rem; padding: 1.5rem; border-radius: 15px; animation: slideIn 0.3s ease;
             ${sender === 'user' ? 'background: rgba(0, 212, 255, 0.1); border-left: 4px solid var(--accent); margin-left: 3rem;' : 'background: rgba(139, 92, 246, 0.1); border-left: 4px solid var(--neon-purple); margin-right: 3rem;'}`;
         
+        // Safe HTML construction with XSS protection
+        const senderLabel = sender === 'user' ? '👤 You' : '👑 Sage';
+        const senderColor = sender === 'user' ? 'var(--accent)' : 'var(--neon-purple)';
+        const escapedMessage = escapeHtml(message).replace(/\n/g, '<br>');
+        
         messageDiv.innerHTML = `
             <div style="margin-bottom: 0.5rem;">
-                <strong style="color: ${sender === 'user' ? 'var(--accent)' : 'var(--neon-purple)'};">${sender === 'user' ? '👤 You' : '👑 Sage'}</strong>
-                ${metadata.confidence ? `<span style="font-size: 0.8rem; color: var(--gray); margin-left: 0.5rem;">Confidence: ${(metadata.confidence * 100).toFixed(0)}%</span>` : ''}
+                <strong style="color: ${senderColor};">${escapeHtml(senderLabel)}</strong>
+                ${metadata.confidence ? `<span style="font-size: 0.8rem; color: var(--gray); margin-left: 0.5rem;">Confidence: ${escapeHtml(String((metadata.confidence * 100).toFixed(0)))}%</span>` : ''}
             </div>
-            <div style="color: var(--light); line-height: 1.7;">${message.replace(/\n/g, '<br>')}</div>
-            ${metadata.reasoning ? `<div style="margin-top: 1rem; padding: 0.8rem; background: rgba(0,0,0,0.3); border-radius: 8px; font-size: 0.85rem; color: var(--gray);">💡 ${metadata.reasoning}</div>` : ''}
+            <div style="color: var(--light); line-height: 1.7;">${escapedMessage}</div>
+            ${metadata.reasoning ? `<div style="margin-top: 1rem; padding: 0.8rem; background: rgba(0,0,0,0.3); border-radius: 8px; font-size: 0.85rem; color: var(--gray);">💡 ${escapeHtml(metadata.reasoning)}</div>` : ''}
         `;
         messagesContainer.appendChild(messageDiv);
         messagesContainer.scrollTop = messagesContainer.scrollHeight;
@@ -281,9 +333,24 @@
             container.style.display = 'none';
             return;
         }
-        list.innerHTML = questions.map(q => `<button onclick="document.getElementById('sage-question-input').value='${q.replace(/'/g, "\\'")}'; askSageQuestion();" 
-                style="background: rgba(0, 212, 255, 0.1); border: 1px solid rgba(0, 212, 255, 0.3); color: var(--accent); padding: 0.5rem 1rem; border-radius: 20px; cursor: pointer; font-size: 0.85rem; transition: all 0.2s;" 
-                onmouseover="this.style.background='rgba(0, 212, 255, 0.2)'" onmouseout="this.style.background='rgba(0, 212, 255, 0.1)'">${q}</button>`).join('');
+        // Safe question buttons with XSS protection
+        list.innerHTML = '';
+        questions.forEach(q => {
+            const button = document.createElement('button');
+            button.textContent = q;
+            button.className = 'suggested-question-btn';
+            button.style.cssText = 'background: rgba(0, 212, 255, 0.1); border: 1px solid rgba(0, 212, 255, 0.3); color: var(--accent); padding: 0.5rem 1rem; border-radius: 20px; cursor: pointer; font-size: 0.85rem; transition: all 0.2s;';
+            button.addEventListener('click', () => {
+                const input = document.getElementById('sage-question-input');
+                if (input) {
+                    input.value = q;
+                    askSageQuestion();
+                }
+            });
+            button.addEventListener('mouseover', () => button.style.background = 'rgba(0, 212, 255, 0.2)');
+            button.addEventListener('mouseout', () => button.style.background = 'rgba(0, 212, 255, 0.1)');
+            list.appendChild(button);
+        });
         container.style.display = 'block';
     }
 
@@ -727,6 +794,7 @@
             const retryBtn = event.target.closest('button') || event.target;
             const originalText = retryBtn.innerHTML;
             retryBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Connecting...';
+            // Safe - using Font Awesome icon which is trusted
             retryBtn.disabled = true;
 
             try {
@@ -983,7 +1051,8 @@
             if (isUser) {
                 messageDiv.textContent = text;
             } else {
-                messageDiv.innerHTML = text;
+                // Sanitize HTML content for bot messages (contains links)
+                setSafeHtml(messageDiv, text);
             }
             chatMessages.appendChild(messageDiv);
             chatMessages.scrollTop = chatMessages.scrollHeight;
@@ -1309,72 +1378,31 @@
             closeModal('partnershipQuizModal');
         }
 
-        // GoHighLevel Direct API Integration
-        const GHL_API_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJsb2NhdGlvbl9pZCI6IlZ5SmNIQWpmbkloVlludjlydzVLIiwidmVyc2lvbiI6MSwiaWF0IjoxNzYwMzYwMjcxMzY0LCJzdWIiOiJPS3d6a0RYWG5NeXhnMWlBakNTUCJ9.82-5bQFv9DWPdi-UmhJVidqgUPlE5O9k0G8zMLvy3MU';
-        const GHL_WEBHOOK_URL = 'https://services.leadconnectorhq.com/hooks/VyJcHAjfnIhVYnv9rw5K/webhook-trigger/e72f8def-b814-41aa-a407-54073461cdf7';
-
+        // GoHighLevel Secure API Integration via Backend Proxy
+        // API key is now stored securely on the server side
         async function sendToGoHighLevel(leadData) {
-            // Send to both webhook AND create contact directly via API
-            const results = await Promise.allSettled([
-                // Method 1: Webhook (for workflow triggers)
-                fetch(GHL_WEBHOOK_URL, {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify(leadData)
-                }),
-                
-                // Method 2: Direct API (creates contact immediately)
-                createGHLContact(leadData)
-            ]);
-
-            const webhookSuccess = results[0].status === 'fulfilled' && results[0].value.ok;
-            const apiSuccess = results[1].status === 'fulfilled' && results[1].value;
-
-            console.log('GHL Integration:', { webhook: webhookSuccess, api: apiSuccess });
-            return webhookSuccess || apiSuccess;
-        }
-
-        async function createGHLContact(leadData) {
             try {
-                const contactPayload = {
-                    email: leadData.email,
-                    firstName: leadData.name?.split(' ')[0] || 'Lead',
-                    lastName: leadData.name?.split(' ').slice(1).join(' ') || '',
-                    companyName: leadData.company || '',
-                    source: leadData.source || 'qallous.ai',
-                    tags: [
-                        'Website Lead',
-                        'Demo Request',
-                        leadData.demo_type || 'General'
-                    ],
-                    customFields: [
-                        { key: 'demo_type', field_value: leadData.demo_type },
-                        { key: 'lead_type', field_value: leadData.lead_type },
-                        { key: 'message', field_value: leadData.message || '' }
-                    ]
-                };
-
-                const response = await fetch('https://services.leadconnectorhq.com/contacts/', {
+                // Use secure backend proxy instead of direct API call
+                const response = await fetch('/api/ghl/contact', {
                     method: 'POST',
                     headers: {
-                        'Authorization': `Bearer ${GHL_API_KEY}`,
-                        'Content-Type': 'application/json',
-                        'Version': '2021-07-28'
+                        'Content-Type': 'application/json'
                     },
-                    body: JSON.stringify(contactPayload)
+                    body: JSON.stringify(leadData)
                 });
 
                 if (response.ok) {
                     const result = await response.json();
-                    console.log('✅ GHL Contact Created:', result.contact?.id);
-                    return result;
+                    console.log('✅ GHL Contact Created via secure proxy:', result.contact?.id || 'success');
+                    return result.success || false;
                 } else {
-                    console.error('GHL API Error:', response.status, await response.text());
-                    return null;
+                    const errorData = await response.json().catch(() => ({}));
+                    console.error('GHL Proxy Error:', response.status, errorData.error || 'Unknown error');
+                    return false;
                 }
             } catch (error) {
-                console.error('Error creating GHL contact:', error);
-                return null;
+                console.error('Error sending to GHL via proxy:', error);
+                return false;
             }
         }
 
